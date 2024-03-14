@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data.Abstracts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Data.DataConstants;
@@ -31,7 +32,7 @@ namespace Infrastructure.Data.Models
 
         public Teacher Teacher { get; set; } = null!;
 
-        public List<Student> Students { get; set; } = new List<Student>();
+        public List<IdentityUser> Students { get; set; } = new List<IdentityUser>();
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
     }

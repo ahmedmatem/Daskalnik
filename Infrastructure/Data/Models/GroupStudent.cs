@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Data.Models
@@ -10,15 +11,15 @@ namespace Infrastructure.Data.Models
     public class GroupStudent
     {
         [Comment("Primary key.")]
+        [Required]
         public string GroupId { get; set; } = string.Empty;
 
         [Comment("Primary key.")]
+        [Required]
         public string StudentId { get; set; } = string.Empty;
 
-        [ForeignKey("GroupId")]
         public Group Group { get; set; } = null!;
 
-        [ForeignKey("StudentId")]
         public Student Student { get; set; } = null!;
     }
 }

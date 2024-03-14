@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Data.Models
@@ -10,9 +11,11 @@ namespace Infrastructure.Data.Models
     public class TopicResource
     {
         [Comment("Primary key.")]
+        [Required]
         public string ResourceId { get; set; } = string.Empty;
 
         [Comment("Primary key.")]
+        [Required]
         public string TopicId { get; set; } = string.Empty;
 
         [ForeignKey("TopicId")]
