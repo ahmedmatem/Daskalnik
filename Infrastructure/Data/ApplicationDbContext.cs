@@ -21,6 +21,13 @@ namespace Infrastructure.Data
             base.OnModelCreating(builder);
         }
 
+        public override Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = default)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
         public DbSet<Group> Groups { get; set; } = null!;
 
         public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
