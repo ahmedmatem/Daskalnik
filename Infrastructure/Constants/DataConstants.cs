@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data
+﻿namespace Infrastructure.Constants
 {
     public static class DataConstants
     {

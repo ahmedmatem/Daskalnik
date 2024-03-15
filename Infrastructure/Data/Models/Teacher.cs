@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Infrastructure.Data.DataConstants;
+using static Infrastructure.Constants.DataConstants;
 
 namespace Infrastructure.Data.Models
 {

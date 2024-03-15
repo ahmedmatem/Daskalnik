@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Data.Abstracts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using static Infrastructure.Data.DataConstants;
+using static Infrastructure.Constants.DataConstants;
 
 namespace Infrastructure.Data.Models
 {
