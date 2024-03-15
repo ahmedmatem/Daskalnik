@@ -9,7 +9,7 @@ namespace Infrastructure.Data.Abstracts
     {
         [Key]
         [Comment("Unique data model identifier.")]
-        public string Id { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Comment("Indicate a record in table as deleted or not.")]
         public bool IsDeleted { get; set; }
