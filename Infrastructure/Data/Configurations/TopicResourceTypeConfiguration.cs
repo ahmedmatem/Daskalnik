@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Data.EntityConfigurations
+namespace Infrastructure.Data.Configurations
 {
     public class TopicResourceTypeConfiguration : IEntityTypeConfiguration<TopicResource>
     {

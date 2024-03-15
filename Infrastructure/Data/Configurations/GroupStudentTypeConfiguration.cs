@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.EntityConfigurations
+namespace Infrastructure.Data.Configurations
 {
     public class GroupStudentTypeConfiguration : IEntityTypeConfiguration<GroupStudent>
     {

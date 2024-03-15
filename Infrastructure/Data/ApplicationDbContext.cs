@@ -1,4 +1,4 @@
-﻿using Infrastructure.Data.EntityConfigurations;
+﻿using Infrastructure.Data.Configurations;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +15,10 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
+                .ApplyConfiguration(new IdentityRoleTypeConfiguration())
+                .ApplyConfiguration(new IdentityUserConfiguration())
+                .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
+                .ApplyConfiguration(new SchoolTypeConfiguration())
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
