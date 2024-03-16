@@ -22,13 +22,22 @@ namespace Infrastructure.Data
                 }
                 else
                 {
-                    entity.LastModifiedOn = DateTime.Now;
+                    var dateTimeNow = DateTime.Now;
+                    entity.LastModifiedOn = dateTimeNow;
                     if (entry.Entity is IDeletable)
                     {
                         if (((IDeletable)entry.Entity).IsDeleted)
                         {
-                            entity.DeletedOn = DateTime.Now;
+                            entity.DeletedOn = dateTimeNow;
                         }
+                    }
+                }
+
+                if(entry.Entity is IActivable)
+                {
+                    if((entity as IActivable)!.IsActivated)
+                    {
+                        (entity as IActivable)!.ActivetedOn = DateTime.Now;
                     }
                 }
             }

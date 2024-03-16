@@ -6,7 +6,7 @@ using static Infrastructure.Constants.DataConstants;
 
 namespace Infrastructure.Data.Models
 {
-    public class Teacher : DataModel
+    public class Teacher : PersonModel
     {
         [Required]
         [MaxLength(TeacherFullNameMaxLength)]

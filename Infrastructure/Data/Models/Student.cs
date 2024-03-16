@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data.Abstracts;
+using Infrastructure.Data.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using static Infrastructure.Constants.DataConstants;
 
 namespace Infrastructure.Data.Models
 {
-    public class Student : DataModel
+    public class Student : PersonModel
     {
         [Required]
         [MaxLength(StudentFullNameMaxLength)]
