@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static Infrastructure.Data.Configurations.SeedConfiguration;
@@ -51,6 +50,8 @@ namespace Infrastructure.Data.Configurations
             {
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
+                UserName = email,
+                NormalizedUserName = email.ToUpper(),
             };
             user.PasswordHash =
                 passwordHasher.HashPassword(user, password);

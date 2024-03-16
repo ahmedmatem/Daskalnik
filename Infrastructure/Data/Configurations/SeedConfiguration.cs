@@ -68,7 +68,9 @@ namespace Infrastructure.Data.Configurations
             var admin = new IdentityUser()
             {
                 Email = "admin@gmail.com",
-                NormalizedEmail = "ADMIN@GMAIL.COM"
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM"
             };
             admin.PasswordHash = passwordHasher.HashPassword(admin, "adminPass");
             // TODO: Add role Admin to admin
