@@ -12,6 +12,7 @@ namespace Infrastructure.Data.Configurations
 
         public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
         {
+            SeedUserInRole();
             builder.HasData(usersInRoles);
         }
 
