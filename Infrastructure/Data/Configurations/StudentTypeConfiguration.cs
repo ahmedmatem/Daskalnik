@@ -11,7 +11,8 @@ namespace Infrastructure.Data.Configurations
 
         public void Configure(EntityTypeBuilder<Student> builder)
         {
-            throw new NotImplementedException();
+            SeedStudents();
+            builder.HasData(students);
         }
 
         private void SeedStudents()
