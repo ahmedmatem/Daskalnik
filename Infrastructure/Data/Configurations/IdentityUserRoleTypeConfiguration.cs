@@ -7,14 +7,34 @@ namespace Infrastructure.Data.Configurations
 {
     public class IdentityUserRoleTypeConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
     {
+        private ICollection<IdentityUserRole<string>> usersInRoles
+            = new List<IdentityUserRole<string>>();
+
         public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
         {
-            builder.HasData(
-                new IdentityUserRole<string>
+            builder.HasData(usersInRoles);
+        }
+
+        private void SeedUserInRole()
+        {
+            usersInRoles.Clear();
+            // Apply Admin in role Admin
+            usersInRoles.Add(new IdentityUserRole<string>()
+            {
+                UserId = Admin.Id,
+                RoleId = RoleIds["Admin"]
+            });
+
+            // Apply teachers in role Teachers
+            int teachersCount = 5;
+            for (var i = 1; i <= teachersCount; i++)
+            {
+                usersInRoles.Add(new IdentityUserRole<string>()
                 {
-                    UserId = Admin.Id,
-                    RoleId = RoleIds["Admin"]
+                    UserId = Users[i].Id,
+                    RoleId = RoleIds["Teacher"]
                 });
+            }
         }
     }
 }

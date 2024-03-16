@@ -14,11 +14,17 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Data seed
             builder
                 .ApplyConfiguration(new IdentityRoleTypeConfiguration())
                 .ApplyConfiguration(new IdentityUserConfiguration())
+                .ApplyConfiguration(new TeacherTypeConfiguration())
+                .ApplyConfiguration(new StudentTypeConfiguration())
                 .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
-                .ApplyConfiguration(new SchoolTypeConfiguration())
+                .ApplyConfiguration(new SchoolTypeConfiguration());
+
+            // Entity type configurations
+            builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 

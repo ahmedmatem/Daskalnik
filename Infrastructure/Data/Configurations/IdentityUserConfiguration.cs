@@ -20,12 +20,29 @@ namespace Infrastructure.Data.Configurations
         private void SeedUsers()
         {
             Users.Clear();
-            Users.Add(Admin);
+            Users.Add(Admin); // index 0
+
+            // Reset TeachersCount and StudentStartIndex fields
+            // in SeedConfiguration if TeachersCount changed.
+
+            // The following users are teachers
             Users.Add(CreateUser("turhan@gmail.com", "turhanPass"));
             Users.Add(CreateUser("venci@gmail.com", "venciPass"));
             Users.Add(CreateUser("ahmed@gmail.com", "ahmedPass"));
             Users.Add(CreateUser("martin@gmail.com", "martinPass"));
             Users.Add(CreateUser("desi@gmail.com", "desiPass"));
+
+            // The following users are students
+            Users.Add(CreateUser("baran@gmail.com", "turhanPass")); // StudentStartIndex
+            Users.Add(CreateUser("viktoriya@gmail.com", "venciPass"));
+            Users.Add(CreateUser("daniel@gmail.com", "ahmedPass"));
+            Users.Add(CreateUser("dimana@gmail.com", "martinPass"));
+            Users.Add(CreateUser("dimitar@gmail.com", "desiPass"));
+            Users.Add(CreateUser("emre@gmail.com", "turhanPass"));
+            Users.Add(CreateUser("ivayla@gmail.com", "venciPass"));
+            Users.Add(CreateUser("ivan@gmail.com", "ahmedPass"));
+            Users.Add(CreateUser("ivan_ivanov@gmail.com", "martinPass"));
+            Users.Add(CreateUser("dimitar_barlev@gmail.com", "desiPass"));
         }
 
         private IdentityUser CreateUser(string email, string password)
