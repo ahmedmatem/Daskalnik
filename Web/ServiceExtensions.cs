@@ -1,13 +1,18 @@
-﻿using Infrastructure.Data;
+﻿using Core.Contracts;
+using Core.Services;
+using Infrastructure.Data;
+using Infrastructure.Data.DataRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Web
 {
-    public static class Extensions
+    public static class ServiceExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<ISchoolService, SchoolService>();
+
             return services;
         }
 
@@ -16,6 +21,9 @@ namespace Web
             string connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             return services;

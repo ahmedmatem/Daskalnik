@@ -5,7 +5,7 @@ namespace Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
             builder.Services.AddApplicationDbContext(builder.Configuration);
 
             builder.Services.AddApplicationIdentity();
@@ -35,6 +35,10 @@ namespace Web
             app.UseAuthorization();
 
             app.MapDefaultControllerRoute();
+            app.MapAreaControllerRoute(
+                name: "Admin",
+                areaName: "Admin",
+                pattern: "admin/{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
