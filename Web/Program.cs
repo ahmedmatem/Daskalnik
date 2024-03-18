@@ -34,11 +34,12 @@ namespace Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
             app.MapAreaControllerRoute(
                 name: "Admin",
                 areaName: "Admin",
                 pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+            app.MapDefaultControllerRoute();
+            
             app.MapRazorPages();
 
             app.Run();
