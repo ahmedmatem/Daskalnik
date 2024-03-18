@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
 {
-    public class SchoolService : ISchoolService
+    public class TeacherService : ITeacherService
     {
         private readonly IRepository repository;
 
-        public SchoolService(IRepository _repository)
+        public TeacherService(IRepository _repository)
         {
             repository = _repository;
         }
 
-        public async Task<int> GetSchoolsCountAsync()
+        public async Task<int> GetTeachersCountAsync()
         {
             return await repository
-                .All<School>()
-                .Where(s => !s.IsDeleted)
+                .All<Teacher>()
+                .Where(t => !t.IsDeleted)
                 .CountAsync();
         }
     }

@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
 {
-    public class SchoolService : ISchoolService
+    public class GroupService : IGroupService
     {
         private readonly IRepository repository;
 
-        public SchoolService(IRepository _repository)
+        public GroupService(IRepository _repository)
         {
             repository = _repository;
         }
 
-        public async Task<int> GetSchoolsCountAsync()
+        public async Task<int> GetGroupsCountAsync()
         {
             return await repository
-                .All<School>()
-                .Where(s => !s.IsDeleted)
+                .All<Group>()
+                .Where(g => !g.IsDeleted)
                 .CountAsync();
         }
     }

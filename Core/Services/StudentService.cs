@@ -5,19 +5,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
 {
-    public class SchoolService : ISchoolService
+    public class StudentService : IStudentService
     {
         private readonly IRepository repository;
 
-        public SchoolService(IRepository _repository)
+        public StudentService(IRepository _repository)
         {
             repository = _repository;
         }
 
-        public async Task<int> GetSchoolsCountAsync()
+        public async Task<int> GetStudentsCountAsync()
         {
             return await repository
-                .All<School>()
+                .All<Student>()
                 .Where(s => !s.IsDeleted)
                 .CountAsync();
         }
