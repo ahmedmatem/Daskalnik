@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SchoolViewModel>
+
+@{
+    ViewData["Title"] = "Училища";
+}
+
+<nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home">Начало</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Училища</li>
+    </ol>
+</nav>
+
+<h3>Всички училища (@Model.Count())</h3>
+
+<a asp-action="Add" class="btn btn-primary">Добави училище</a>
+<a asp-action="Add" class="btn btn-outline-secondary float-end">Забранени</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Име</th>
+            <th scope="col">Населено място</th>
+            <th scope="col">Администратор</th>
+            <th scope="col" class="text-end">Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var school in Model)
+        {
+            <tr>
+                <th scope="row">@school.Type&nbsp;@school.Name</th>
+                <td>@school.City</td>
+                <td>---</td>
+                <td class="text-end">
+                    <a class="btn btn-outline-primary btn-sm" title="Промени">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" title="Забранин">
+                        <i class="fa-solid fa-ban"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_FontAwesomePartial" />
+}

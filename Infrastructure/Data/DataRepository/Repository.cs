@@ -24,5 +24,15 @@ namespace Infrastructure.Data.DataRepository
         {
             return DbSet<T>().AsNoTracking();
         }
+
+        public void Add<T>(T entity) where T : class
+        {
+            context.Add<T>(entity);
+        }
+
+        public async Task SaveChangesAsync<T>() where T : class
+        {
+            await context.SaveChangesAsync();
+        }
     }
 }
