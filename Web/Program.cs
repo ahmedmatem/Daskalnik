@@ -1,3 +1,5 @@
+using Web.Areas.Extensions;
+
 namespace Web
 {
     public class Program

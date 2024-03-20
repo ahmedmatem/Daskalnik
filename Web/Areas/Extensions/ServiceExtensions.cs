@@ -5,7 +5,7 @@ using Infrastructure.Data.DataRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Web
+namespace Web.Areas.Extensions
 {
     public static class ServiceExtensions
     {
