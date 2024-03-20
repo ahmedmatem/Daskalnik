@@ -1,4 +1,4 @@
-using Web.Areas.Extensions;
+using Web.Extensions;
 
 namespace Web
 {
