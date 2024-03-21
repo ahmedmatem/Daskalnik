@@ -4,6 +4,7 @@ using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Net;
 
 namespace Core.Services
@@ -12,11 +13,16 @@ namespace Core.Services
     {
         private readonly IRepository repository;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly ILogger<SchoolService> logger;
 
-        public SchoolService(IRepository _repository, UserManager<IdentityUser> _userManager)
+        public SchoolService(
+            IRepository _repository, 
+            UserManager<IdentityUser> _userManager,
+            ILogger<SchoolService> _logger)
         {
             repository = _repository;
             userManager = _userManager;
+            logger = _logger;
         }
 
         public async Task AddAsync(SchoolFormViewModel model)
@@ -130,6 +136,7 @@ namespace Core.Services
             School? school = await repository.GetByIdAsync<School>(model.Id);
             if(school == null)
             {
+                logger.LogError("School with id: {0} was not found", model.Id);
                 throw new ArgumentException();
             }
 

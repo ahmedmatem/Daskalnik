@@ -105,7 +105,8 @@ namespace Web.Areas.Admin.Controllers
             }
             catch(ArgumentException)
             {
-                return BadRequest();
+                ModelState.AddModelError(string.Empty, $"School with id: {model.Id} was not found.");
+                return View(model);
             }
 
             return RedirectToAction(nameof(Index));
