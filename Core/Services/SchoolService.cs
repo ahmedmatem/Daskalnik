@@ -4,6 +4,7 @@ using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Core.Services
 {
@@ -122,6 +123,23 @@ namespace Core.Services
             }
 
             return false;
+        }
+
+        public async Task UpdateAsync(SchoolViewModel model)
+        {
+            School? school = await repository.GetByIdAsync<School>(model.Id);
+            if(school == null)
+            {
+                throw new ArgumentException();
+            }
+
+            school.Id = model.Id;
+            school.Name = model.Name;
+            school.City = model.City;
+            school.Type = model.Type;
+
+            repository.Update(school);
+            await repository.SaveChangesAsync<School>();
         }
     }
 }

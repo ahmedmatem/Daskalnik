@@ -37,7 +37,7 @@
                     @if (school.SchoolAdmin == null)
                     {
                         <a asp-action="AddSchoolAdmin" asp-route-id="@school.Id"
-                        class="btn btn-outline-success btn-sm" title="Добави уилищен администратор">
+                           class="btn btn-outline-success btn-sm" title="Добави уилищен администратор">
                             <i class="fa-solid fa-plus"></i> Админ
                         </a>
                     }
@@ -47,7 +47,8 @@
                     }
                 </td>
                 <td class="text-end">
-                    <a class="btn btn-outline-primary btn-sm" title="Промени">
+                    <a asp-action="Edit" asp-route-id="@school.Id"
+                       class="btn btn-outline-primary btn-sm" title="Промени">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </a>
                     <a class="btn btn-outline-danger btn-sm" title="Забранин">

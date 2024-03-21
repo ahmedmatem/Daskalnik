@@ -16,5 +16,7 @@ namespace Core.Contracts
         Task<bool> SchoolExistsAsync(string id);
 
         Task<bool> TryAddSchoolAdminAsync(string schoolId, string teacherId);
+
+        Task UpdateAsync(SchoolViewModel model);
     }
 }
