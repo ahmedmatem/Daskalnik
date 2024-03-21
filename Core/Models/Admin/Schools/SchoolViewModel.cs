@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Infrastructure.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 
@@ -31,5 +32,8 @@ namespace Core.Models.Admin.Schools
             ErrorMessage = StringLengthErrorMessage)]
         [Display(Name = "Населено място", Prompt = "")]
         public string City { get; set; } = string.Empty;
+
+        [Display(Name = "Администратор на училище")]
+        public Teacher? SchoolAdmin { get; set; }
     }
 }
