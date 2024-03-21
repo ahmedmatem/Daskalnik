@@ -43,6 +43,21 @@ namespace Infrastructure.Data.DataRepository
         void UpdateRange<T>(IEnumerable<T> entities) where T : class;
 
         /// <summary>
+        /// Deletes a record from database
+        /// </summary>
+        /// <param name="id">Identificator of record to be deleted</param>
+        Task DeleteAsync<T>(object id) where T : class;
+
+        /// <summary>
+        /// Deletes a record from database
+        /// </summary>
+        /// <param name="entity">Entity representing record to be deleted</param>
+        void Delete<T>(T entity) where T : class;
+
+        void DeleteRange<T>(IEnumerable<T> entities) where T : class;
+        void DeleteRange<T>(Expression<Func<T, bool>> deleteWhereClause) where T : class;
+
+        /// <summary>
         /// Gets specific record from database by primary key
         /// </summary>
         /// <param name="id">record identificator</param>
@@ -50,6 +65,12 @@ namespace Infrastructure.Data.DataRepository
         Task<T?> GetByIdAsync<T>(object id) where T : class;
 
         Task<T?> GetByIdAsync<T>(object[] id) where T : class;
+
+        /// <summary>
+        /// Detaches given entity from the context
+        /// </summary>
+        /// <param name="entity">Entity to be detached</param>
+        void Detach<T>(T entity) where T : class;
 
         /// <summary>
         /// Saves all made changes in trasaction

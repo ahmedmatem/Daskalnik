@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Data.DataRepository
@@ -71,6 +72,67 @@ namespace Infrastructure.Data.DataRepository
         public void UpdateRange<T>(IEnumerable<T> entities) where T : class
         {
             this.DbSet<T>().UpdateRange(entities);
+        }
+
+        /// <summary>
+        /// Deletes a record from database
+        /// </summary>
+        /// <param name="id">Identificator of record to be deleted</param>
+        public async Task DeleteAsync<T>(object id) where T : class
+        {
+            T? entity = await GetByIdAsync<T>(id);
+            if(entity != null)
+            {
+                Delete<T>(entity);
+            }            
+        }
+
+        /// <summary>
+        /// Deletes a record from database
+        /// </summary>
+        /// <param name="entity">Entity representing record to be deleted</param>
+        public void Delete<T>(T entity) where T : class
+        {
+            EntityEntry entry = context.Entry(entity);
+
+            if (entry.State == EntityState.Detached)
+            {
+                this.DbSet<T>().Attach(entity);
+            }
+
+            entry.State = EntityState.Deleted;
+        }
+
+        public void DeleteRange<T>(IEnumerable<T> entities) where T : class
+        {
+            this.DbSet<T>().RemoveRange(entities);
+        }
+
+        public void DeleteRange<T>(Expression<Func<T, bool>> deleteWhereClause) where T : class
+        {
+            var entities = All<T>(deleteWhereClause);
+            DeleteRange(entities);
+        }
+
+        /// <summary>
+        /// Detaches given entity from the context
+        /// </summary>
+        /// <param name="entity">Entity to be detached</param>
+        public void Detach<T>(T entity) where T : class
+        {
+            EntityEntry entry = context.Entry(entity);
+
+            entry.State = EntityState.Detached;
+        }
+
+        /// <summary>
+        /// Disposing the context when it is not neede
+        /// Don't have to call this method explicitely
+        /// Leave it to the IoC container
+        /// </summary>
+        public void Dispose()
+        {
+            context.Dispose();
         }
 
         /// <summary>
