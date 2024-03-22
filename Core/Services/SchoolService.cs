@@ -2,10 +2,11 @@
 using Core.Models.Admin.Schools;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
+using Infrastructure.Exceptions;
+using static Infrastructure.Data.ErrorMessages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace Core.Services
 {
@@ -137,7 +138,7 @@ namespace Core.Services
             if(school == null)
             {
                 logger.LogError("School with id: {0} was not found", model.Id);
-                throw new ArgumentException();
+                throw new EntityNotFoundException(SchoolEntityNotFoundErrorMessage);
             }
 
             school.Id = model.Id;

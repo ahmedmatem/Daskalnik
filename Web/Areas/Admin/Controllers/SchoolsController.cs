@@ -2,6 +2,7 @@
 using Core.Models.Admin.Schools;
 using Core.Models.Teachers;
 using Infrastructure.Data.Models;
+using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -103,9 +104,9 @@ namespace Web.Areas.Admin.Controllers
             {
                 await schoolService.UpdateAsync(model);
             }
-            catch(ArgumentException)
+            catch(EntityNotFoundException exc)
             {
-                ModelState.AddModelError(string.Empty, $"School with id: {model.Id} was not found.");
+                ModelState.AddModelError(string.Empty, string.Format(exc.Message, model.Id));
                 return View(model);
             }
 
