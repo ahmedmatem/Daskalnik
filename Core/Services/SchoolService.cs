@@ -13,17 +13,17 @@ namespace Core.Services
     public class SchoolService : ISchoolService
     {
         private readonly IRepository repository;
-        private readonly UserManager<IdentityUser> userManager;
         private readonly ILogger<SchoolService> logger;
+        private readonly UserManager<IdentityUser> userManager;
 
         public SchoolService(
-            IRepository _repository, 
-            UserManager<IdentityUser> _userManager,
-            ILogger<SchoolService> _logger)
+            IRepository _repository,
+            ILogger<SchoolService> _logger,
+            UserManager<IdentityUser> _userManager)
         {
             repository = _repository;
-            userManager = _userManager;
             logger = _logger;
+            userManager = _userManager;
         }
 
         public async Task AddAsync(SchoolFormViewModel model)
@@ -49,6 +49,22 @@ namespace Core.Services
             return await repository
                 .AllReadOnly<School>()
                 .Where(s => !s.IsDeleted)
+                .Select(s => new SchoolViewModel()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Type = s.Type,
+                    City = s.City,
+                    SchoolAdmin = s.SchoolAdmin,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<SchoolViewModel>> GetAllBlockedAsync()
+        {
+            return await repository
+                .AllReadOnly<School>()
+                .Where(s => s.IsDeleted)
                 .Select(s => new SchoolViewModel()
                 {
                     Id = s.Id,
@@ -145,6 +161,36 @@ namespace Core.Services
             school.Name = model.Name;
             school.City = model.City;
             school.Type = model.Type;
+
+            repository.Update(school);
+            await repository.SaveChangesAsync<School>();
+        }
+
+        public async Task BlockAsync(string id)
+        {
+            School? school = await repository.GetByIdAsync<School>(id);
+            if (school == null)
+            {
+                logger.LogError("School with id: {0} was not found", id);
+                throw new EntityNotFoundException();
+            }
+
+            school.IsDeleted = true;
+
+            repository.Update(school);
+            await repository.SaveChangesAsync<School>();
+        }
+
+        public async Task UnblockAsync(string id)
+        {
+            School? school = await repository.GetByIdAsync<School>(id);
+            if (school == null)
+            {
+                logger.LogError("School with id: {0} was not found", id);
+                throw new EntityNotFoundException();
+            }
+
+            school.IsDeleted = false;
 
             repository.Update(school);
             await repository.SaveChangesAsync<School>();

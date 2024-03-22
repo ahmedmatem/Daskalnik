@@ -13,10 +13,12 @@
     </ol>
 </nav>
 
-<h3>Всички училища (@Model.Count())</h3>
+<h3>@ViewData["Title"] (@Model.Count())</h3>
 
 <a asp-action="Add" class="btn btn-primary">Добави училище</a>
-<a asp-action="Add" class="btn btn-outline-secondary float-end">Забранени</a>
+<a asp-action="AllBlocked" class="btn btn-outline-secondary float-end">
+    <i class="fa-solid fa-ban"></i> Блокирани училища
+</a>
 
 <table class="table table-hover">
     <thead>
@@ -51,7 +53,8 @@
                        class="btn btn-outline-primary btn-sm" title="Промени">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </a>
-                    <a class="btn btn-outline-danger btn-sm" title="Забранин">
+                    <a asp-action="Block" asp-route-id="@school.Id"
+                       class="btn btn-outline-danger btn-sm" title="Блокирай">
                         <i class="fa-solid fa-ban"></i>
                     </a>
                 </td>

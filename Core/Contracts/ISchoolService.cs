@@ -9,6 +9,8 @@ namespace Core.Contracts
 
         Task<IEnumerable<SchoolViewModel>> GetAllAsync();
 
+        Task<IEnumerable<SchoolViewModel>> GetAllBlockedAsync();
+
         Task AddAsync(SchoolFormViewModel model);
 
         Task<SchoolViewModel?> GetByIdAsync(string id);
@@ -18,5 +20,9 @@ namespace Core.Contracts
         Task<bool> TryAddSchoolAdminAsync(string schoolId, string teacherId);
 
         Task UpdateAsync(SchoolViewModel model);
+
+        Task BlockAsync(string id);
+
+        Task UnblockAsync(string id);
     }
 }

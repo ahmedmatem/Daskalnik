@@ -1,7 +1,6 @@
 ﻿using Core.Contracts;
 using Core.Models.Admin.Schools;
 using Core.Models.Teachers;
-using Infrastructure.Data.Models;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +26,14 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var model = await schoolService.GetAllAsync();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllBlocked()
+        {
+            var model = await schoolService.GetAllBlockedAsync();
 
             return View(model);
         }
@@ -109,6 +116,22 @@ namespace Web.Areas.Admin.Controllers
                 ModelState.AddModelError(string.Empty, string.Format(exc.Message, model.Id));
                 return View(model);
             }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Block(string id)
+        {
+            await schoolService.BlockAsync(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Unblock(string id)
+        {
+            await schoolService.UnblockAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
