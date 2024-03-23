@@ -44,8 +44,13 @@ namespace Web
                 name: "Admin",
                 areaName: "Admin",
                 pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+            app.MapAreaControllerRoute(
+                name: "Teacher",
+                areaName: "Teacher",
+                pattern: "teacher/{controller=Home}/{action=Index}/{id?}",
+                new[] { "Web.Areas.Teacher.Controllers" });
             app.MapDefaultControllerRoute();
-            
+
             app.MapRazorPages();
 
             app.Run();
