@@ -45,7 +45,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SchoolFormViewModel model)
         {
             if(!ModelState.IsValid)
@@ -79,7 +78,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSchoolAdmin(AddSchoolAdminFormViewModel model)
         {
             var schoolId = model.School.Id;
@@ -99,7 +97,6 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(SchoolViewModel model)
         {
             if(!ModelState.IsValid)

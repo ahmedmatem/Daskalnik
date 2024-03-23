@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 
 namespace Web
@@ -12,7 +13,10 @@ namespace Web
 
             builder.Services.AddApplicationIdentity();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             builder.Services.AddApplicationServices();
 

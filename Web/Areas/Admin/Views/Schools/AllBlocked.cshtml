@@ -7,7 +7,7 @@
 <nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a asp-controller="Schools" asp-action="">Училища</a>
+            <a asp-controller="Schools" asp-action="">Всички училища</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
     </ol>
@@ -44,8 +44,12 @@ else
                     </td>
                     <td class="text-end">
                         <a asp-action="Unblock" asp-route-id="@school.Id"
-                           class="btn btn-outline-danger btn-sm" title="Отблокиране">
+                           class="btn btn-outline-primary btn-sm" title="Отблокирване">
                             <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                        <a href="#"
+                           class="btn btn-outline-danger btn-sm" title="Изтриване">
+                            <i class="fa-solid fa-trash-can"></i>
                         </a>
                     </td>
                 </tr>

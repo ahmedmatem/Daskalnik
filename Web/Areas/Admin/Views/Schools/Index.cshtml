@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SchoolViewModel>
 
 @{
-    ViewData["Title"] = "Училища";
+    ViewData["Title"] = "Всички училища";
 }
 
 <nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -9,7 +9,7 @@
         <li class="breadcrumb-item">
             <a asp-controller="Home">Начало</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Училища</li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
     </ol>
 </nav>
 
