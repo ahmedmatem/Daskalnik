@@ -15,6 +15,15 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "home", new { area = "Admin"});
+            }
+            else if(User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("Index", "home", new { area = "Teacher" });
+            }
+
             return View();
         }
 
