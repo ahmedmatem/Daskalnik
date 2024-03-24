@@ -1,0 +1,19 @@
+﻿<ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Teacher" asp-controller="Home" asp-action="Index">Начало</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Teacher" asp-controller="Groups" asp-action="Index">Групи</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Teacher" asp-controller="Topics" asp-action="Index">Теми</a>
+    </li>
+</ul>
+
+@if(User.IsInRole("SchoolAdmin"))
+{
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary disabled">Учител</a>
+        <a class="btn btn-outline-secondary" asp-area="SchoolAdmin" asp-controller="Home" asp-action="Index">Админ</a>
+    </div>
+}

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Areas.Teacher.Controllers
+namespace Web.Areas.SchoolAdmin.Controllers
 {
-    public class HomeController : TeacherBaseController
+    public class HomeController : SchoolAdminBaseController
     {
         public IActionResult Index()
         {

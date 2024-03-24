@@ -19,7 +19,11 @@ namespace Web.Controllers
             {
                 return RedirectToAction("Index", "home", new { area = "Admin"});
             }
-            else if(User.IsInRole("Teacher") || User.IsInRole("SchoolAdmin"))
+            else if (User.IsInRole("SchoolAdmin"))
+            {
+                return RedirectToAction("Index", "home", new { area = "SchoolAdmin" });
+            }
+            else if(User.IsInRole("Teacher"))
             {
                 return RedirectToAction("Index", "home", new { area = "Teacher" });
             }
