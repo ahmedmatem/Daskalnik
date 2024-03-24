@@ -1,47 +1,56 @@
-﻿@model IndexViewModel
+﻿@inject ISchoolService schoolService
+@inject ITeacherService teacherService
+@inject IGroupService groupService
+@inject IStudentService studentService
 
 @{
     ViewData["Title"] = "Начало";
+    ViewData["Header"] = "Обща информация за системата";
+
+     var schoolModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/school_icon.png",
+        Title = "Училища",
+        Value = await groupService.GetGroupsCountAsync(),
+        Area = "Admin",
+        Controller = "Schools",
+        Action = "Index",
+    };
+    var groupModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/group_icon.png",
+        Title = "Групи",
+        Value = await groupService.GetGroupsCountAsync(),
+        Area = "Admin",
+        Controller = "Groups",
+        Action = "Index",
+    };
+    var teacherModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/teacher_icon.png",
+        Title = "Учители",
+        Value = await teacherService.GetTeachersCountAsync(),
+        Area = "Admin",
+        Controller = "Teachers",
+        Action = "Index",
+    };
+    var studentModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/student_icon.png",
+        Title = "Ученици",
+        Value = await studentService.GetStudentsCountAsync(),
+        Area = "Admin",
+        Controller = "Students",
+        Action = "Index",
+    };
 }
 
-<h1 class="text-center">Обща информация за системата</h1>
+<h1 class="text-center">@ViewData["Header"]</h1>
 
 <div class="row justify-content-center">
-    <div class="col-sm-6 col-md-3 mt-4">
-        <div class="card align-items-center justify-content-center">
-            <img class="card-img-top" src="images/school_icon.png" alt="Card image cap">
-            <div class="justify-content-center align-items-center">
-                <a asp-controller="Schools" class="btn btn-sm btn-primary">Училища</a>
-                <div class="text-center item-value">@Model.SchoolsCount</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-md-3 mt-4">
-        <div class="card align-items-center justify-content-center">
-            <img class="card-img-top" src="images/teacher_icon.png" alt="Card image cap">
-            <div class="justify-content-center align-items-center">
-                <div class="text-center item-name">Учители</div>
-                <div class="text-center item-value">@Model.TeachersCount</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-md-3 mt-4">
-        <div class="card align-items-center justify-content-center">
-            <img class="card-img-top" src="images/group_icon.png" alt="Card image cap">
-            <div class="justify-content-center align-items-center">
-                <div class="text-center item-name">Групи</div>
-                <div class="text-center item-value">@Model.GroupsCount</div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 col-md-3 mt-4">
-        <div class="card align-items-center justify-content-center">
-            <img class="card-img-top" src="images/student_icon.png" alt="Card image cap">
-            <div class="justify-content-center align-items-center">
-                <div class="text-center item-name">Ученици</div>
-                <div class="text-center item-value">@Model.StudentsCount</div>
-            </div>
-        </div>
-    </div>
+    <partial name="_SummaryPartial" model="@schoolModel" />
+    <partial name="_SummaryDisabledPartial" model="@teacherModel" />
+    <partial name="_SummaryDisabledPartial" model="@groupModel" />
+    <partial name="_SummaryDisabledPartial" model="@studentModel" />
 </div>
 

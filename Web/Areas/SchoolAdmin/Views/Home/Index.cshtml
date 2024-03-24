@@ -1,7 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject IGroupService groupService
+@inject ITeacherService teacherService
+@inject IStudentService studentService
+
 @{
+    ViewData["Title"] = "Начало";
+
+    var groupModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/group_icon.png",
+        Title = "Групи",
+        Value = await groupService.GetGroupsCountAsync(),
+        Area = "SchoolAdmin",
+        Controller = "Groups",
+        Action = "Index",
+    };
+    var teacherModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/teacher_icon.png",
+        Title = "Учители",
+        Value = await teacherService.GetTeachersCountAsync(),
+        Area = "SchoolAdmin",
+        Controller = "Teachers",
+        Action = "Index",
+    };
+    var studentModel = new SummaryViewModel()
+    {        
+        ImageSrc = "images/student_icon.png",
+        Title = "Ученици",
+        Value = await studentService.GetStudentsCountAsync(),
+        Area = "SchoolAdmin",
+        Controller = "Students",
+        Action = "Index",
+    };
 }
 
-Welcome school admin
+<h3 class="text-center">@ViewData["SchoolName"]</h3>
+
+<div class="row justify-content-center">
+    <partial name="_SummaryPartial" model="@groupModel" />
+    <partial name="_SummaryPartial" model="@teacherModel" />
+    <partial name="_SummaryPartial" model="@studentModel" />
+</div>
+
