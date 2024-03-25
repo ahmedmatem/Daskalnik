@@ -1,5 +1,4 @@
 ﻿using Core.Contracts;
-using Core.Models.Admin.Schools;
 using Core.Models.Teachers;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
@@ -46,6 +45,14 @@ namespace Core.Services
             return await repository
                 .All<Teacher>()
                 .Where(t => !t.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetTeachersCountInSchoolAsync(string schoolId)
+        {
+            return await repository
+                .All<Teacher>()
+                .Where(t => t.SchoolId == schoolId && !t.IsDeleted)
                 .CountAsync();
         }
     }

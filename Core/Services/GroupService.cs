@@ -21,5 +21,14 @@ namespace Core.Services
                 .Where(g => !g.IsDeleted)
                 .CountAsync();
         }
+
+        public async Task<int> GetGroupsCountInSchoolAsync(string schoolId)
+        {
+            return await repository
+                .All<Group>()
+                .Where(g => g.SchoolId == schoolId && !g.IsDeleted)
+                .CountAsync();
+                
+        }
     }
 }

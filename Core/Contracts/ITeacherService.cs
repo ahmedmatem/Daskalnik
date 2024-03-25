@@ -7,6 +7,8 @@ namespace Core.Contracts
     {
         Task<int> GetTeachersCountAsync();
 
+        Task<int> GetTeachersCountInSchoolAsync(string schoolId);
+
         Task<IEnumerable<TeacherDropdownViewModel>?> GetSchoolAdminCandidatesAsync(string schoolId);
 
         Task<Teacher?> GetByIdAsync(string id);

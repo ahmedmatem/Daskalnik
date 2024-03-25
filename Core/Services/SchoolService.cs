@@ -1,5 +1,4 @@
 ﻿using Core.Contracts;
-using Core.Models.Admin.Schools;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Infrastructure.Exceptions;
@@ -7,6 +6,7 @@ using static Infrastructure.Data.ErrorMessages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Core.Models.Schools;
 
 namespace Core.Services
 {
@@ -78,19 +78,16 @@ namespace Core.Services
 
         public async Task<SchoolViewModel?> GetByIdAsync(string id)
         {
-            var school = await repository.GetByIdAsync<School>(id);
-            if(school != null)
-            {
-                return new SchoolViewModel()
+            return await repository.AllReadOnly<School>()
+                .Where(s => s.Id == id && !s.IsDeleted)
+                .Select(s => new SchoolViewModel()
                 {
-                    Id = school.Id,
-                    Name = school.Name,
-                    Type = school.Type,
-                    City = school.City
-                };
-            }
-
-            return new SchoolViewModel();
+                    Id = s.Id,
+                    Name = s.Name,
+                    Type = s.Type,
+                    City = s.City
+                })
+                .FirstOrDefaultAsync();
         }
 
         public async Task<int> GetSchoolsCountAsync()

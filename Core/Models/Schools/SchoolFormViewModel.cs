@@ -1,4 +1,4 @@
-﻿namespace Core.Models.Admin.Schools
+﻿namespace Core.Models.Schools
 {
     public class SchoolFormViewModel : SchoolViewModel { }
 }

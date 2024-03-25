@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 
-namespace Core.Models.Admin.Schools
+namespace Core.Models.Schools
 {
     public class SchoolViewModel
     {
@@ -23,7 +23,7 @@ namespace Core.Models.Admin.Schools
              MinimumLength = SchoolTypeMinLength,
              ErrorMessage = StringLengthErrorMessage)]
         [Display(Name = "Тип", Prompt = "")]
-        public string Type { get; set; } = String.Empty;
+        public string Type { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(

@@ -1,15 +1,20 @@
-﻿@inject IGroupService groupService
+﻿@model SchoolViewModel
+
+@inject IGroupService groupService
 @inject ITeacherService teacherService
 @inject IStudentService studentService
 
 @{
     ViewData["Title"] = "Начало";
 
+    string schoolFullName = Model.Type + " " + Model.Name + " - " + Model.City;
+    string schoolId = Model.Id;
+
     var groupModel = new SummaryViewModel()
     {        
         ImageSrc = "images/group_icon.png",
         Title = "Групи",
-        Value = await groupService.GetGroupsCountAsync(),
+        Value = await groupService.GetGroupsCountInSchoolAsync(schoolId),
         Area = "SchoolAdmin",
         Controller = "Groups",
         Action = "Index",
@@ -18,7 +23,7 @@
     {        
         ImageSrc = "images/teacher_icon.png",
         Title = "Учители",
-        Value = await teacherService.GetTeachersCountAsync(),
+        Value = await teacherService.GetTeachersCountInSchoolAsync(schoolId),
         Area = "SchoolAdmin",
         Controller = "Teachers",
         Action = "Index",
@@ -27,14 +32,14 @@
     {        
         ImageSrc = "images/student_icon.png",
         Title = "Ученици",
-        Value = await studentService.GetStudentsCountAsync(),
+        Value = await studentService.GetStudentsCountInSchoolAsync(schoolId),
         Area = "SchoolAdmin",
         Controller = "Students",
         Action = "Index",
     };
 }
 
-<h3 class="text-center">@ViewData["SchoolName"]</h3>
+<h3 class="text-center">@schoolFullName</h3>
 
 <div class="row justify-content-center">
     <partial name="_SummaryPartial" model="@groupModel" />

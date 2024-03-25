@@ -1,5 +1,5 @@
 ﻿using Core.Contracts;
-using Core.Models.Admin.Schools;
+using Core.Models.Schools;
 using Core.Models.Teachers;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;

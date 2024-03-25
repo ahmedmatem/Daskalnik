@@ -1,5 +1,4 @@
 ﻿using Core.Contracts;
-using Core.Models.Admin.Schools;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
@@ -29,9 +28,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 return NotFound();
             }
 
-            ViewData["SchoolName"] = school.Type + " " + school.Name + " - " + school.City;
-
-            return View();
+            return View(school);
         }
     }
 }

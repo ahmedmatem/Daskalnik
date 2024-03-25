@@ -1,7 +1,7 @@
 ﻿using Core.Models.Teachers;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Models.Admin.Schools
+namespace Core.Models.Schools
 {
     public class AddSchoolAdminFormViewModel
     {
@@ -10,7 +10,7 @@ namespace Core.Models.Admin.Schools
         [Display(Name = "Администратор")]
         public string TeacherId { get; set; } = string.Empty;
 
-        public IEnumerable<TeacherDropdownViewModel> Teachers { get; set; } 
+        public IEnumerable<TeacherDropdownViewModel> Teachers { get; set; }
             = new HashSet<TeacherDropdownViewModel>();
     }
 }
