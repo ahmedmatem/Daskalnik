@@ -214,43 +214,45 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolAdminId");
+                    b.HasIndex("SchoolAdminId")
+                        .IsUnique()
+                        .HasFilter("[SchoolAdminId] IS NOT NULL");
 
                     b.ToTable("Schools");
 
                     b.HasData(
                         new
                         {
-                            Id = "5efd9c49-9aa9-414d-89cb-5eaa8472c6ac",
+                            Id = "3e232635-99c3-49f5-8532-b24a83b84ee1",
                             City = "Разград",
-                            CreatedOn = new DateTime(2024, 3, 25, 14, 44, 24, 827, DateTimeKind.Local).AddTicks(129),
+                            CreatedOn = new DateTime(2024, 3, 25, 15, 38, 35, 488, DateTimeKind.Local).AddTicks(860),
                             IsDeleted = false,
                             Name = "Акад. Никола Обрешков",
                             Type = "ППМГ"
                         },
                         new
                         {
-                            Id = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7",
+                            Id = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c",
                             City = "Разград",
-                            CreatedOn = new DateTime(2024, 3, 25, 14, 44, 24, 829, DateTimeKind.Local).AddTicks(5585),
+                            CreatedOn = new DateTime(2024, 3, 25, 15, 38, 35, 490, DateTimeKind.Local).AddTicks(4237),
                             IsDeleted = true,
                             Name = "Никола Йонков Вапцаров",
                             Type = "ОУ"
                         },
                         new
                         {
-                            Id = "cbda56c3-e483-43ae-b3c0-4c3365c76235",
+                            Id = "51d9cf9f-7d37-4164-a40e-8a7e65f73b67",
                             City = "Разград",
-                            CreatedOn = new DateTime(2024, 3, 25, 14, 44, 24, 829, DateTimeKind.Local).AddTicks(5617),
+                            CreatedOn = new DateTime(2024, 3, 25, 15, 38, 35, 490, DateTimeKind.Local).AddTicks(4266),
                             IsDeleted = true,
                             Name = "Екзарх Йосиф",
                             Type = "ГПИЧЕ"
                         },
                         new
                         {
-                            Id = "599f7c14-eb6d-4a3d-b542-6efbdb6d8456",
+                            Id = "7c2ca02c-78e4-421a-9f87-b9a1325e6464",
                             City = "Разград",
-                            CreatedOn = new DateTime(2024, 3, 25, 14, 44, 24, 829, DateTimeKind.Local).AddTicks(5624),
+                            CreatedOn = new DateTime(2024, 3, 25, 15, 38, 35, 490, DateTimeKind.Local).AddTicks(4273),
                             IsDeleted = false,
                             Name = "Васил Левски",
                             Type = "ОУ"
@@ -307,83 +309,83 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "025733d7-fc8a-4d4c-accc-20e8f6702a1d",
+                            Id = "7a5ca851-9701-46a2-b744-23604263f461",
                             FullName = "baran gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "3e6fd373-3bb7-4fbc-a461-d080796265a3",
+                            Id = "4aad0d8e-54d1-46b2-a883-3880dd8f15ee",
                             FullName = "viktoriya gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "5efd9c49-9aa9-414d-89cb-5eaa8472c6ac"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "09ef5b67-e62f-4d0f-9914-6931822d926a",
+                            Id = "1cbfcd0e-0515-4a86-9b45-3eaffb9dba08",
                             FullName = "daniel gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "79cd2744-deee-4bdd-bb5b-65d1563df9a3",
+                            Id = "62998635-5617-4a69-95d6-76bd7a68a38e",
                             FullName = "dimana gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "cbda56c3-e483-43ae-b3c0-4c3365c76235"
+                            SchoolId = "3e232635-99c3-49f5-8532-b24a83b84ee1"
                         },
                         new
                         {
-                            Id = "b402fc3c-c494-4bc3-9d9a-dd3aa7bbb5e2",
+                            Id = "4f3ea2aa-2b5d-4dab-83f1-3df67ca13916",
                             FullName = "dimitar gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "3e232635-99c3-49f5-8532-b24a83b84ee1"
                         },
                         new
                         {
-                            Id = "114cb598-f260-40c4-ba2f-876fca35eadb",
+                            Id = "832fdd93-c44c-47be-9b6b-52701cbb91d0",
                             FullName = "emre gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "cbda56c3-e483-43ae-b3c0-4c3365c76235"
+                            SchoolId = "51d9cf9f-7d37-4164-a40e-8a7e65f73b67"
                         },
                         new
                         {
-                            Id = "217cbf78-b87a-4667-8f90-c2efd200354a",
+                            Id = "238ccf91-a91d-44da-966a-3724947644dd",
                             FullName = "ivayla gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "cbda56c3-e483-43ae-b3c0-4c3365c76235"
+                            SchoolId = "7c2ca02c-78e4-421a-9f87-b9a1325e6464"
                         },
                         new
                         {
-                            Id = "9719afc2-5328-46f9-8367-13034435a2d7",
+                            Id = "d722fce0-2a3e-4fb3-811b-ab44c3149ae1",
                             FullName = "ivan gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "599f7c14-eb6d-4a3d-b542-6efbdb6d8456"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "270b8d33-1898-4889-b1ed-5d557aa3e74d",
+                            Id = "ae36e3d7-f0a1-42a7-8976-ec3a40ddb3c4",
                             FullName = "ivan_ivanov gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "5efd9c49-9aa9-414d-89cb-5eaa8472c6ac"
+                            SchoolId = "3e232635-99c3-49f5-8532-b24a83b84ee1"
                         },
                         new
                         {
-                            Id = "8728acae-e1d5-499c-b7c2-af5b5de03019",
+                            Id = "4c75d3bc-cdc3-4953-b170-f9c0d2301e7b",
                             FullName = "dimitar_barlev gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "3e232635-99c3-49f5-8532-b24a83b84ee1"
                         });
                 });
 
@@ -425,55 +427,53 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("SchoolId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("Unique identifier of school the teacher attends.");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Teachers");
 
                     b.HasData(
                         new
                         {
-                            Id = "d0e2bcee-5f7e-40a1-bb23-6d3fc9700517",
+                            Id = "119abeb7-8eaa-4c81-9a0a-dca7bc1e1351",
                             FullName = "turhan gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "51d9cf9f-7d37-4164-a40e-8a7e65f73b67"
                         },
                         new
                         {
-                            Id = "7f56a1d1-f9af-44b0-ae6a-76554cfaa098",
+                            Id = "ae2e5724-dcb6-42e8-9744-425fb63b533b",
                             FullName = "venci gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "5efd9c49-9aa9-414d-89cb-5eaa8472c6ac"
+                            SchoolId = "7c2ca02c-78e4-421a-9f87-b9a1325e6464"
                         },
                         new
                         {
-                            Id = "0d8d8384-9a89-4f9e-9ed8-6a9c5d8593bf",
+                            Id = "453b4095-5cf6-489f-9546-2b399a51d6bb",
                             FullName = "ahmed gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "cbda56c3-e483-43ae-b3c0-4c3365c76235"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "22150547-9f66-4bac-9f31-b29d54e0444c",
+                            Id = "d082d619-b8ee-4caa-bbf3-e497a31b72c4",
                             FullName = "martin gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "5efd9c49-9aa9-414d-89cb-5eaa8472c6ac"
+                            SchoolId = "eccfdaf4-f8b9-4b1c-b04f-479c4460937c"
                         },
                         new
                         {
-                            Id = "85be718a-0c75-4614-ab8e-b6d4d3830c5a",
+                            Id = "9019926b-24ed-44f5-b527-039fde9c87d5",
                             FullName = "desi gmail.com",
                             IsActivated = false,
                             IsDeleted = false,
-                            SchoolId = "ef0c1d78-b942-456c-a2b3-56ec8c2bdef7"
+                            SchoolId = "3e232635-99c3-49f5-8532-b24a83b84ee1"
                         });
                 });
 
@@ -569,22 +569,22 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f6031407-3891-4c63-be83-d85df8adc11d",
-                            ConcurrencyStamp = "f6031407-3891-4c63-be83-d85df8adc11d",
+                            Id = "33eac254-736c-4561-8704-764faa26ae52",
+                            ConcurrencyStamp = "33eac254-736c-4561-8704-764faa26ae52",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c6f82406-a2fa-4e0f-abfa-e5ff829dcbe4",
-                            ConcurrencyStamp = "c6f82406-a2fa-4e0f-abfa-e5ff829dcbe4",
+                            Id = "9d960363-cd5b-4f27-a9eb-eeb9ce0e603f",
+                            ConcurrencyStamp = "9d960363-cd5b-4f27-a9eb-eeb9ce0e603f",
                             Name = "SchoolAdmin",
                             NormalizedName = "SCHOOLADMIN"
                         },
                         new
                         {
-                            Id = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03",
-                            ConcurrencyStamp = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03",
+                            Id = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3",
+                            ConcurrencyStamp = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         });
@@ -687,257 +687,257 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ea57c8f8-67d3-43ad-a0e6-3508d9f7445b",
+                            Id = "e844cb92-6d0d-4d3b-97aa-36f1c559142e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9be93b2a-032d-42d8-b5e7-c555052d5c71",
+                            ConcurrencyStamp = "5333205c-88ed-4085-b8ff-73a19abb20ec",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN25q1qPQVpiwc9eQUabXfE/ztluztZDFzEmZ9XMi6VPP73y+aJwF+/3fwjTxTMfHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG4ywiZ4mDp3PC0zlCW6EkoH8WtjpB/Zfc4mrCLTFCc6cMOu8joyjdrOxCZV5uID8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6de6d0dd-a016-4751-8f7f-e3ca5b31a963",
+                            SecurityStamp = "5af7880f-c3bf-458b-95f5-387d754ba542",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
                         new
                         {
-                            Id = "d0e2bcee-5f7e-40a1-bb23-6d3fc9700517",
+                            Id = "119abeb7-8eaa-4c81-9a0a-dca7bc1e1351",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca8d551f-69d6-41e9-80f4-8a9ca5de59b6",
+                            ConcurrencyStamp = "00a109ea-fcfe-44ff-a585-07a3eceab746",
                             Email = "turhan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TURHAN@GMAIL.COM",
                             NormalizedUserName = "TURHAN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ2nm8AbBtvW28cEcB6OKoYlEtyTxqGtBFdTy7acH0EwTs6vwO9hs5azFdazlSUnTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIdHlRDWn7rI+LeKI3goDidJD2pV5+NofXSObkOt5J121htT0tPK+Lx+h6AdAltxZA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "100a60fa-6389-4844-aa91-be797a4dfa9b",
+                            SecurityStamp = "2d8813d5-0fcd-48e2-95bd-ccb86ce07398",
                             TwoFactorEnabled = false,
                             UserName = "turhan@gmail.com"
                         },
                         new
                         {
-                            Id = "7f56a1d1-f9af-44b0-ae6a-76554cfaa098",
+                            Id = "ae2e5724-dcb6-42e8-9744-425fb63b533b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "238ddcd9-6550-424f-aa9c-87b62ceb0cdd",
+                            ConcurrencyStamp = "47230439-1b32-4836-85c6-0bc0e8068bdd",
                             Email = "venci@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "VENCI@GMAIL.COM",
                             NormalizedUserName = "VENCI@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKpLTQv2hggdieIPkHeRK376kbm3cBzRtK/9kYN3Z4ZBuA0E/AMa6KoGziqWdW8gJQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOcOIIW6HlU4WYOLjWw/bg4BmxADvfRbuucuiIm5aYfkDYTZf487sdfztCc9MhI5zA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "baedb101-3d37-4add-96cf-c2435b4cbe9a",
+                            SecurityStamp = "c916e819-b56f-4e7c-8b69-d759b3867d42",
                             TwoFactorEnabled = false,
                             UserName = "venci@gmail.com"
                         },
                         new
                         {
-                            Id = "0d8d8384-9a89-4f9e-9ed8-6a9c5d8593bf",
+                            Id = "453b4095-5cf6-489f-9546-2b399a51d6bb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d45cab38-3e88-47f3-9bfa-c705dd87f8b0",
+                            ConcurrencyStamp = "704dd44e-3e56-4ead-b0b0-22dbd7906bb2",
                             Email = "ahmed@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "AHMED@GMAIL.COM",
                             NormalizedUserName = "AHMED@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFO0FrciRXBeyIRs6Th37eRXXGC+FB/PJBQN3F9+yvcgtggueDgLJYBNOBmuXkmUKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBKvK0asJZrK8Pj7x4CjVYTsoH6A5Q0w52o9HynTfFLb3wh+97QhImQHGvv//xLEjw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ffbd139-82ee-48e6-87fa-581fa4710d8d",
+                            SecurityStamp = "30c45b58-909e-4356-8c01-dc8e95dd8f74",
                             TwoFactorEnabled = false,
                             UserName = "ahmed@gmail.com"
                         },
                         new
                         {
-                            Id = "22150547-9f66-4bac-9f31-b29d54e0444c",
+                            Id = "d082d619-b8ee-4caa-bbf3-e497a31b72c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5dbe6ef-754c-4978-884a-a3795231f49e",
+                            ConcurrencyStamp = "8a86b0e2-968d-48c9-b7f4-10e7e3131811",
                             Email = "martin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MARTIN@GMAIL.COM",
                             NormalizedUserName = "MARTIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOgPHmUSO0K6EL9dOlMJd63MoWczTXx2JHp9lUIU5GwWYz2YeyzIAqLs/V7FBYLghg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENZomN0GOpZZrJEWRln/NUkiCrKZXdkNGDwQo0I+te1g5ABc0ASVCrTz1KyKKNhX2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3374c24b-35fb-4da1-9563-0f8cc60d4626",
+                            SecurityStamp = "5d1c4832-ec11-4b10-8894-bdd9e139d426",
                             TwoFactorEnabled = false,
                             UserName = "martin@gmail.com"
                         },
                         new
                         {
-                            Id = "85be718a-0c75-4614-ab8e-b6d4d3830c5a",
+                            Id = "9019926b-24ed-44f5-b527-039fde9c87d5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1fea2e5-5c7b-4f20-93c0-50548ace5bbf",
+                            ConcurrencyStamp = "4d607b61-6813-466c-a7e5-f9691442eba9",
                             Email = "desi@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DESI@GMAIL.COM",
                             NormalizedUserName = "DESI@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGhIfCkftjLIb/A3MozjKGgS4AkEpDmjNB1T4ucyOlyTxjtQ2oAPQ+q2GeOmVcogrQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECyrEfGlTHB9yj0vUINp30Ov9wtWrOAw1h8VnnIprK7iwd1rRlZk+N1328l9gP7ZyQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4085d78a-d739-4ff6-8953-2367008e4a7e",
+                            SecurityStamp = "5842a9ac-bbbe-4afe-9ffb-6f634b04e47f",
                             TwoFactorEnabled = false,
                             UserName = "desi@gmail.com"
                         },
                         new
                         {
-                            Id = "025733d7-fc8a-4d4c-accc-20e8f6702a1d",
+                            Id = "7a5ca851-9701-46a2-b744-23604263f461",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b450748e-4dd1-4e6c-8357-f963954ac394",
+                            ConcurrencyStamp = "477b8613-b7c1-4ac8-9e26-e348726f7576",
                             Email = "baran@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BARAN@GMAIL.COM",
                             NormalizedUserName = "BARAN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELCJ8jd6+mcn77Ip/ClBZCEt+gd6vgtA5kL3pypLOcbS/UoaCXo6J2/TdMBRAdbv4w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEASwQ0CC7Jg82ZJZyRjKjdwD/sgeaO+b+0Iq/fVC/mRuHdq1O0K0sV07vsJOU2plsw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6397ba8e-3b34-4948-9a13-75d8f5afbae7",
+                            SecurityStamp = "bc8cffd8-bf56-494c-959d-7effe4a8de2b",
                             TwoFactorEnabled = false,
                             UserName = "baran@gmail.com"
                         },
                         new
                         {
-                            Id = "3e6fd373-3bb7-4fbc-a461-d080796265a3",
+                            Id = "4aad0d8e-54d1-46b2-a883-3880dd8f15ee",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ff926d7-23ab-4c8d-91ef-9f29f2a72b79",
+                            ConcurrencyStamp = "64b959e5-29f1-4245-a0d1-edfee3b5d739",
                             Email = "viktoriya@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "VIKTORIYA@GMAIL.COM",
                             NormalizedUserName = "VIKTORIYA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELy9NEH/KWGTq1whPixgsZO3SHs6Bksa2sOFok50wRw9SoTPzvVVSwvTSUKnFG5vBg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAUpT35XtQTz9+BpFSNHG6Mzf6CWGRAU2qLNJbtNInS1apvqst6DXgOawN8cAfqRIg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ad25dd2d-084c-4ab7-9dcb-7f377cf02b7e",
+                            SecurityStamp = "fac25d42-7d72-488b-a433-f614d7993f8c",
                             TwoFactorEnabled = false,
                             UserName = "viktoriya@gmail.com"
                         },
                         new
                         {
-                            Id = "09ef5b67-e62f-4d0f-9914-6931822d926a",
+                            Id = "1cbfcd0e-0515-4a86-9b45-3eaffb9dba08",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5766400-c9f3-4765-9f98-8b1a60c1371b",
+                            ConcurrencyStamp = "bc7a38cf-29f2-4c30-85e2-0b89c76901e4",
                             Email = "daniel@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DANIEL@GMAIL.COM",
                             NormalizedUserName = "DANIEL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM3ZO0I67eDh6trMZ6T47aH1mTFdm4iVuPPyp+9h1e6E+TSg4ip7dFaLW1SWw08Q1g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED5B5qH1R6XqIL4s1yd+FHnxMgLLFc5oBY2jmUfTuMpvoNMq0kxUs0lOYPlJndNqcg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "47772e27-ee1e-4859-80fb-8a33962dcde5",
+                            SecurityStamp = "66be0a04-cf47-482c-8865-4dd0e3090574",
                             TwoFactorEnabled = false,
                             UserName = "daniel@gmail.com"
                         },
                         new
                         {
-                            Id = "79cd2744-deee-4bdd-bb5b-65d1563df9a3",
+                            Id = "62998635-5617-4a69-95d6-76bd7a68a38e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a33e8bbd-caa6-4d12-89c3-7bafeb6cd133",
+                            ConcurrencyStamp = "3675320f-03ed-4aa3-8133-e2fc038616dd",
                             Email = "dimana@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMANA@GMAIL.COM",
                             NormalizedUserName = "DIMANA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEGSrRV1HzwmfOAME19+ODtnewQ2rKj5wCzhlwPLix7nI1lq91dR0aB9dU5d1O9SyQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENH5nMjQcyGJpAWps9B/klIny3tz2aqZMV7j0n8CGbIrv0sRP5hXrLtN5L78i/dGAA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f90a167a-7115-47a6-9e9c-bee399a8fec3",
+                            SecurityStamp = "10cb2c93-57a9-4df1-aa2b-00a2eb70aa25",
                             TwoFactorEnabled = false,
                             UserName = "dimana@gmail.com"
                         },
                         new
                         {
-                            Id = "b402fc3c-c494-4bc3-9d9a-dd3aa7bbb5e2",
+                            Id = "4f3ea2aa-2b5d-4dab-83f1-3df67ca13916",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "896d4e17-b5b8-41dd-b507-7af42af9f8ca",
+                            ConcurrencyStamp = "3abc1130-bf68-4512-ae6b-2189b9d4f673",
                             Email = "dimitar@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITAR@GMAIL.COM",
                             NormalizedUserName = "DIMITAR@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEwtYR67iYgQ5BgaIRnQwcezFjf6m1OSjKZlASeJg/bXssj1Nua1URqd4aFVH1x9wQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI/w4pQS8CGNxWY9gFIJ55s70vbNCwQQ5KHBQg+Va39SWKCYhI3vfx0/jXCGiPx0kg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b0be08ba-c399-4e04-b9d2-2aebd4908ed3",
+                            SecurityStamp = "cda4542f-6987-41cf-a377-bd24e3c70110",
                             TwoFactorEnabled = false,
                             UserName = "dimitar@gmail.com"
                         },
                         new
                         {
-                            Id = "114cb598-f260-40c4-ba2f-876fca35eadb",
+                            Id = "832fdd93-c44c-47be-9b6b-52701cbb91d0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e38cc801-8fea-486a-9332-22a074607d28",
+                            ConcurrencyStamp = "c642c222-3cdd-4bcf-8cab-ff8648ab9974",
                             Email = "emre@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "EMRE@GMAIL.COM",
                             NormalizedUserName = "EMRE@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO/T+Rc9P/g8+AqKCIIoT5DhCsA+keJcerW1oN8wRdjHMBK4mx4el+2c/LYcNUXrsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB5ix50EYxvykQtzmPpFhLz+Z4Brq3SBXhx/nJGy10rdhCgg75sfsEh/seqm2fvTgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8855a95e-5cd6-4f75-8426-f1982ee281f7",
+                            SecurityStamp = "721b782b-1f02-4ab2-b17c-bbf3e072242a",
                             TwoFactorEnabled = false,
                             UserName = "emre@gmail.com"
                         },
                         new
                         {
-                            Id = "217cbf78-b87a-4667-8f90-c2efd200354a",
+                            Id = "238ccf91-a91d-44da-966a-3724947644dd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96c27577-2fba-48c0-b765-83d13e04960d",
+                            ConcurrencyStamp = "3370ac55-9ee4-4903-b6c7-66de0782e117",
                             Email = "ivayla@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "IVAYLA@GMAIL.COM",
                             NormalizedUserName = "IVAYLA@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP6a0gbNEEK8B+A9ZHcCz7T/zSEN7WsY0wdyETjhc62Sko2pYpskslYG7MAUS0RUDg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEU76b2VmTYXYMibz0Di3/wDQIIyuI4WGfdR2Vyo9dUOcoh0nRPlCZRE9tKpo+vnXg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fabd6d72-1a9d-4ad4-9ba9-2d1926c1e157",
+                            SecurityStamp = "5c9cf6a1-ecf9-4f9c-bf6b-3d89d643273d",
                             TwoFactorEnabled = false,
                             UserName = "ivayla@gmail.com"
                         },
                         new
                         {
-                            Id = "9719afc2-5328-46f9-8367-13034435a2d7",
+                            Id = "d722fce0-2a3e-4fb3-811b-ab44c3149ae1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "95e955cd-0129-4ab6-8b3e-0d04a708bdcd",
+                            ConcurrencyStamp = "81b4e9ca-f28c-4ca0-9f57-6d045977915d",
                             Email = "ivan@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "IVAN@GMAIL.COM",
                             NormalizedUserName = "IVAN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOp9mRVpNmd9fYlY6gNLt/1j65RraiPAJi6Qpz4okc4hfZ3jOysIGjH+e1LDU09h8g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENcAXAXq8hxYdxXvkfS2cR0qspXdjw391p1NhooHP3gs+/PcQ+2ggDpYhv9QRl4Mcw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2aa784ac-ff16-4c2d-a36e-2cf2e2d1c519",
+                            SecurityStamp = "a6ffe2f8-8e80-4a8d-a5f8-e0be207f806a",
                             TwoFactorEnabled = false,
                             UserName = "ivan@gmail.com"
                         },
                         new
                         {
-                            Id = "270b8d33-1898-4889-b1ed-5d557aa3e74d",
+                            Id = "ae36e3d7-f0a1-42a7-8976-ec3a40ddb3c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2af0d55d-2ad3-4a29-882c-1a5b719e8cd5",
+                            ConcurrencyStamp = "5662c2e4-7585-4932-aebb-8cbb11dc13be",
                             Email = "ivan_ivanov@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "IVAN_IVANOV@GMAIL.COM",
                             NormalizedUserName = "IVAN_IVANOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPRSO8dEcvNa9K+Pid9m5Yznx93oMxNBpbVROpaV1MSxFgqew91AvJwtT+RJB0aIzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOcISv4S+nNvBFpzI3PT4y3VNbGnyui3e37RfyXZ91awpsf8InugZjvx5NsgCR4Xvw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7fab56b-b104-412e-b2f5-3ba0a9a433a0",
+                            SecurityStamp = "48debfd8-915d-4692-8fe8-18120df81106",
                             TwoFactorEnabled = false,
                             UserName = "ivan_ivanov@gmail.com"
                         },
                         new
                         {
-                            Id = "8728acae-e1d5-499c-b7c2-af5b5de03019",
+                            Id = "4c75d3bc-cdc3-4953-b170-f9c0d2301e7b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e91ad97-1164-4ac8-9e70-c0f762eecd23",
+                            ConcurrencyStamp = "bf2ec9b1-1a76-4ac3-9eee-d2aef8d96088",
                             Email = "dimitar_barlev@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITAR_BARLEV@GMAIL.COM",
                             NormalizedUserName = "DIMITAR_BARLEV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAmNJlDzjN5rTiJzFiIc19lPRUNasBqgyl7NiLNQaxMLo8jVh4hO7gW3qySdm7W1tw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECN3pyub6xIvkfBM9dhwTNeHlPswA7/yEmfgiVlghLf0XrCuhLe7rpJIEDqZrOGh8A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9e0b8841-80df-4157-a6a1-5172fff2e0a1",
+                            SecurityStamp = "4242b377-9674-42d8-8989-f455ce4ded15",
                             TwoFactorEnabled = false,
                             UserName = "dimitar_barlev@gmail.com"
                         });
@@ -1009,33 +1009,33 @@ namespace Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "ea57c8f8-67d3-43ad-a0e6-3508d9f7445b",
-                            RoleId = "f6031407-3891-4c63-be83-d85df8adc11d"
+                            UserId = "e844cb92-6d0d-4d3b-97aa-36f1c559142e",
+                            RoleId = "33eac254-736c-4561-8704-764faa26ae52"
                         },
                         new
                         {
-                            UserId = "d0e2bcee-5f7e-40a1-bb23-6d3fc9700517",
-                            RoleId = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03"
+                            UserId = "119abeb7-8eaa-4c81-9a0a-dca7bc1e1351",
+                            RoleId = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3"
                         },
                         new
                         {
-                            UserId = "7f56a1d1-f9af-44b0-ae6a-76554cfaa098",
-                            RoleId = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03"
+                            UserId = "ae2e5724-dcb6-42e8-9744-425fb63b533b",
+                            RoleId = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3"
                         },
                         new
                         {
-                            UserId = "0d8d8384-9a89-4f9e-9ed8-6a9c5d8593bf",
-                            RoleId = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03"
+                            UserId = "453b4095-5cf6-489f-9546-2b399a51d6bb",
+                            RoleId = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3"
                         },
                         new
                         {
-                            UserId = "22150547-9f66-4bac-9f31-b29d54e0444c",
-                            RoleId = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03"
+                            UserId = "d082d619-b8ee-4caa-bbf3-e497a31b72c4",
+                            RoleId = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3"
                         },
                         new
                         {
-                            UserId = "85be718a-0c75-4614-ab8e-b6d4d3830c5a",
-                            RoleId = "bb873e6e-8c80-4ee7-b854-6ba92fea5f03"
+                            UserId = "9019926b-24ed-44f5-b527-039fde9c87d5",
+                            RoleId = "08ff3ee7-539d-4049-b3ca-ff8a179dc7a3"
                         });
                 });
 
@@ -1120,24 +1120,13 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
                 {
                     b.HasOne("Infrastructure.Data.Models.Teacher", "SchoolAdmin")
-                        .WithMany()
-                        .HasForeignKey("SchoolAdminId");
+                        .WithOne("School")
+                        .HasForeignKey("Infrastructure.Data.Models.School", "SchoolAdminId");
 
                     b.Navigation("SchoolAdmin");
                 });
 
             modelBuilder.Entity("Infrastructure.Data.Models.Student", b =>
-                {
-                    b.HasOne("Infrastructure.Data.Models.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("School");
-                });
-
-            modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
                 {
                     b.HasOne("Infrastructure.Data.Models.School", "School")
                         .WithMany()
@@ -1243,6 +1232,9 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
                 {
                     b.Navigation("Groups");
+
+                    b.Navigation("School")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Infrastructure.Data.Models.Topic", b =>

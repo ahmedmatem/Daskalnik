@@ -17,7 +17,6 @@ namespace Infrastructure.Data.Models
         [Comment("Unique identifier of school the teacher attends.")]
         public string SchoolId { get; set; } = string.Empty;
 
-        [ForeignKey("SchoolId")]
         public School School { get; set; } = null!;
 
         public List<Group> Groups { get; set; } = new List<Group>();
