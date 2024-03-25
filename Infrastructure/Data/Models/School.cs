@@ -28,5 +28,7 @@ namespace Infrastructure.Data.Models
 
         [ForeignKey("SchoolAdminId")]
         public Teacher? SchoolAdmin { get; set; }
+
+        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }

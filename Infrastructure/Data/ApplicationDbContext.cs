@@ -26,6 +26,7 @@ namespace Infrastructure.Data
             // Entity type configurations
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
+                .ApplyConfiguration(new GroupTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);

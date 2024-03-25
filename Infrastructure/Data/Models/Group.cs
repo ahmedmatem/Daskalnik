@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static Infrastructure.Constants.DataConstants;
 
 namespace Infrastructure.Data.Models
@@ -27,10 +28,18 @@ namespace Infrastructure.Data.Models
         public string IconUrl { get; set; } = string.Empty;
 
         [Required]
+        [Comment("School identifier in which the group belongs to. ")]
+        public string SchoolId { get; set; } = string.Empty;
+
+        [Required]
         [Comment("Group creater identifier.")]
         public string TeacherId { get; set; } = string.Empty;
 
+        [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; } = null!;
+
+        [ForeignKey("SchoolId")]
+        public School School { get; set; } = null!;
 
         public List<IdentityUser> Students { get; set; } = new List<IdentityUser>();
 
