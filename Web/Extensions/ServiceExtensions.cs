@@ -1,4 +1,5 @@
-﻿using Core.Contracts;
+﻿using Azure.Storage.Blobs;
+using Core.Contracts;
 using Core.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.DataRepository;
@@ -16,8 +17,6 @@ namespace Web.Extensions
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IStudentService, StudentService>();
 
-            //services.AddScoped(x => new BlobService)
-
             return services;
         }
 
@@ -26,6 +25,8 @@ namespace Web.Extensions
             string connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorage")));
 
             services.AddScoped<IRepository, Repository>();
 
