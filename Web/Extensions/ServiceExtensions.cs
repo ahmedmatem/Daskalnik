@@ -16,6 +16,8 @@ namespace Web.Extensions
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IStudentService, StudentService>();
 
+            //services.AddScoped(x => new BlobService)
+
             return services;
         }
 
