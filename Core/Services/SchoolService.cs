@@ -6,7 +6,7 @@ using static Infrastructure.Data.ErrorMessages;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Core.Models.Schools;
+using Core.Models.School;
 
 namespace Core.Services
 {

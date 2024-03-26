@@ -1,4 +1,4 @@
-﻿using Core.Models.Schools;
+﻿using Core.Models.School;
 using Infrastructure.Data.Models;
 
 namespace Core.Contracts

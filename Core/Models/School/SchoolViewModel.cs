@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 
-namespace Core.Models.Schools
+namespace Core.Models.School
 {
     public class SchoolViewModel
     {
@@ -34,6 +34,6 @@ namespace Core.Models.Schools
         public string City { get; set; } = string.Empty;
 
         [Display(Name = "Администратор на училище")]
-        public Teacher? SchoolAdmin { get; set; }
+        public Infrastructure.Data.Models.Teacher? SchoolAdmin { get; set; }
     }
 }

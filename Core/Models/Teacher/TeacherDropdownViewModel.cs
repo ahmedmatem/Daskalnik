@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Models.Teachers
+namespace Core.Models.Teacher
 {
     public class TeacherDropdownViewModel
     {

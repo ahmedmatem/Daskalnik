@@ -1,6 +1,6 @@
 ﻿using Core.Contracts;
-using Core.Models.Schools;
-using Core.Models.Teachers;
+using Core.Models.School;
+using Core.Models.Teacher;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

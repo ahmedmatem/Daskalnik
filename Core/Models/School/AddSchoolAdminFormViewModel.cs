@@ -1,7 +1,7 @@
-﻿using Core.Models.Teachers;
+﻿using Core.Models.Teacher;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Models.Schools
+namespace Core.Models.School
 {
     public class AddSchoolAdminFormViewModel
     {

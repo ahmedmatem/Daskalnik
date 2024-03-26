@@ -1,5 +1,5 @@
 ﻿using Core.Contracts;
-using Core.Models.Teachers;
+using Core.Models.Teacher;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
