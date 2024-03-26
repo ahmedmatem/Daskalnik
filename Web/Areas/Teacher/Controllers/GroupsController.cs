@@ -1,10 +1,18 @@
-﻿using Core.Models.Group;
+﻿using Core.Contracts;
+using Core.Models.Group;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Areas.Teacher.Controllers
 {
     public class GroupsController : TeacherBaseController
     {
+        private readonly IAzureBlobService blobService;
+
+        public GroupsController(IAzureBlobService _blobService)
+        {
+            blobService = _blobService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -17,11 +25,13 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(GroupFormViewModel model, IFormFile iconUrl)
+        public async Task<IActionResult> Add(GroupFormViewModel model, 
+            IFormFile postedFile)
         {
+            await blobService.UploadFileAsync(postedFile);
 
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

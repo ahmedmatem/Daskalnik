@@ -17,6 +17,8 @@ namespace Web.Extensions
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IStudentService, StudentService>();
 
+            services.AddSingleton<IAzureBlobService, AzureBlobService>();
+
             return services;
         }
 
@@ -26,7 +28,7 @@ namespace Web.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddScoped(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorage")));
+            services.AddSingleton(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorage")));
 
             services.AddScoped<IRepository, Repository>();
 
