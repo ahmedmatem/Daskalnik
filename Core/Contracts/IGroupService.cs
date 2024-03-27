@@ -9,5 +9,7 @@ namespace Core.Contracts
         Task<int> GetGroupsCountInSchoolAsync(string schoolId);
 
         Task AddAsync(GroupFormViewModel model);
+
+        Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
     }
 }

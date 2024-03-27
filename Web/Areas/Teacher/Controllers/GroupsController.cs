@@ -1,6 +1,5 @@
 ﻿using Core.Contracts;
 using Core.Models.Group;
-using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
@@ -25,9 +24,10 @@ namespace Web.Areas.Teacher.Controllers
 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await groupService.GetAllTeacherGroups(User.Id());
+            return View(model);
         }
 
         [HttpGet]

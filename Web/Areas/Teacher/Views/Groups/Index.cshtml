@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<GroupCardViewModel>
+
 @{
     ViewData["Title"] = "Моите групи";
 }
@@ -7,5 +8,16 @@
 <a class="btn btn-primary" asp-action="Add">Създай група</a>
 
 <div class="row justify-content-center align-items-center">
-    
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4 col-md-2 mt-4">
+            <div class="card align-items-center">
+                <img src="@item.IconUrl" class="card-img-top w-50 h-50 p-2" alt="Icon">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@item.ShortName</h5>
+                    <a asp-action="Group" asp-route-id="@item.Id" class="btn btn-outline-primary">Отвори</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

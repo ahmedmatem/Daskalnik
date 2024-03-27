@@ -31,6 +31,20 @@ namespace Core.Services
             await repository.SaveChangesAsync<Group>();
         }
 
+        public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId)
+        {
+            return await repository
+                .All<Group>()
+                .Where(g => !g.IsDeleted && g.TeacherId == teacherId)
+                .Select(g => new GroupCardViewModel()
+                {
+                    Id = g.Id,
+                    ShortName = g.ShortName,
+                    IconUrl = g.IconUrl,
+                })
+                .ToListAsync();
+        }
+
         public async Task<int> GetGroupsCountAsync()
         {
             return await repository
