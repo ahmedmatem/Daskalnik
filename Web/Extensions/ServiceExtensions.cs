@@ -16,8 +16,7 @@ namespace Web.Extensions
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IStudentService, StudentService>();
-
-            services.AddSingleton<IAzureBlobService, AzureBlobService>();
+            services.AddScoped<IAzureBlobService, AzureBlobService>();
 
             return services;
         }

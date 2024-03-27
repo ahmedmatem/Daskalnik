@@ -27,5 +27,7 @@
 
         public const int ResourceTextToDisplayMinLength = 3;
         public const int ResourceTextToDisplayMaxLength = 30;
+
+        public const long PostedFileMaxSizeInBytes = 50 * 1024; // 50KB
     }
 }

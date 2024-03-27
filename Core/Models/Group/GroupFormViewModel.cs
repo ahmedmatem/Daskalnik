@@ -1,8 +1,4 @@
-﻿using Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 
@@ -30,8 +26,11 @@ namespace Core.Models.Group
         [Display(Name = "Кратко описание")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
         [Display(Name = "Картинка")]
         public string IconUrl { get; set; } = string.Empty;
+
+        public string SchoolId { get; set; } = string.Empty;
+
+        public string TeacherId { get; set; } = string.Empty;
     }
 }

@@ -16,40 +16,20 @@ namespace Core.Services
 
         public AzureBlobService(BlobServiceClient client, IConfiguration configuration)
         {
+            BlobContainerURL = configuration.GetValue<string>("BlobServiceClient:ContainerURL");
             blobServiceClient = client;
             string containerName = configuration.GetValue<string>("BlobServiceClient:ContainerName");
-            BlobContainerURL = configuration.GetValue<string>("BlobServiceClient:ContainerURL");
             blobContainerClient = client.GetBlobContainerClient(containerName);
         }
 
-        public async Task<Response<BlobContentInfo>> UploadFileAsync(IFormFile file)
+        public async Task<Response<BlobContentInfo>> UploadFileAsync(IFormFile file, string blobName)
         {
-            string blobName = file.FileName;
             using (var memoryStream = new MemoryStream())
             {
                 file.CopyTo(memoryStream);
                 memoryStream.Position = 0;
                 return await blobContainerClient.UploadBlobAsync(blobName, memoryStream, default);
             }
-        }
-
-        public async Task<List<Response<BlobContentInfo>>> UploadFilesAsync(List<IFormFile> files)
-        {
-            var azureResponse = new List<Response<BlobContentInfo>>();
-
-            foreach (var file in files)
-            {
-                string blobName = file.FileName;
-                using (var memoryStream = new MemoryStream())
-                {
-                    file.CopyTo(memoryStream);
-                    memoryStream.Position = 0;
-                    var client = await blobContainerClient.UploadBlobAsync(blobName, memoryStream, default);
-                    azureResponse.Add(client);
-                }
-            }
-
-            return azureResponse;
         }
 
         public async Task<List<BlobItem>> GetUploadedBlobsAsync()
@@ -62,6 +42,12 @@ namespace Core.Services
             }
 
             return items;
+        }
+
+        private string GetRandomBlobName(IFormFile file)
+        {
+            var fileExtension = Path.GetExtension(file.FileName);
+            return Guid.NewGuid().ToString() + fileExtension;
         }
     }
 }
