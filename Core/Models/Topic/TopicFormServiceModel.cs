@@ -34,7 +34,6 @@ namespace Core.Models.Topic
         [Display(Name = "Съдържание")]
         public string Contents { get; set; } = string.Empty;
 
-        [Display(Name = "Ресурси")]
-        public List<IFormFile> Resources { get; set; } = new List<IFormFile>();
+        public string CreaterId { get; set; } = string.Empty;
     }
 }

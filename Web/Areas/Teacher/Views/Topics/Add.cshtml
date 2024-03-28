@@ -34,7 +34,7 @@
                 <span class="text-secondary">Въведете всяка точка от съдържанието на нов ред.</span>
             </div>
 
-            <div id="resource-files" class="form-group mt-3">
+            @* <div id="resource-files" class="form-group mt-3">
                 <label asp-for="Resources" class="form-label"></label>
                 <input name="Resources" class="form-control mt-1" type="file" />
             </div>
@@ -46,7 +46,7 @@
                 <button id="detach-file" class="btn btn-sm btn-outline-secondary">
                     <i class="fa-solid fa-minus"></i>
                 </button>
-            </div>
+            </div> *@
 
             <div class="text-center mt-4">
                 <a asp-action="" class="btn btn-outline-secondary">Отказ</a>
@@ -59,7 +59,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <partial name="_FontAwesomePartial" />
-    <script>
+    @* <script>
         $('document').ready(() => {
 
             $('#attach-file').click((e) => {
@@ -77,5 +77,5 @@
                 $('#resource-files').find('input:last').remove()
             })
         })
-    </script>
+    </script> *@
 }
