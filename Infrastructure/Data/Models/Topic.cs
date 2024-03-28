@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Models
         [Comment("Topic description.")]
         public string Description { get; set; } = string.Empty;
 
-        [Comment("Topic contents items separated by $.")]
+        [Comment("Topic contents items separated each in a new line.")]
         public string Contents { get; set; } = string.Empty;
 
         public List<Group> Groups { get; set; } = new List<Group>();
