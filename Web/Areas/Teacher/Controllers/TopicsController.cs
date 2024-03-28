@@ -8,15 +8,22 @@ namespace Web.Areas.Teacher.Controllers
     public class TopicsController : TeacherBaseController
     {
         private readonly IAzureBlobService azureBlobService;
+        private readonly ITopicService topicService;
 
-        public TopicsController(IAzureBlobService _azureBlobService)
+        public TopicsController(
+            IAzureBlobService _azureBlobService,
+            ITopicService _topicService)
         {
-            azureBlobService = _azureBlobService;            
+            azureBlobService = _azureBlobService;
+            topicService = _topicService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await topicService.GetAllTopicsByCreatorAsync(User.Id());
+
+            return View(model);
         }
 
         [HttpGet]
@@ -26,7 +33,7 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(TopicFormServiceModel model)
+        public async Task<IActionResult> Add(TopicFormServiceModel model)
         {
             if(!ModelState.IsValid)
             {
@@ -34,9 +41,9 @@ namespace Web.Areas.Teacher.Controllers
             }
 
             model.CreaterId = User.Id();
-            
+            await topicService.AddAsync(model);
 
-            return View(model);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

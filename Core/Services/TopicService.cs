@@ -2,6 +2,7 @@
 using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
 {
@@ -16,15 +17,30 @@ namespace Core.Services
 
         public async Task AddAsync(TopicFormServiceModel model)
         {
-            //Topic topic = new Topic()
-            //{
-            //    Name = model.Name,
-            //    Description = model.Description,
-            //    Contents = model.Contents
-            //};
+            Topic topic = new Topic()
+            {
+                Name = model.Name,
+                Description = model.Description ?? string.Empty,
+                Contents = model.Contents,
+                CreatorId = model.CreaterId
+            };
 
-            //await repository.AddAsync(model);
-            //await repository.SaveChangesAsync<Topic>();
+            await repository.AddAsync(topic);
+            await repository.SaveChangesAsync<Topic>();
+        }
+
+        public async Task<IEnumerable<TopicListItemServiceModel>> GetAllTopicsByCreatorAsync(string creatorId)
+        {
+            return await repository.All<Topic>()
+                .Where(t => t.CreatorId == creatorId && !t.IsDeleted)
+                .Select(t => new TopicListItemServiceModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Description= t.Description,
+                })
+                .OrderBy(tl => tl.Name)
+                .ToListAsync();
         }
     }
 }
