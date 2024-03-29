@@ -42,5 +42,20 @@ namespace Core.Services
                 .OrderBy(tl => tl.Name)
                 .ToListAsync();
         }
+
+        public async Task<TopicFormServiceModel?> GetByIdAsync(string id)
+        {
+            return await repository.All<Topic>()
+                .Where(t => t.Id == id && !t.IsDeleted)
+                .Select(t => new TopicFormServiceModel()
+                {
+                    Id = id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    Contents = t.Contents,
+                    CreaterId = t.CreatorId
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

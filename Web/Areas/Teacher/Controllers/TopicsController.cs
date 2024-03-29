@@ -45,5 +45,17 @@ namespace Web.Areas.Teacher.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var model = await topicService.GetByIdAsync(id);
+            if(model != null && model.CreaterId == User.Id())
+            {
+                return View(model);
+            }
+
+            return BadRequest();
+        }
     }
 }
