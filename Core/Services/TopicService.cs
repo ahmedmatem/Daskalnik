@@ -22,7 +22,7 @@ namespace Core.Services
                 Name = model.Name,
                 Description = model.Description ?? string.Empty,
                 Contents = model.Contents,
-                CreatorId = model.CreaterId
+                CreatorId = model.CreatorId
             };
 
             await repository.AddAsync(topic);
@@ -53,9 +53,24 @@ namespace Core.Services
                     Name = t.Name,
                     Description = t.Description,
                     Contents = t.Contents,
-                    CreaterId = t.CreatorId
+                    CreatorId = t.CreatorId
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(TopicFormServiceModel model)
+        {
+            var topic = await repository.GetByIdAsync<Topic>(model.Id);
+
+            if (topic != null)
+            {
+                topic.Name = model.Name;
+                topic.Description = model.Description ?? string.Empty;
+                topic.Contents = model.Contents;
+
+                repository.Update(topic);
+                await repository.SaveChangesAsync<Topic>();
+            }            
         }
     }
 }

@@ -9,5 +9,7 @@ namespace Core.Contracts
         Task<IEnumerable<TopicListItemServiceModel>> GetAllTopicsByCreatorAsync(string creatorId);
 
         Task AddAsync(TopicFormServiceModel model);
+
+        Task UpdateAsync(TopicFormServiceModel model);
     }
 }

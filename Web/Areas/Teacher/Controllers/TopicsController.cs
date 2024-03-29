@@ -40,7 +40,7 @@ namespace Web.Areas.Teacher.Controllers
                 return View(model);
             }
 
-            model.CreaterId = User.Id();
+            model.CreatorId = User.Id();
             await topicService.AddAsync(model);
 
             return RedirectToAction(nameof(Index));
@@ -50,12 +50,29 @@ namespace Web.Areas.Teacher.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var model = await topicService.GetByIdAsync(id);
-            if(model != null && model.CreaterId == User.Id())
+            if(model != null && model.CreatorId == User.Id())
             {
                 return View(model);
             }
 
             return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TopicFormServiceModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if(model.CreatorId == User.Id())
+                {
+                    await topicService.UpdateAsync(model);
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return BadRequest();
+            }
+
+            return View(model);           
         }
     }
 }

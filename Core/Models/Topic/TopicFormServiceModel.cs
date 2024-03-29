@@ -34,6 +34,6 @@ namespace Core.Models.Topic
         [Display(Name = "Съдържание")]
         public string Contents { get; set; } = string.Empty;
 
-        public string CreaterId { get; set; } = string.Empty;
+        public string CreatorId { get; set; } = string.Empty;
     }
 }
