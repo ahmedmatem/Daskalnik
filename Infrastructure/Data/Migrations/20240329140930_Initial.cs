@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Data.Migrations
 {
     public partial class Initial : Migration
     {
@@ -383,9 +383,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "095e9c5b-d240-4c65-883f-1d31eac8484f", "095e9c5b-d240-4c65-883f-1d31eac8484f", "Admin", "ADMIN" },
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "211a9447-eaaa-467a-a816-e52c7d0d23d6", "Teacher", "TEACHER" },
-                    { "a77bf21e-99b8-4c37-b9df-6a29c807b004", "a77bf21e-99b8-4c37-b9df-6a29c807b004", "SchoolAdmin", "SCHOOLADMIN" }
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "40837e7e-06f8-402f-adb2-37ab452b730c", "Teacher", "TEACHER" },
+                    { "8f97fbf6-308d-4bf0-8896-a550b0418ca0", "8f97fbf6-308d-4bf0-8896-a550b0418ca0", "SchoolAdmin", "SCHOOLADMIN" },
+                    { "efde352a-1983-4624-bff1-8b24b42adf2d", "efde352a-1983-4624-bff1-8b24b42adf2d", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -393,22 +393,22 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "GroupId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "0088b70c-dac4-4d48-a353-3637e648d879", 0, "a0c8e86e-7fa9-48f5-860f-81dccf367a9a", "dimitar_barlev@gmail.com", false, null, false, null, "DIMITAR_BARLEV@GMAIL.COM", "DIMITAR_BARLEV@GMAIL.COM", "AQAAAAEAACcQAAAAEP4qO0q58vY6IWXx0FTi1Y3vm2LldHCvGZlQBWIyI4/UQTQ8I2lhAeaJfdxx/v3Tzw==", null, false, "ce4e270e-1961-4b4e-94cb-6264d2a533b2", false, "dimitar_barlev@gmail.com" },
-                    { "2aee729b-b0fe-4caf-a3e2-554b01d63f1e", 0, "b231fc75-61e5-4c02-aa40-d03630b0d556", "turhan@gmail.com", false, null, false, null, "TURHAN@GMAIL.COM", "TURHAN@GMAIL.COM", "AQAAAAEAACcQAAAAEHbvLwGq8wqHJWXc1A+1RXkgZJ3X5daO84cDHsINyIWGqIGAjiM+jQNsAMgZSflTQQ==", null, false, "db807f0c-0f51-402b-837e-2e6a57d3e3a8", false, "turhan@gmail.com" },
-                    { "40ea7dc0-708f-41a1-b9ca-c3761f296183", 0, "0ab37d53-dd6c-45e4-b92e-402a44ce18e3", "baran@gmail.com", false, null, false, null, "BARAN@GMAIL.COM", "BARAN@GMAIL.COM", "AQAAAAEAACcQAAAAEDYmUvFl+aENzk76yVjCvKt/b/lmwhCJDi8V/eii+qSgsqatHyAP01U5fqMpo0PLhw==", null, false, "c008041e-9aec-47e5-9f64-237e91cb97b6", false, "baran@gmail.com" },
-                    { "78a30368-8be4-46c7-a064-241e300685f6", 0, "7939ab11-f60e-4539-bc9f-ba115e9af02c", "desi@gmail.com", false, null, false, null, "DESI@GMAIL.COM", "DESI@GMAIL.COM", "AQAAAAEAACcQAAAAEHR2YuFE6PNi9ufhEnB4RSswGx8807urDc0WPFRYxBPJduea1RQFzWneAnwde+fq2Q==", null, false, "a3b3b0c2-0532-4179-9c52-6eb819d93ae8", false, "desi@gmail.com" },
-                    { "7da83618-e7bf-4b65-9cda-c26f5b720606", 0, "e4b50fb7-e5e5-4a05-b950-0095cabac86e", "emre@gmail.com", false, null, false, null, "EMRE@GMAIL.COM", "EMRE@GMAIL.COM", "AQAAAAEAACcQAAAAELyx1TaERu/pYdrr6mCKn1GWCn9BG/GuHhhFsgOe1n5gAm709OB/HQcxlNblnOLbSg==", null, false, "f9df3b23-c954-480c-bfe4-a5fae5bb332f", false, "emre@gmail.com" },
-                    { "829dd445-ad09-4399-acc2-bc2da4523ee6", 0, "6b210ca0-970f-41c3-98d2-7a023a1cbf76", "martin@gmail.com", false, null, false, null, "MARTIN@GMAIL.COM", "MARTIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJKIeD0lHn4KYLgkS0kvV/kS0kZyqH3VWUZpcdRndtc8TW/Qu2bUVXAiYrisXpYSjA==", null, false, "05a647bb-3979-4405-bff8-2dde7e6f07a5", false, "martin@gmail.com" },
-                    { "8a85ce06-658e-4ab1-8ca2-ea4ac2ebac6e", 0, "944eb59e-4dd5-40c8-a5eb-c9f7cf03815a", "dimitar@gmail.com", false, null, false, null, "DIMITAR@GMAIL.COM", "DIMITAR@GMAIL.COM", "AQAAAAEAACcQAAAAEN1u7DdUi7h8uoj6gN9d5hLNLPxIQQwHIYezdfJ+Yt121Rk9YbAs97zSQ1Iui8UnBQ==", null, false, "15c82362-96e7-4fb8-a343-aeece1e47110", false, "dimitar@gmail.com" },
-                    { "8ad09948-389f-4b73-a253-82fe0730f8b2", 0, "7eda74ca-909a-4081-8f16-326ad1a46404", "dimana@gmail.com", false, null, false, null, "DIMANA@GMAIL.COM", "DIMANA@GMAIL.COM", "AQAAAAEAACcQAAAAEMf0VuoPrFbnmFJhqcJjV9xq+n9UP8IfZkXgMoWzMGurFWyPCnL3N5bwPu9BafHFTw==", null, false, "f261856e-adaa-45e3-b258-330272a0017f", false, "dimana@gmail.com" },
-                    { "a0e1c528-a9b7-4f9d-a726-58685c755424", 0, "b394274b-6c00-439d-b98f-870dd1036879", "daniel@gmail.com", false, null, false, null, "DANIEL@GMAIL.COM", "DANIEL@GMAIL.COM", "AQAAAAEAACcQAAAAEGieFZFEvAEgFU8F1rArmtpwq+q2JsnlEhwP/Q87puKAUHQ8Nmqtrnnzk3uSh7YkiA==", null, false, "8868bea7-5090-47e0-8a60-5c0316284cf5", false, "daniel@gmail.com" },
-                    { "a6282758-b2f2-4416-8050-f5519428a71f", 0, "1ab24cff-c34d-4639-8394-10c56605b6e0", "viktoriya@gmail.com", false, null, false, null, "VIKTORIYA@GMAIL.COM", "VIKTORIYA@GMAIL.COM", "AQAAAAEAACcQAAAAEDfd4EpwqHPZgFFPJj3HZ/pXc5EJURMlLdfuVLQvRc6P1RqaguWF2623+esTVtszbw==", null, false, "a0705277-287a-48ca-afc2-288b4160072b", false, "viktoriya@gmail.com" },
-                    { "aca7ea8c-0c20-4248-8bdc-d079dea3088b", 0, "dc6456c5-262c-476b-86f6-77b9b797a1cc", "admin@gmail.com", false, null, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEPaIbPCMlAOiEwwS+SLSmQY8wkrNwDvV/Rh8ZkrSVeVSnvEQKxZ9IL/yJPaaRbf60Q==", null, false, "ab88db71-97e9-41ad-b9a7-3dee4492e862", false, "admin@gmail.com" },
-                    { "b867a863-141a-4f9c-96ea-20e8154f8361", 0, "92f3aeab-a901-47b1-b051-e105ab8c72c4", "ivan@gmail.com", false, null, false, null, "IVAN@GMAIL.COM", "IVAN@GMAIL.COM", "AQAAAAEAACcQAAAAEFlUCrk2mq+OnCv4x2XHjPN70RpBSTZsi+XLWXZY3RqTtpcCIUbt+/WwMofcOR8iSA==", null, false, "2d56dc7a-14b4-4aef-9979-7f1bdb2757f8", false, "ivan@gmail.com" },
-                    { "efc7ebb9-348f-4eb5-b49b-e7ac956b84b0", 0, "ce20e91f-ea40-4615-8d3d-1933e41db139", "ivayla@gmail.com", false, null, false, null, "IVAYLA@GMAIL.COM", "IVAYLA@GMAIL.COM", "AQAAAAEAACcQAAAAEBP/zSh9J1G+As1trHjWlHKdn6qceSe/IOMINnL6D8gAzprQ2ltA3K3ZC4LU4X3Xzw==", null, false, "6e1b19f6-8523-4daa-98e0-d1cbfb58dbb4", false, "ivayla@gmail.com" },
-                    { "efe63c4b-ce44-467d-b375-3f142545c9d8", 0, "eb598594-0408-4eef-924f-a5c4eb20d384", "ivan_ivanov@gmail.com", false, null, false, null, "IVAN_IVANOV@GMAIL.COM", "IVAN_IVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAEIH9zSwYvBBE4sWhYoiX90N68zRvMbu9jNoYQmhchXu5aVKEyPdcT7AQiA/wpB/N6g==", null, false, "8f377e3d-e33b-4fde-a485-2fa07190a80d", false, "ivan_ivanov@gmail.com" },
-                    { "f13e7f5d-40f1-4de2-91e7-5b9af7d129bd", 0, "64401e39-2863-4222-9534-c706f48abe5f", "venci@gmail.com", false, null, false, null, "VENCI@GMAIL.COM", "VENCI@GMAIL.COM", "AQAAAAEAACcQAAAAEClc9bX3+tXHxt7JZ6FIAwJ48XwhX12RB3CvbXZK+X7pwZojgaeZD5aH5G/+DEL0gg==", null, false, "77d7ed06-6ad7-4fbc-8992-d1cda8ab9567", false, "venci@gmail.com" },
-                    { "faad3f22-8281-4391-95e5-60ecd8a6f346", 0, "e39f986f-ebdc-4418-bbd7-4cbae618197a", "ahmed@gmail.com", false, null, false, null, "AHMED@GMAIL.COM", "AHMED@GMAIL.COM", "AQAAAAEAACcQAAAAEFFwkha25IGjj4JcowikPgy9zxfKNGT5HhJFvY8HkTzMDx56Iy5BkUhLFy0AIKc5kA==", null, false, "9356b845-7ba2-4ed5-830a-09fa298368e0", false, "ahmed@gmail.com" }
+                    { "0d4b526c-8a10-41b4-aa39-2d18fc56064b", 0, "ec0a5503-7eef-4255-9a6b-4db1ee83558c", "turhan@gmail.com", false, null, false, null, "TURHAN@GMAIL.COM", "TURHAN@GMAIL.COM", "AQAAAAEAACcQAAAAEE/PF1H/2e5HZn/lrHnu6OtH430LDzvUMbKVEemucilnofm9ZuxCJ8paKuxrSaIYvA==", null, false, "5944a654-acc0-4b0e-8832-1825f9558ef6", false, "turhan@gmail.com" },
+                    { "17eb7538-fe6a-4fc2-9303-31624e54f7a7", 0, "16203d8d-21b1-4236-8c12-d4e42af26d29", "emre@gmail.com", false, null, false, null, "EMRE@GMAIL.COM", "EMRE@GMAIL.COM", "AQAAAAEAACcQAAAAEHkByScHFiWDYQ/N+I7UDZjXIY7jNERHA03ScjZR9NsL4z6OSyQbFN0RBZ5fbMBDJQ==", null, false, "7206bce6-170e-4dfe-9898-d010d34223ec", false, "emre@gmail.com" },
+                    { "1dc9e5aa-5bfc-467c-9579-42f6433d81ac", 0, "6e98dfc8-dc89-4f6a-b75b-0064509f6d65", "dimitar_barlev@gmail.com", false, null, false, null, "DIMITAR_BARLEV@GMAIL.COM", "DIMITAR_BARLEV@GMAIL.COM", "AQAAAAEAACcQAAAAEBpWSxdxbyKYBf/KJLh6FMIsje/gzTdicYipsm9Po5+Y8i655x5H6LN0lJsV4H6U0g==", null, false, "b5d6b65f-fc61-4148-8a15-72a187ee66fb", false, "dimitar_barlev@gmail.com" },
+                    { "4cf5dfa9-be69-4f7a-acd3-2f2a8b0d5ba5", 0, "f030825f-4da2-4988-9ef3-b0360695ac73", "martin@gmail.com", false, null, false, null, "MARTIN@GMAIL.COM", "MARTIN@GMAIL.COM", "AQAAAAEAACcQAAAAECuObLdwFW5Ty3Zjqgp8MDGfkxLDdLkxHL2Pvku/BZdCmK9to5Li+TsbqXqx6qrLCw==", null, false, "e2f49178-6e78-453a-b285-c01e4aa23a7b", false, "martin@gmail.com" },
+                    { "50dd5567-72ca-429e-8675-c0053958a394", 0, "5f82c15f-4a58-462a-8851-e8a7c7a28bc8", "daniel@gmail.com", false, null, false, null, "DANIEL@GMAIL.COM", "DANIEL@GMAIL.COM", "AQAAAAEAACcQAAAAEEyKnP4IIcvWABjBSA2Q7hpDHtgHX6R/zWCFsCPtEgf3tD9B7AFgl9CUXWTh8dLybA==", null, false, "4be8792f-c323-4e75-b842-08b6d5129b40", false, "daniel@gmail.com" },
+                    { "5b1038da-b225-4e1b-80dd-bbd5684b1250", 0, "accdd1ae-f711-405b-a97a-08f9314ab000", "viktoriya@gmail.com", false, null, false, null, "VIKTORIYA@GMAIL.COM", "VIKTORIYA@GMAIL.COM", "AQAAAAEAACcQAAAAEAYkYKOh0FPg9Twi+ILgqqfaXEG9OGiQoFU/WxgUNurwpUs6urk9xE+lglCdTdeUPw==", null, false, "2692afce-e5db-491b-baa0-632ffcfdf3ee", false, "viktoriya@gmail.com" },
+                    { "799d1ac2-b144-4627-8075-acfc7bae6901", 0, "d27ed73c-5044-4204-a8b1-583168abad73", "ivan@gmail.com", false, null, false, null, "IVAN@GMAIL.COM", "IVAN@GMAIL.COM", "AQAAAAEAACcQAAAAEDyI31ClQ0ufkZua+5NBZ4SJ5gkfIJrDZ5Blseu4U46X1jdtVpQQFDi/+vIYoeqB1A==", null, false, "a7cb4a98-def6-4099-844b-3234fa17e241", false, "ivan@gmail.com" },
+                    { "95e95113-812d-4b67-8d47-a89ce67c3dfc", 0, "d0a013a2-a96e-44ab-962d-1ed5b7509e61", "dimana@gmail.com", false, null, false, null, "DIMANA@GMAIL.COM", "DIMANA@GMAIL.COM", "AQAAAAEAACcQAAAAEDeNxtEQx3hDpveaDO/OHLqCOmlTxIsygo/XF7XwvXCKVTPVf4kEXMygFOVokm8HKg==", null, false, "cc69a7ba-a9f8-4ca7-ac42-6100ea32fd10", false, "dimana@gmail.com" },
+                    { "966ad7f4-ce14-4c0f-85f7-7bf7f91761cf", 0, "b82131ea-2ce9-400f-9fc3-c49925d596d0", "desi@gmail.com", false, null, false, null, "DESI@GMAIL.COM", "DESI@GMAIL.COM", "AQAAAAEAACcQAAAAEMrHker8mHFaVHywepadelYHmWLOKa8AUDuUF5FOKcAqcHbrQx29FQ5zkKOUok9ATA==", null, false, "e15db803-1d8d-4656-a1f2-3af6ef8cfc12", false, "desi@gmail.com" },
+                    { "c4f8761c-9c46-4d9b-b544-37730ddd5b0b", 0, "31991327-56f0-49f1-9d48-1080f602bb06", "ivan_ivanov@gmail.com", false, null, false, null, "IVAN_IVANOV@GMAIL.COM", "IVAN_IVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAED2EXdtQ7fKPLpfz4aaq6+C/LdzXhNV/S+7RM7ns3nLhlGWTdaFGmB7KVpgOsMuZ0A==", null, false, "5aa813bb-805c-4d89-89b0-edc51f912e09", false, "ivan_ivanov@gmail.com" },
+                    { "c9525c81-02ea-4a74-ab04-489dd6f074e3", 0, "15d8cd04-901f-4d4f-bcc9-06abe4af52e3", "ahmed@gmail.com", false, null, false, null, "AHMED@GMAIL.COM", "AHMED@GMAIL.COM", "AQAAAAEAACcQAAAAEHc5RVMLu2D8NFVkDd5CA+5AHs2tkCtE0E/WBuiuSIBZeht6aLkyCZ27S3GWG/izYQ==", null, false, "2647744c-2d98-4ba3-a4a9-838bccf02146", false, "ahmed@gmail.com" },
+                    { "d3663274-e6d3-4f69-9761-bfdf273fe56a", 0, "afeda0d6-29da-4e61-8597-beb9b05fa0fb", "baran@gmail.com", false, null, false, null, "BARAN@GMAIL.COM", "BARAN@GMAIL.COM", "AQAAAAEAACcQAAAAEASY77veJozgGLOY2x1cMfvKgVB335UUZjVjaITdk2b1VOaVOOLNzGoe5gXmjnrEag==", null, false, "6a5aecfd-b9a5-43b7-bcd7-c01f4120b607", false, "baran@gmail.com" },
+                    { "de70d648-6fda-49d3-bb58-9337c6e14765", 0, "f499d3d2-dab2-4e05-9756-15202dd39244", "venci@gmail.com", false, null, false, null, "VENCI@GMAIL.COM", "VENCI@GMAIL.COM", "AQAAAAEAACcQAAAAEDSYG4fw/iatVFUexbCFrRj8PGRPR1xS2/JBIcHlvllbyIh1rkwscH5BwRwMEsIBkg==", null, false, "da28b3e8-1e5f-4e0d-a52b-ab798c6a9697", false, "venci@gmail.com" },
+                    { "de754d7b-3177-4b69-a031-ec0f08f647ee", 0, "fb604c5a-ecd8-46ff-85b8-72b72f045ecd", "admin@gmail.com", false, null, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEKBaFjlkoOjFlzwAVJU0uXTn8JrUqjMcyhYX4MLJzM8IeI+ugs6asun3TwbhmIvKww==", null, false, "8871b118-c7c3-4d9b-a5db-e59948d1716a", false, "admin@gmail.com" },
+                    { "df63a74c-9ebb-48ec-bb1f-9f762630f62a", 0, "66767b20-2a8c-4c65-b033-0c207a005286", "dimitar@gmail.com", false, null, false, null, "DIMITAR@GMAIL.COM", "DIMITAR@GMAIL.COM", "AQAAAAEAACcQAAAAENkODqN1ZwOAC+RMGsywXKYUYHx56bEgNK9q2C1FHCSWOya3p+rgqTRifDPEwb2O7Q==", null, false, "319952fd-716f-404e-ac18-5bb9184fb647", false, "dimitar@gmail.com" },
+                    { "ecc54ffb-a992-4723-aea4-330c4b6857af", 0, "e15ccafe-a0cb-48b9-bbbe-8c50dd911697", "ivayla@gmail.com", false, null, false, null, "IVAYLA@GMAIL.COM", "IVAYLA@GMAIL.COM", "AQAAAAEAACcQAAAAEOenk58H8oPjKOTvBMJtRvll8YAXrNf1FO1pqwi97eBuRY+kPfGPvo98/b8Zg4ZwLQ==", null, false, "faccbf8a-84f1-4e03-b23e-aa58a247e754", false, "ivayla@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -416,10 +416,10 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "City", "CreatedOn", "DeletedOn", "IsDeleted", "LastModifiedOn", "Name", "SchoolAdminId", "Type" },
                 values: new object[,]
                 {
-                    { "37256721-29f0-468d-8f79-776a2091592a", "Разград", new DateTime(2024, 3, 29, 11, 6, 15, 174, DateTimeKind.Local).AddTicks(2003), null, false, null, "Акад. Никола Обрешков", null, "ППМГ" },
-                    { "bea5be04-87a0-4298-b97d-0656e0401e68", "Разград", new DateTime(2024, 3, 29, 11, 6, 15, 177, DateTimeKind.Local).AddTicks(9032), null, true, null, "Екзарх Йосиф", null, "ГПИЧЕ" },
-                    { "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e", "Разград", new DateTime(2024, 3, 29, 11, 6, 15, 177, DateTimeKind.Local).AddTicks(8988), null, true, null, "Никола Йонков Вапцаров", null, "ОУ" },
-                    { "ee1b8894-3a77-4f85-a828-2f2a924a44d0", "Разград", new DateTime(2024, 3, 29, 11, 6, 15, 177, DateTimeKind.Local).AddTicks(9039), null, false, null, "Васил Левски", null, "ОУ" }
+                    { "1ba2bf83-2fdd-4dc9-85f5-be0f557975fe", "Разград", new DateTime(2024, 3, 29, 16, 9, 29, 89, DateTimeKind.Local).AddTicks(7627), null, false, null, "Акад. Никола Обрешков", null, "ППМГ" },
+                    { "27582e6b-f175-4c1f-9e48-af6fbd85f05a", "Разград", new DateTime(2024, 3, 29, 16, 9, 29, 92, DateTimeKind.Local).AddTicks(9422), null, true, null, "Екзарх Йосиф", null, "ГПИЧЕ" },
+                    { "3573222a-b037-4192-999d-8ea4fb68a04e", "Разград", new DateTime(2024, 3, 29, 16, 9, 29, 92, DateTimeKind.Local).AddTicks(9365), null, true, null, "Никола Йонков Вапцаров", null, "ОУ" },
+                    { "ced2c891-ae9b-4de5-9eb0-b2823b8c82d3", "Разград", new DateTime(2024, 3, 29, 16, 9, 29, 92, DateTimeKind.Local).AddTicks(9432), null, false, null, "Васил Левски", null, "ОУ" }
                 });
 
             migrationBuilder.InsertData(
@@ -427,11 +427,11 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ActivetedOn", "CreatedOn", "DeletedOn", "FullName", "IsActivated", "IsDeleted", "LastModifiedOn", "SchoolId" },
                 values: new object[,]
                 {
-                    { "2aee729b-b0fe-4caf-a3e2-554b01d63f1e", null, null, null, "turhan gmail.com", false, false, null, "ee1b8894-3a77-4f85-a828-2f2a924a44d0" },
-                    { "78a30368-8be4-46c7-a064-241e300685f6", null, null, null, "desi gmail.com", false, false, null, "ee1b8894-3a77-4f85-a828-2f2a924a44d0" },
-                    { "829dd445-ad09-4399-acc2-bc2da4523ee6", null, null, null, "martin gmail.com", false, false, null, "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e" },
-                    { "f13e7f5d-40f1-4de2-91e7-5b9af7d129bd", null, null, null, "venci gmail.com", false, false, null, "37256721-29f0-468d-8f79-776a2091592a" },
-                    { "faad3f22-8281-4391-95e5-60ecd8a6f346", null, null, null, "ahmed gmail.com", false, false, null, "37256721-29f0-468d-8f79-776a2091592a" }
+                    { "0d4b526c-8a10-41b4-aa39-2d18fc56064b", null, null, null, "turhan gmail.com", false, false, null, "1ba2bf83-2fdd-4dc9-85f5-be0f557975fe" },
+                    { "4cf5dfa9-be69-4f7a-acd3-2f2a8b0d5ba5", null, null, null, "martin gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" },
+                    { "966ad7f4-ce14-4c0f-85f7-7bf7f91761cf", null, null, null, "desi gmail.com", false, false, null, "1ba2bf83-2fdd-4dc9-85f5-be0f557975fe" },
+                    { "c9525c81-02ea-4a74-ab04-489dd6f074e3", null, null, null, "ahmed gmail.com", false, false, null, "ced2c891-ae9b-4de5-9eb0-b2823b8c82d3" },
+                    { "de70d648-6fda-49d3-bb58-9337c6e14765", null, null, null, "venci gmail.com", false, false, null, "ced2c891-ae9b-4de5-9eb0-b2823b8c82d3" }
                 });
 
             migrationBuilder.InsertData(
@@ -439,12 +439,12 @@ namespace Infrastructure.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "2aee729b-b0fe-4caf-a3e2-554b01d63f1e" },
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "78a30368-8be4-46c7-a064-241e300685f6" },
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "829dd445-ad09-4399-acc2-bc2da4523ee6" },
-                    { "095e9c5b-d240-4c65-883f-1d31eac8484f", "aca7ea8c-0c20-4248-8bdc-d079dea3088b" },
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "f13e7f5d-40f1-4de2-91e7-5b9af7d129bd" },
-                    { "211a9447-eaaa-467a-a816-e52c7d0d23d6", "faad3f22-8281-4391-95e5-60ecd8a6f346" }
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "0d4b526c-8a10-41b4-aa39-2d18fc56064b" },
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "4cf5dfa9-be69-4f7a-acd3-2f2a8b0d5ba5" },
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "966ad7f4-ce14-4c0f-85f7-7bf7f91761cf" },
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "c9525c81-02ea-4a74-ab04-489dd6f074e3" },
+                    { "40837e7e-06f8-402f-adb2-37ab452b730c", "de70d648-6fda-49d3-bb58-9337c6e14765" },
+                    { "efde352a-1983-4624-bff1-8b24b42adf2d", "de754d7b-3177-4b69-a031-ec0f08f647ee" }
                 });
 
             migrationBuilder.InsertData(
@@ -452,16 +452,16 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "ActivetedOn", "CreatedOn", "DeletedOn", "FullName", "IsActivated", "IsDeleted", "LastModifiedOn", "SchoolId" },
                 values: new object[,]
                 {
-                    { "0088b70c-dac4-4d48-a353-3637e648d879", null, null, null, "dimitar_barlev gmail.com", false, false, null, "ee1b8894-3a77-4f85-a828-2f2a924a44d0" },
-                    { "40ea7dc0-708f-41a1-b9ca-c3761f296183", null, null, null, "baran gmail.com", false, false, null, "37256721-29f0-468d-8f79-776a2091592a" },
-                    { "7da83618-e7bf-4b65-9cda-c26f5b720606", null, null, null, "emre gmail.com", false, false, null, "bea5be04-87a0-4298-b97d-0656e0401e68" },
-                    { "8a85ce06-658e-4ab1-8ca2-ea4ac2ebac6e", null, null, null, "dimitar gmail.com", false, false, null, "37256721-29f0-468d-8f79-776a2091592a" },
-                    { "8ad09948-389f-4b73-a253-82fe0730f8b2", null, null, null, "dimana gmail.com", false, false, null, "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e" },
-                    { "a0e1c528-a9b7-4f9d-a726-58685c755424", null, null, null, "daniel gmail.com", false, false, null, "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e" },
-                    { "a6282758-b2f2-4416-8050-f5519428a71f", null, null, null, "viktoriya gmail.com", false, false, null, "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e" },
-                    { "b867a863-141a-4f9c-96ea-20e8154f8361", null, null, null, "ivan gmail.com", false, false, null, "ee1b8894-3a77-4f85-a828-2f2a924a44d0" },
-                    { "efc7ebb9-348f-4eb5-b49b-e7ac956b84b0", null, null, null, "ivayla gmail.com", false, false, null, "c1b673c4-6a10-4bdb-b267-4ab8bd29ca3e" },
-                    { "efe63c4b-ce44-467d-b375-3f142545c9d8", null, null, null, "ivan_ivanov gmail.com", false, false, null, "37256721-29f0-468d-8f79-776a2091592a" }
+                    { "17eb7538-fe6a-4fc2-9303-31624e54f7a7", null, null, null, "emre gmail.com", false, false, null, "3573222a-b037-4192-999d-8ea4fb68a04e" },
+                    { "1dc9e5aa-5bfc-467c-9579-42f6433d81ac", null, null, null, "dimitar_barlev gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" },
+                    { "50dd5567-72ca-429e-8675-c0053958a394", null, null, null, "daniel gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" },
+                    { "5b1038da-b225-4e1b-80dd-bbd5684b1250", null, null, null, "viktoriya gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" },
+                    { "799d1ac2-b144-4627-8075-acfc7bae6901", null, null, null, "ivan gmail.com", false, false, null, "3573222a-b037-4192-999d-8ea4fb68a04e" },
+                    { "95e95113-812d-4b67-8d47-a89ce67c3dfc", null, null, null, "dimana gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" },
+                    { "c4f8761c-9c46-4d9b-b544-37730ddd5b0b", null, null, null, "ivan_ivanov gmail.com", false, false, null, "ced2c891-ae9b-4de5-9eb0-b2823b8c82d3" },
+                    { "d3663274-e6d3-4f69-9761-bfdf273fe56a", null, null, null, "baran gmail.com", false, false, null, "3573222a-b037-4192-999d-8ea4fb68a04e" },
+                    { "df63a74c-9ebb-48ec-bb1f-9f762630f62a", null, null, null, "dimitar gmail.com", false, false, null, "1ba2bf83-2fdd-4dc9-85f5-be0f557975fe" },
+                    { "ecc54ffb-a992-4723-aea4-330c4b6857af", null, null, null, "ivayla gmail.com", false, false, null, "27582e6b-f175-4c1f-9e48-af6fbd85f05a" }
                 });
 
             migrationBuilder.CreateIndex(
