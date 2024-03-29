@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Core.Models.School;
+using System.Security.Claims;
 
 namespace Core.Services
 {
@@ -128,6 +129,8 @@ namespace Core.Services
                                     await userManager.AddToRoleAsync(teacherAsUser, "SchoolAdmin");
                                 if(addToRoleResult.Succeeded)
                                 {
+                                    // Add custom claim type "active" to the user
+                                    await userManager.AddClaimAsync(teacherAsUser, new Claim("active", "activated"));
                                     // Activate teacher.
                                     teacher.IsActivated = true;
                                     await repository.SaveChangesAsync<Teacher>();
