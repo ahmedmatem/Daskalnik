@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Core.Models.School;
 using System.Security.Claims;
+using static Core.Claims.CustomUserClaims;
 
 namespace Core.Services
 {
@@ -129,8 +130,10 @@ namespace Core.Services
                                     await userManager.AddToRoleAsync(teacherAsUser, "SchoolAdmin");
                                 if(addToRoleResult.Succeeded)
                                 {
-                                    // Add custom claim type "active" to the user
-                                    await userManager.AddClaimAsync(teacherAsUser, new Claim("active", "activated"));
+                                    // Add custom claim of type ActiveClaim to the user
+                                    await userManager.AddClaimAsync(
+                                        teacherAsUser,
+                                        new Claim(ActiveClaim.Key, ActiveClaim.Value));
                                     // Activate teacher.
                                     teacher.IsActivated = true;
                                     await repository.SaveChangesAsync<Teacher>();

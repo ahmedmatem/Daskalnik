@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web.Models;
 
@@ -6,11 +7,15 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> _logger,
+            SignInManager<IdentityUser> _signInManager)
         {
-            _logger = logger;
+            logger = _logger;
+            signInManager = _signInManager;
         }
 
         public IActionResult Index()
@@ -35,6 +40,11 @@ namespace Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult NotActivated()
+        {
+            return View();
         }
     }
 }
