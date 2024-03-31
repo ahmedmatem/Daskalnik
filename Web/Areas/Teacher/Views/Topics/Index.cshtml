@@ -7,11 +7,12 @@
 <div class="text-end">
     <a class="btn btn-primary" asp-action="Add">Създай тема</a>
 </div>
-<h3 class="text-center">@ViewData["Title"]</h3>
+
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
 
 
 <div class="row justify-content-center align-items-center mt-3">
-    <ol class="list-group list-group-numbered">
+    <ul class="list-group">
         @foreach (var topic in Model)
         {
             <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
@@ -26,7 +27,7 @@
                 </a>
             </li>
         }
-    </ol>
+    </ul>
 </div>
 
 <partial name="_FontAwesomePartial" />

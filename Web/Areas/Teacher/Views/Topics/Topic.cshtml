@@ -1,0 +1,35 @@
+﻿@model TopicDetailsServiceModel
+
+@{
+    ViewData["Title"] = Model.TopicDetails.Name;
+}
+
+<nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action=""><i class="fa-solid fa-arrow-left"></i> Назад</a>
+        </li>
+    </ol>
+</nav>
+
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+<div class="card">
+    <div class="card-header">@ViewData["Title"]</div>
+    <div class="card-body">
+        <h5 class="card-title">
+            <label asp-for="TopicDetails.Contents" class="form-label"></label>
+        </h5>
+        @foreach (var contentsItem in @Model.TopicDetails.Contents.Split(Environment.NewLine))
+        {
+            <p class="card-text">
+                @contentsItem
+            </p>
+        }   </p>
+        }
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+<partial name="_FontAwesomePartial" />

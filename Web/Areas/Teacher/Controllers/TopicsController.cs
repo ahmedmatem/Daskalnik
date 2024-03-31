@@ -74,5 +74,22 @@ namespace Web.Areas.Teacher.Controllers
 
             return View(model);           
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Topic(string id)
+        {
+            var topic = await topicService.GetByIdAsync(id);
+            if(topic != null && topic.CreatorId == User.Id())
+            {
+                var model = new TopicDetailsServiceModel()
+                {
+                    TopicDetails = topic,
+                };
+
+                return View(model);
+            }
+
+            return BadRequest();
+        }
     }
 }
