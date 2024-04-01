@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.Resource;
 using Infrastructure.Data.DataRepository;
+using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace Core.Services
@@ -18,20 +19,26 @@ namespace Core.Services
             azureBlobService = _azureBlobService;
         }
 
-        public async Task AddByFileAsync(ResourceFormServiceModel model)
+        public async Task AddAsync(ResourceFormServiceModel model)
         {
             if (model.ResourceFile != null)
             {
                 var blobName = GetRandomBlobName(model.ResourceFile);
-                await azureBlobService.UploadFileAsync(model.ResourceFile, blobName);
+                model.Link = azureBlobService.BlobContainerURL + blobName;
 
-
+                await azureBlobService.UploadFileAsync(model.ResourceFile, blobName);                
             }
-        }
 
-        public Task AddByLinkAsync(ResourceFormServiceModel model)
-        {
-            throw new NotImplementedException();
+            Resource newResource = new Resource()
+            {
+                Link = model.Link,
+                IconRef = model.IconRef,
+                CreatorId = model.CreatorId,
+                TextToDisplay = model.TextToDisplay
+            };
+
+            await repository.AddAsync(newResource);
+            await repository.SaveChangesAsync<Resource>();
         }
 
         private string GetRandomBlobName(IFormFile file)

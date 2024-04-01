@@ -10,10 +10,5 @@ namespace Core.Models.Resource
         [Required(ErrorMessage = RequiredErrorMessage)]
         [Display(Name = "Ресурсен файл")]
         public IFormFile? ResourceFile { get; set; }
-
-        /// <summary>
-        /// Creator of the resource
-        /// </summary>
-        public string CreatorId { get; set; } = string.Empty;
     }
 }

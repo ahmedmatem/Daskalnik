@@ -1,12 +1,21 @@
-﻿using Core.Models.Resource;
-using Microsoft.AspNetCore.Identity;
+﻿using Core.Contracts;
+using Core.Models.Resource;
 using Microsoft.AspNetCore.Mvc;
+using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
 
 namespace Web.Areas.Teacher.Controllers
 {
     public class ResourcesController : TeacherBaseController
     {
+        private readonly IResourceService resourceService;
+
+        public ResourcesController(
+            IResourceService _resourceService)
+        {
+            resourceService = _resourceService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -19,21 +28,17 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ResourceFormServiceModel model)
+        public async Task<IActionResult> Add(ResourceFormServiceModel model)
         {
-            // ContentType = "image/png"
-            // ContentType = "application/vnd.ms-excel"
-            // ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            // ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            // ContentType = "application/pdf"
-
-            if (model.ResourceFile != null)
+            if(model.CreatorId != User.Id()
+                || ResourceIconRef.Keys.Contains(model.IconRef) == false)
             {
-
+                return BadRequest();
             }
 
+            await resourceService.AddAsync(model);
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

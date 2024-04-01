@@ -35,5 +35,10 @@ namespace Core.Models.Resource
         [Required(ErrorMessage = RequiredErrorMessage)]
         [Display(Name = "Иконка")]
         public string IconRef { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Creator of the resource
+        /// </summary>
+        public string CreatorId { get; set; } = string.Empty;
     }
 }
