@@ -31,7 +31,7 @@ namespace Core.Services
 
         public async Task<IEnumerable<TopicListItemServiceModel>> GetAllTopicsByCreatorAsync(string creatorId)
         {
-            return await repository.All<Topic>()
+            return await repository.AllReadOnly<Topic>()
                 .Where(t => t.CreatorId == creatorId && !t.IsDeleted)
                 .Select(t => new TopicListItemServiceModel
                 {

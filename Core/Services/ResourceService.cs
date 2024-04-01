@@ -3,6 +3,7 @@ using Core.Models.Resource;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services
 {
@@ -39,6 +40,22 @@ namespace Core.Services
 
             await repository.AddAsync(newResource);
             await repository.SaveChangesAsync<Resource>();
+        }
+
+        public async Task<IEnumerable<ResourceServiceModel>> GetAllREsourcesByCreator(string creatorId)
+        {
+            return await repository.AllReadOnly<Resource>()
+                .Where(r => r.CreatorId == creatorId && !r.IsDeleted)
+                .Select(r => new ResourceServiceModel()
+                {
+                    Id = r.Id,
+                    Link = r.Link,
+                    TextToDisplay=r.TextToDisplay,
+                    IconRef=r.IconRef,
+                    CreatorId =r.CreatorId,
+                })
+                .OrderBy(r => r.TextToDisplay)
+                .ToListAsync();
         }
 
         private string GetRandomBlobName(IFormFile file)

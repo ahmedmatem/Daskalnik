@@ -16,9 +16,12 @@ namespace Web.Areas.Teacher.Controllers
             resourceService = _resourceService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await resourceService.GetAllREsourcesByCreator(User.Id());
+
+            return View(model);
         }
 
         [HttpGet]
@@ -39,6 +42,11 @@ namespace Web.Areas.Teacher.Controllers
             await resourceService.AddAsync(model);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
         }
     }
 }
