@@ -22,6 +22,12 @@ namespace Core.Services
             blobContainerClient = client.GetBlobContainerClient(containerName);
         }
 
+        /// <summary>
+        /// Upload file into images blob container.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="blobName"></param>
+        /// <returns></returns>
         public async Task<Response<BlobContentInfo>> UploadFileAsync(IFormFile file, string blobName)
         {
             using (var memoryStream = new MemoryStream())

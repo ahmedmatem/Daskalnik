@@ -15,6 +15,7 @@ namespace Core.Models.Resource
         /// URL link to resource
         /// </summary>
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [Display(Name = "Връзка към ресурс")]
         public string Link { get; set; } = string.Empty;
 
         /// <summary>
@@ -25,12 +26,14 @@ namespace Core.Models.Resource
             ResourceTextToDisplayMaxLength,
             MinimumLength = ResourceTextToDisplayMinLength,
             ErrorMessage = StringLengthErrorMessage)]
+        [Display(Name = "Описателно име на линка към ресурса")]
         public string TextToDisplay { get; set; } = string.Empty;
 
         /// <summary>
         /// URL reference to resource icon.
         /// </summary>
         [Required(ErrorMessage = RequiredErrorMessage)]
+        [Display(Name = "Иконка")]
         public string IconRef { get; set; } = string.Empty;
     }
 }
