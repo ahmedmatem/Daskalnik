@@ -19,5 +19,9 @@ namespace Infrastructure.Data.Models
         [Required]
         [Comment("Resource icon reference.")]
         public string IconRef { get; set; } = string.Empty;
+
+        [Required]
+        [Comment("Unique identifier of the creator of the resource.")]
+        public string CreatorId { get; set; } = string.Empty;
     }
 }

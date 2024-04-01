@@ -8,7 +8,5 @@ namespace Core.Contracts
         public string BlobContainerURL { get; }
 
         Task<Azure.Response<BlobContentInfo>> UploadFileAsync(IFormFile file, string blobName);
-
-        Task<List<BlobItem>> GetUploadedBlobsAsync();
     }
 }

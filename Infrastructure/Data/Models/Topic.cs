@@ -20,7 +20,7 @@ namespace Infrastructure.Data.Models
         public string Contents { get; set; } = string.Empty;
 
         [Required]
-        [Comment("Unique identifier of the creater of the topic.")]
+        [Comment("Unique identifier of the creator of the topic.")]
         public string CreatorId { get; set; } = string.Empty;
 
         public List<Group> Groups { get; set; } = new List<Group>();
