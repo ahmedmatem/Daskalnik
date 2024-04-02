@@ -1,5 +1,7 @@
 ﻿@model TopicDetailsServiceModel
 
+@using static Infrastructure.Constants.DataConstants
+
 @{
     ViewData["Title"] = Model.TopicDetails.Name;
 }
@@ -17,17 +19,33 @@
 <div class="card">
     <div class="card-header">@ViewData["Title"]</div>
     <div class="card-body">
-        <h5 class="card-title">
+        <h5 class="card-title d-inline-block">
             <label asp-for="TopicDetails.Contents" class="form-label"></label>
         </h5>
+        <a asp-action="Edit" asp-route-id="@Model.TopicDetails.Id"
+           class="btn btn-sm btn-outline-primary"
+           title="Редактирай съдържание">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </a>
         @foreach (var contentsItem in @Model.TopicDetails.Contents.Split(Environment.NewLine))
         {
             <p class="card-text">
                 @contentsItem
             </p>
-        }   </p>
         }
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+        <h5 class="card-title d-inline-block">
+            <label asp-for="Resources" class="form-label"></label>
+        </h5>
+        <a href="#" class="btn btn-sm btn-outline-primary" title="Прикачи ресурс">
+            <i class="fa-solid fa-paperclip"></i>
+        </a>
+        @foreach (var resModel in @Model.Resources)
+        {
+            <p class="card-text">
+                @ResourceIconRef[resModel.IconRef] @resModel.TextToDisplay
+            </p>
+        }
     </div>
 </div>
 

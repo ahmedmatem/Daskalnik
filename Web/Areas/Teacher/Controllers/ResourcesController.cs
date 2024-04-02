@@ -72,5 +72,11 @@ namespace Web.Areas.Teacher.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            return View();
+        }
     }
 }
