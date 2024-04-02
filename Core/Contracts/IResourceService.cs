@@ -6,6 +6,10 @@ namespace Core.Contracts
     {
         Task AddAsync(ResourceFormServiceModel model);
 
-        Task<IEnumerable<ResourceServiceModel>> GetAllREsourcesByCreator(string creatorId);
+        Task UpdateAsync(ResourceFormServiceModel model);
+
+        Task<IEnumerable<ResourceServiceModel>> GetAllByCreator(string creatorId);
+
+        Task<ResourceFormServiceModel?> GetByIdAsync(string id);
     }
 }

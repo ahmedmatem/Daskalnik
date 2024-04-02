@@ -9,17 +9,20 @@ namespace Web.Areas.Teacher.Controllers
     public class ResourcesController : TeacherBaseController
     {
         private readonly IResourceService resourceService;
+        private readonly IAzureBlobService azureBlobService;
 
         public ResourcesController(
-            IResourceService _resourceService)
+            IResourceService _resourceService, 
+            IAzureBlobService _azureBlobService)
         {
             resourceService = _resourceService;
+            azureBlobService = _azureBlobService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await resourceService.GetAllREsourcesByCreator(User.Id());
+            var model = await resourceService.GetAllByCreator(User.Id());
 
             return View(model);
         }
@@ -44,9 +47,30 @@ namespace Web.Areas.Teacher.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit()
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            var model = await resourceService.GetByIdAsync(id);
+            if(model != null && model.CreatorId == User.Id())
+            {
+                return View(model);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ResourceFormServiceModel model)
+        {
+            if (model.CreatorId != User.Id()
+                || ResourceIconRef.Keys.Contains(model.IconRef) == false)
+            {
+                return BadRequest();
+            }
+
+            await resourceService.UpdateAsync(model);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

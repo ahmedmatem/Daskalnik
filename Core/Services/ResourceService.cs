@@ -4,6 +4,7 @@ using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using IResourceService = Core.Contracts.IResourceService;
 
 namespace Core.Services
 {
@@ -42,7 +43,7 @@ namespace Core.Services
             await repository.SaveChangesAsync<Resource>();
         }
 
-        public async Task<IEnumerable<ResourceServiceModel>> GetAllREsourcesByCreator(string creatorId)
+        public async Task<IEnumerable<ResourceServiceModel>> GetAllByCreator(string creatorId)
         {
             return await repository.AllReadOnly<Resource>()
                 .Where(r => r.CreatorId == creatorId && !r.IsDeleted)
@@ -56,6 +57,43 @@ namespace Core.Services
                 })
                 .OrderBy(r => r.TextToDisplay)
                 .ToListAsync();
+        }
+
+        public async Task<ResourceFormServiceModel?> GetByIdAsync(string id)
+        {
+            var resource = await repository.GetByIdAsync<Resource>(id);
+
+            if(resource != null)
+            {
+                return new ResourceFormServiceModel()
+                {
+                    Id = resource.Id,
+                    Link = resource.Link,
+                    TextToDisplay = resource.TextToDisplay,
+                    IconRef = resource.IconRef,
+                    CreatorId = resource.CreatorId,
+                };
+            }
+
+            return null;
+        }
+
+        public async Task UpdateAsync(ResourceFormServiceModel model)
+        {
+            var oldResource = await repository.GetByIdAsync<Resource>(model.Id);
+            if (oldResource != null)
+            {
+                oldResource.TextToDisplay = model.TextToDisplay;
+                if (oldResource.Link.Contains(azureBlobService.BlobContainerURL) == false)
+                {
+                    // Link is not a blob.
+                    oldResource.Link = model.Link;
+                }
+                oldResource.IconRef = model.IconRef;
+
+                repository.Update(oldResource);
+                await repository.SaveChangesAsync<Resource>();
+            }
         }
 
         private string GetRandomBlobName(IFormFile file)
