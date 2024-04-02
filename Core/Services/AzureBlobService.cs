@@ -43,5 +43,11 @@ namespace Core.Services
 
             return items;
         }
+
+        public async Task<Azure.Response<bool>> DeleteAsync(string blobName)
+        {
+            return await blobContainerClient
+                .DeleteBlobIfExistsAsync(blobName, DeleteSnapshotsOption.IncludeSnapshots);
+        }
     }
 }
