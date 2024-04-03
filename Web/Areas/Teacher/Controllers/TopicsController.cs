@@ -9,13 +9,16 @@ namespace Web.Areas.Teacher.Controllers
     {
         private readonly IAzureBlobService azureBlobService;
         private readonly ITopicService topicService;
+        private readonly IResourceService resourceService;
 
         public TopicsController(
             IAzureBlobService _azureBlobService,
-            ITopicService _topicService)
+            ITopicService _topicService,
+            IResourceService _resourceService)
         {
             azureBlobService = _azureBlobService;
             topicService = _topicService;
+            resourceService = _resourceService;
         }
 
         [HttpGet]
@@ -27,9 +30,14 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            TopicFormServiceModel model = new TopicFormServiceModel()
+            {
+                Resources = await resourceService.GetAllByCreator(User.Id())
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -39,7 +47,7 @@ namespace Web.Areas.Teacher.Controllers
             {
                 return View(model);
             }
-
+            
             model.CreatorId = User.Id();
             await topicService.AddAsync(model);
 

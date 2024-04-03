@@ -59,6 +59,13 @@ namespace Core.Services
                 .ToListAsync();
         }
 
+        public IQueryable<Resource> GetAllByIds(IEnumerable<string> ids)
+        {
+            return repository
+                .All<Resource>()
+                .Where(r => ids.Contains(r.Id) && !r.IsDeleted);
+        }
+
         public async Task<ResourceFormServiceModel?> GetByIdAsync(string id)
         {
             var resource = await repository.GetByIdAsync<Resource>(id);

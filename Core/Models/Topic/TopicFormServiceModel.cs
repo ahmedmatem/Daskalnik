@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static Infrastructure.Data.ErrorMessages;
 using static Infrastructure.Constants.DataConstants;
-using Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Http;
+using Core.Models.Resource;
 
 namespace Core.Models.Topic
 {
@@ -35,5 +34,16 @@ namespace Core.Models.Topic
         public string Contents { get; set; } = string.Empty;
 
         public string CreatorId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// List of all resources for the topic creator.
+        /// </summary>
+        public IEnumerable<ResourceServiceModel> Resources { get; set; } = 
+            new List<ResourceServiceModel>();
+
+        /// <summary>
+        /// Keeps selected resources for topic create by a teacher.
+        /// </summary>
+        public IEnumerable<string> SelectedResources { get; set; } = new List<string>();
     }
 }
