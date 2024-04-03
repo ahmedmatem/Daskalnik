@@ -88,12 +88,20 @@ namespace Core.Services
         public async Task UpdateAsync(TopicFormServiceModel model)
         {
             var topic = await repository.GetByIdAsync<Topic>(model.Id);
+            var newTopicResources = await resourceService.GetAllByIds(model.SelectedResources)
+                .Select(sr => new TopicResource()
+                {
+                    ResourceId = sr.Id,
+                    TopicId = model.Id
+                })
+                .ToListAsync();
 
             if (topic != null)
             {
                 topic.Name = model.Name;
                 topic.Description = model.Description ?? string.Empty;
                 topic.Contents = model.Contents;
+                topic.Resources.AddRange(newTopicResources);
 
                 repository.Update(topic);
                 await repository.SaveChangesAsync<Topic>();
