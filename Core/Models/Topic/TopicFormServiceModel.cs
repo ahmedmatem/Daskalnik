@@ -38,12 +38,21 @@ namespace Core.Models.Topic
         /// <summary>
         /// List of all resources for the topic creator.
         /// </summary>
-        public IEnumerable<ResourceServiceModel> Resources { get; set; } = 
+        [Display(Name = "Ресурси")]
+        public IEnumerable<ResourceServiceModel> CreatorAllResources { get; set; } = 
+            new List<ResourceServiceModel>();
+
+        /// <summary>
+        /// List of all resources currently added to topic
+        /// </summary>
+        [Display(Name = "Ресурси")]
+        public IEnumerable<ResourceServiceModel> AddedResources { get; set; } =
             new List<ResourceServiceModel>();
 
         /// <summary>
         /// Keeps selected resources for topic create by a teacher.
         /// </summary>
+        [Display(Name = "Ресурси")]
         public IEnumerable<string> SelectedResources { get; set; } = new List<string>();
     }
 }

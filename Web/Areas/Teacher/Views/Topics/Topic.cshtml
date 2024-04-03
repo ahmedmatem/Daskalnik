@@ -1,9 +1,9 @@
-﻿@model TopicDetailsServiceModel
+﻿@model TopicFormServiceModel
 
 @using static Infrastructure.Constants.DataConstants
 
 @{
-    ViewData["Title"] = Model.TopicDetails.Name;
+    ViewData["Title"] = Model.Name;
 }
 
 <nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -14,38 +14,47 @@
     </ol>
 </nav>
 
-<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+<h3 class="text-center text-secondary">Тема</h3>
 
 <div class="card">
-    <div class="card-header">@ViewData["Title"]</div>
-    <div class="card-body">
-        <h5 class="card-title d-inline-block">
-            <label asp-for="TopicDetails.Contents" class="form-label"></label>
-        </h5>
-        <a asp-action="Edit" asp-route-id="@Model.TopicDetails.Id"
-           class="btn btn-sm btn-outline-primary"
-           title="Редактирай съдържание">
-            <i class="fa-regular fa-pen-to-square"></i>
-        </a>
-        @foreach (var contentsItem in @Model.TopicDetails.Contents.Split(Environment.NewLine))
-        {
-            <p class="card-text">
-                @contentsItem
-            </p>
-        }
+    <h5 class="card-header text-center">@ViewData["Title"]</h5>
+    <div class="row card-body">
+        <div class="col-lg-6">
+            <h5 class="card-title d-inline-block">
+                <label asp-for="Contents" class="form-label"></label>
+            </h5>
+            @foreach (var contentsItem in @Model.Contents.Split(Environment.NewLine))
+            {
+                <p class="card-text">
+                    @contentsItem
+                </p>
+            }
+        </div>
 
-        <h5 class="card-title d-inline-block">
-            <label asp-for="Resources" class="form-label"></label>
-        </h5>
-        <a href="#" class="btn btn-sm btn-outline-primary" title="Прикачи ресурс">
-            <i class="fa-solid fa-paperclip"></i>
+        <div class="col-lg-6">
+            <h5 class="card-title d-inline-block">
+                <label asp-for="AddedResources" class="form-label"></label>
+            </h5>
+            @if (Model.AddedResources.Count() == 0)
+            {
+                <p>Няма добавени ресурси към темата.</p>
+            }
+            else
+            {
+                foreach (var resModel in @Model.AddedResources)
+                {
+                    <p class="card-text">
+                        @Html.Raw(@ResourceIconRef[resModel.IconRef]) @resModel.TextToDisplay
+                    </p>
+                }
+            }
+        </div>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Edit" asp-route-id="@Model.Id"
+           class="btn btn-sm btn-outline-primary">
+            <i class="fa-regular fa-pen-to-square"></i> Промени
         </a>
-        @foreach (var resModel in @Model.Resources)
-        {
-            <p class="card-text">
-                @ResourceIconRef[resModel.IconRef] @resModel.TextToDisplay
-            </p>
-        }
     </div>
 </div>
 

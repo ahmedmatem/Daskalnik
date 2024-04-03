@@ -43,20 +43,19 @@ namespace Core.Services
             await repository.SaveChangesAsync<Resource>();
         }
 
-        public async Task<IEnumerable<ResourceServiceModel>> GetAllByCreator(string creatorId)
+        public IQueryable<ResourceServiceModel> GetAllByCreator(string creatorId)
         {
-            return await repository.AllReadOnly<Resource>()
+            return repository.AllReadOnly<Resource>()
                 .Where(r => r.CreatorId == creatorId && !r.IsDeleted)
                 .Select(r => new ResourceServiceModel()
                 {
                     Id = r.Id,
                     Link = r.Link,
-                    TextToDisplay=r.TextToDisplay,
-                    IconRef=r.IconRef,
-                    CreatorId =r.CreatorId,
+                    TextToDisplay = r.TextToDisplay,
+                    IconRef = r.IconRef,
+                    CreatorId = r.CreatorId,
                 })
-                .OrderBy(r => r.TextToDisplay)
-                .ToListAsync();
+                .OrderBy(r => r.TextToDisplay);
         }
 
         public IQueryable<Resource> GetAllByIds(IEnumerable<string> ids)

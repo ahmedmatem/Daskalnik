@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.Resource;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
 
@@ -22,7 +23,7 @@ namespace Web.Areas.Teacher.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await resourceService.GetAllByCreator(User.Id());
+            var model = await resourceService.GetAllByCreator(User.Id()).ToListAsync();
 
             return View(model);
         }

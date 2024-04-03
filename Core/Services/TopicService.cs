@@ -1,4 +1,5 @@
 ﻿using Core.Contracts;
+using Core.Models.Resource;
 using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
@@ -67,7 +68,19 @@ namespace Core.Services
                     Name = t.Name,
                     Description = t.Description,
                     Contents = t.Contents,
-                    CreatorId = t.CreatorId
+                    CreatorId = t.CreatorId,
+                    AddedResources = t.Resources
+                    .Select(r => new ResourceServiceModel()
+                    {
+                        Id = r.ResourceId,
+                        Link = r.Resource.Link,
+                        TextToDisplay = r.Resource.TextToDisplay,
+                        IconRef = r.Resource.IconRef,
+                        CreatorId = r.Resource.CreatorId
+                    }),
+                    CreatorAllResources = resourceService.GetAllByCreator(t.CreatorId)
+                    .AsEnumerable(),
+                    SelectedResources = t.Resources.Select(r => r.ResourceId),
                 })
                 .FirstOrDefaultAsync();
         }

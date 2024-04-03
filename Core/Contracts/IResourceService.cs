@@ -9,7 +9,7 @@ namespace Core.Contracts
 
         Task UpdateAsync(ResourceFormServiceModel model);
 
-        Task<IEnumerable<ResourceServiceModel>> GetAllByCreator(string creatorId);
+        IQueryable<ResourceServiceModel> GetAllByCreator(string creatorId);
 
         IQueryable<Resource> GetAllByIds(IEnumerable<string> ids);
 

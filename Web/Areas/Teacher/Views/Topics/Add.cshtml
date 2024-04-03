@@ -34,38 +34,16 @@
                 <span class="text-secondary">Въведете всяка точка от съдържанието на нов ред.</span>
             </div>
 
-            @* <div id="resource-files" class="form-group mt-3">
-                <label asp-for="Resources" class="form-label"></label>
-                <input name="Resources" class="form-control mt-1" type="file" />
-            </div>
-
-            <div class="form-group mt-1">
-                <button id="attach-file" class="btn btn-sm btn-outline-secondary">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-                <button id="detach-file" class="btn btn-sm btn-outline-secondary">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
-            </div> *@
             <div class ="form-group mt-3">
                 <label asp-for="SelectedResources" class="form-label">Resources</label>
                 <select asp-for="SelectedResources" class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
                     <option selected>Изберете ресурс ...</option>
-                    @foreach (var res in Model.Resources)
+                    @foreach (var res in Model.CreatorAllResources)
                     {
                         <option value="@res.Id">@res.TextToDisplay</option>
                     }
                 </select>
             </div>
-
-            @* <div class="form-group mt-1">
-                <button id="attach-resource" class="btn btn-sm btn-outline-secondary">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-                <button id="detach-resource" class="btn btn-sm btn-outline-secondary">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
-            </div> *@
 
             <div class="text-center mt-4">
                 <a asp-action="" class="btn btn-outline-secondary">Отказ</a>
@@ -78,23 +56,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <partial name="_FontAwesomePartial" />
-    @* <script>
-        $('document').ready(() => {
-
-            $('#attach-file').click((e) => {
-                e.preventDefault()
-                let fileInput = $('<input/>', {
-                    name: 'Resources',
-                    type: 'file',
-                    class: 'form-control mt-1'
-                })
-                $('#resource-files').append(fileInput)
-            })
-
-            $('#detach-file').click((e) => {
-                e.preventDefault()
-                $('#resource-files').find('input:last').remove()
-            })
-        })
-    </script> *@
 }

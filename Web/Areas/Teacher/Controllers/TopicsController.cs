@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web.Extensions;
 
 namespace Web.Areas.Teacher.Controllers
@@ -34,7 +35,9 @@ namespace Web.Areas.Teacher.Controllers
         {
             TopicFormServiceModel model = new TopicFormServiceModel()
             {
-                Resources = await resourceService.GetAllByCreator(User.Id())
+                CreatorAllResources = await resourceService
+                .GetAllByCreator(User.Id())
+                .ToListAsync()
             };
 
             return View(model);
@@ -43,11 +46,11 @@ namespace Web.Areas.Teacher.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(TopicFormServiceModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            
+
             model.CreatorId = User.Id();
             await topicService.AddAsync(model);
 
@@ -58,7 +61,7 @@ namespace Web.Areas.Teacher.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var model = await topicService.GetByIdAsync(id);
-            if(model != null && model.CreatorId == User.Id())
+            if (model != null && model.CreatorId == User.Id())
             {
                 return View(model);
             }
@@ -71,7 +74,7 @@ namespace Web.Areas.Teacher.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(model.CreatorId == User.Id())
+                if (model.CreatorId == User.Id())
                 {
                     await topicService.UpdateAsync(model);
                     return RedirectToAction(nameof(Index));
@@ -80,20 +83,15 @@ namespace Web.Areas.Teacher.Controllers
                 return BadRequest();
             }
 
-            return View(model);           
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Topic(string id)
         {
-            var topic = await topicService.GetByIdAsync(id);
-            if(topic != null && topic.CreatorId == User.Id())
+            var model = await topicService.GetByIdAsync(id);
+            if (model != null && model.CreatorId == User.Id())
             {
-                var model = new TopicDetailsServiceModel()
-                {
-                    TopicDetails = topic,
-                };
-
                 return View(model);
             }
 
