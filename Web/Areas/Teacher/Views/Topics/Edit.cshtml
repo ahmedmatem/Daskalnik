@@ -45,12 +45,21 @@
                 <label asp-for="SelectedResources" class="form-label"></label>
                 @if (Model.AddedResources.Count() != 0)
                 {
-                    @foreach (var res in Model.AddedResources)
-                    {
-                        <div class="fw-light">
-                            @Html.Raw(ResourceIconRef[res.IconRef]) @res.TextToDisplay
-                        </div>
-                    }
+                    <div class="row mb-1">
+                        @foreach (var res in Model.AddedResources)
+                        {
+                            <div class="col-9">
+                                @Html.Raw(ResourceIconRef[res.IconRef])&nbsp;@res.TextToDisplay
+
+                            </div>
+                            <div class="col-3 text-end">
+                                <a asp-action="Delete" asp-route-id="@res.Id"
+                                   class="text-secondary" title="Изтрий">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </div>
+                        }
+                    </div>
                 }
                 <select asp-for="SelectedResources" class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
                     <option selected>Изберете ресурс ...</option>
