@@ -27,6 +27,7 @@ namespace Infrastructure.Data
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new GroupTypeConfiguration())
+                .ApplyConfiguration(new GroupTopicTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);
@@ -42,6 +43,8 @@ namespace Infrastructure.Data
         public DbSet<Group> Groups { get; set; } = null!;
 
         public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
+
+        public DbSet<GroupTopic> GroupsAndTopics { get; set; } = null!;
 
         public DbSet<Resource> Resources { get; set; } = null!;
 
