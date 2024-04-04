@@ -2,6 +2,8 @@
 using Core.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Web.Helpers;
 using Web.Extensions;
 
 namespace Web.Areas.Teacher.Controllers
@@ -11,15 +13,18 @@ namespace Web.Areas.Teacher.Controllers
         private readonly IAzureBlobService azureBlobService;
         private readonly ITopicService topicService;
         private readonly IResourceService resourceService;
+        private readonly ITopicResourceService topicResourceService;
 
         public TopicsController(
             IAzureBlobService _azureBlobService,
             ITopicService _topicService,
-            IResourceService _resourceService)
+            IResourceService _resourceService,
+            ITopicResourceService _topicResourceService)
         {
             azureBlobService = _azureBlobService;
             topicService = _topicService;
             resourceService = _resourceService;
+            topicResourceService = _topicResourceService;
         }
 
         [HttpGet]
@@ -96,6 +101,17 @@ namespace Web.Areas.Teacher.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> DeleteResourceFromTopicAjax(
+            string topicId,
+            string creatorId,
+            string resourceId)
+        {
+            await topicResourceService.DeleteAsync(topicId, resourceId);
+
+            return new JsonResult(new { success = true });
         }
     }
 }

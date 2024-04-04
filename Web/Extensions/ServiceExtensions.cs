@@ -18,6 +18,7 @@ namespace Web.Extensions
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<ITopicResourceService, TopicResourceService>();
 
             services.AddScoped<IAzureBlobService, AzureBlobService>();
 
