@@ -1,0 +1,37 @@
+﻿@model GroupServiceModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action=""><i class="fa-solid fa-arrow-left"></i> Всички мои групи</a>
+        </li>
+    </ol>
+</nav>
+
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-topics-tab" data-bs-toggle="tab" data-bs-target="#nav-topics" type="button" role="tab" aria-controls="nav-topics" aria-selected="true">Теми</button>
+        <button class="nav-link" id="nav-students-tab" data-bs-toggle="tab" data-bs-target="#nav-students" type="button" role="tab" aria-controls="nav-students" aria-selected="false">Уеници</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
+        @if (Model.GroupTopics != null)
+        {
+            <partial name="_GroupTopicsTabContentPartial" model="Model.GroupTopics" />
+        }
+    </div>
+    <div class="tab-pane fade" id="nav-students" role="tabpanel" aria-labelledby="nav-students-tab">
+        ... Ученици
+    </div>
+</div>
+
+
+<partial name="_ValidationScriptsPartial" />
+<partial name="_FontAwesomePartial" />

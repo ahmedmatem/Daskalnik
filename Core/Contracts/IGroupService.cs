@@ -1,4 +1,5 @@
 ﻿using Core.Models.Group;
+using Core.Models.GroupTopic;
 
 namespace Core.Contracts
 {
@@ -8,8 +9,10 @@ namespace Core.Contracts
 
         Task<int> GetGroupsCountInSchoolAsync(string schoolId);
 
-        Task AddAsync(GroupFormViewModel model);
+        Task AddAsync(GroupFormServiceModel model);
 
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
+
+        Task<GroupServiceModel?> GetByIdAsync(string id);
     }
 }

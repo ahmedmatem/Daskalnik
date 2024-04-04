@@ -1,5 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.Group;
+using Core.Models.GroupTopic;
+using Core.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
@@ -12,16 +14,18 @@ namespace Web.Areas.Teacher.Controllers
         private readonly IAzureBlobService blobService;
         private readonly ITeacherService teacherService;
         private readonly IGroupService groupService;
+        private readonly ITopicService topicService;
 
         public GroupsController(
             IAzureBlobService _blobService,
             ITeacherService _teacherService,
-            IGroupService _groupService)
+            IGroupService _groupService,
+            ITopicService _topicService)
         {
             blobService = _blobService;
             teacherService = _teacherService;
             groupService = _groupService;
-
+            topicService = _topicService;
         }
 
         public async Task<IActionResult> Index()
@@ -37,7 +41,7 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(GroupFormViewModel model, IFormFile postedFile)
+        public async Task<IActionResult> Add(GroupFormServiceModel model, IFormFile postedFile)
         {
             if (postedFile == null)
             {
@@ -58,13 +62,13 @@ namespace Web.Areas.Teacher.Controllers
             }
 
             if (!ModelState.IsValid)
-            {                
+            {
                 return View(model);
             }
 
             string blobName = postedFile!.GetRandomBlobName();
 
-            Infrastructure.Data.Models.Teacher? teacher = 
+            Infrastructure.Data.Models.Teacher? teacher =
                 await teacherService.GetByIdAsync(User.Id());
 
             model.TeacherId = teacher!.Id;
@@ -75,6 +79,29 @@ namespace Web.Areas.Teacher.Controllers
             await blobService.UploadFileAsync(postedFile!, blobName);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Group(string id)
+        {
+            var model = await groupService.GetByIdAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddTopicInGroup(string id)
+        {
+            //var allTeacherTopics = await topicService.GetAllTopicsByCreatorAsync(User.Id());
+            //var notAddedInGroupTopics = allTeacherTopics
+            //    .ExceptBy<TopicListItemServiceModel, string>(new List<string> { id }, x => x.Id);
+
+
+            return View();
         }
     }
 }
