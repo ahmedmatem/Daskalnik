@@ -22,6 +22,10 @@ namespace Web.Areas.SchoolAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             var teacher = await teacherService.GetByIdAsync(User.Id());
+            if(teacher == null)
+            {
+                return NotFound();
+            }
             var school = await schoolService.GetByIdAsync(teacher!.SchoolId);
             if(school == null)
             {
