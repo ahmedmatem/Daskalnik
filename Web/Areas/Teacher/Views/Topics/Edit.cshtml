@@ -24,10 +24,6 @@
 
 <div class="row justify-content-center">
     <div class="p-3 col-md-6">
-        <div id="alert-success" class="alert alert-primary" hidden role="alert">
-            @resourceDeletionSuccessMessage
-        </div>
-
         <form asp-action="Edit" method="post">
             <input type="hidden" name="CreatorId" value="@Model.CreatorId" />
             <div class="form-floating">
@@ -104,15 +100,11 @@
 
                 $.get("../DeleteResourceFromTopicAjax",
                     data, function (data) {
+                        // show success message
+                        message.success(data.message)
+
                         // remove resource from the list of added resources
                         $('#' + resourceId).remove()
-
-                        // show deletion success message
-                        $('#alert-success').fadeIn().removeAttr('hidden')
-                        // hide deletion message after 'successMessageDuration' ms
-                        setTimeout(() => {
-                            $('#alert-success').fadeOut()
-                        }, @successMessageDuration)
 
                         // append deleted resource as an option in the select element
                         let optionHTML = `

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
+using static Core.Constants.MessageConstants;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -45,6 +46,8 @@ namespace Web.Areas.Teacher.Controllers
 
             await resourceService.AddAsync(model);
 
+            TempData[MessageSuccess] = "Ресурсът е добавен успешно.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -70,6 +73,8 @@ namespace Web.Areas.Teacher.Controllers
             }
 
             await resourceService.UpdateAsync(model);
+
+            TempData[MessageSuccess] = "Ресурсът е променен успешно.";
 
             return RedirectToAction(nameof(Index));
         }

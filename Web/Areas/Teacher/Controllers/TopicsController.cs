@@ -2,9 +2,8 @@
 using Core.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Web.Helpers;
 using Web.Extensions;
+using static Core.Constants.MessageConstants;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -59,6 +58,8 @@ namespace Web.Areas.Teacher.Controllers
             model.CreatorId = User.Id();
             await topicService.AddAsync(model);
 
+            TempData[MessageSuccess] = "Темата е добавена успешно.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -82,6 +83,9 @@ namespace Web.Areas.Teacher.Controllers
                 if (model.CreatorId == User.Id())
                 {
                     await topicService.UpdateAsync(model);
+
+                    TempData[MessageSuccess] = "Темата е променена успешно.";
+
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -111,7 +115,7 @@ namespace Web.Areas.Teacher.Controllers
         {
             await topicResourceService.DeleteAsync(topicId, resourceId);
 
-            return new JsonResult(new { success = true });
+            return new JsonResult(new { message = "Ресурсът е премахнат успешно от темата." });
         }
     }
 }

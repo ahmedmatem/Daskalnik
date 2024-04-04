@@ -4,6 +4,7 @@ using Core.Models.Teacher;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static Core.Constants.MessageConstants;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -54,6 +55,8 @@ namespace Web.Areas.Admin.Controllers
 
             await schoolService.AddAsync(model);
 
+            TempData[MessageSuccess] = $"Училището е добавено успешно.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -84,6 +87,8 @@ namespace Web.Areas.Admin.Controllers
             var teacherId = model.TeacherId;
             
             await schoolService.TryAddSchoolAdminAsync(schoolId, teacherId);
+
+            TempData[MessageSuccess] = $"Училищният администратор е добавен успешно.";
 
             return RedirectToAction(nameof(Index));
         }
