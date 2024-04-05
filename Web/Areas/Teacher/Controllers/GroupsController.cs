@@ -1,11 +1,10 @@
 ﻿using Core.Contracts;
 using Core.Models.Group;
-using Core.Models.GroupTopic;
-using Core.Models.Topic;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
+using static Core.Constants.MessageConstants;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -57,7 +56,7 @@ namespace Web.Areas.Teacher.Controllers
                 if (postedFile.FileSizeValid(PostedFileMaxSizeInBytes) == false)
                 {
                     ModelState.AddModelError("IconUrl",
-                        string.Format(FileISizeErrorMessage, PostedFileMaxSizeInBytes));
+                        string.Format(FileISizeErrorMessage, PostedFileMaxSizeInBytes / 1024));
                 }
             }
 
@@ -77,6 +76,8 @@ namespace Web.Areas.Teacher.Controllers
 
             await groupService.AddAsync(model);
             await blobService.UploadFileAsync(postedFile!, blobName);
+
+            TempData[MessageSuccess] = "Групата е създадена успешно.";
 
             return RedirectToAction(nameof(Index));
         }
