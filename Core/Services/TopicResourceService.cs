@@ -8,10 +8,14 @@ namespace Core.Services
     public class TopicResourceService : ITopicResourceService
     {
         private readonly IRepository repository;
+        private readonly IResourceService resourceService;
 
-        public TopicResourceService(IRepository _repository)
+        public TopicResourceService(
+            IRepository _repository,
+            IResourceService _resourceService)
         {
             repository = _repository;
+            resourceService = _resourceService;
         }
 
         public async Task DeleteAsync(string topicId, string resourceId)

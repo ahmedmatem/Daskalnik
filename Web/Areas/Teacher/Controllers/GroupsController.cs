@@ -96,12 +96,7 @@ namespace Web.Areas.Teacher.Controllers
 
         [HttpGet]
         public async Task<IActionResult> AddTopicInGroup(string id)
-        {
-            //var allTeacherTopics = await topicService.GetAllTopicsByCreatorAsync(User.Id());
-            //var notAddedInGroupTopics = allTeacherTopics
-            //    .ExceptBy<TopicListItemServiceModel, string>(new List<string> { id }, x => x.Id);
-
-
+        {   
             return View();
         }
     }

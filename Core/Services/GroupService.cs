@@ -1,6 +1,8 @@
 ﻿using Core.Contracts;
 using Core.Models.Group;
 using Core.Models.GroupTopic;
+using Core.Models.Resource;
+using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,13 +13,16 @@ namespace Core.Services
     {
         private readonly IRepository repository;
         private readonly ITopicService topicService;
+        private readonly IResourceService resourceService;
 
         public GroupService(
             IRepository _repository,
-            ITopicService _topicService)
+            ITopicService _topicService,
+            IResourceService _resourceService)
         {
             repository = _repository;
             topicService = _topicService;
+            resourceService = _resourceService;
         }
 
         public async Task AddAsync(GroupFormServiceModel model)
@@ -53,11 +58,13 @@ namespace Core.Services
 
         public async Task<GroupServiceModel?> GetByIdAsync(string id)
         {
+            IEnumerable<Resource> resourcesInGroupByTopics = new List<Resource>();
+
             return await repository.All<Group>()
                 .Where(g => !g.IsDeleted && g.Id == id)
                 .Select(g => new GroupServiceModel()
                 {
-                    Id = id,
+                    Id = g.Id,
                     ShortName = g.ShortName,
                     Name = g.Name,
                     Description = g.Description,
@@ -67,7 +74,22 @@ namespace Core.Services
                     GroupTopics = new GroupTopicsModel()
                     {
                         GroupId = g.Id,
-                        Topics = g.Topics
+                        Topics = g.Topics.Select(t => new TopicListItemInGroupServiceModel()
+                        {
+                            GroupId = g.Id,
+                            Contents = t.Contents,
+                            CreatorId = t.CreatorId,
+                            //Resources = resourceService.GetAllByIds(t.Resources.Select(tr => tr.ResourceId).ToList())
+                            //.Select(r => new ResourceServiceModel()
+                            //{
+                            //    Id = r.Id,
+                            //    Link = r.Link,
+                            //    TextToDisplay = r.TextToDisplay,
+                            //    IconRef = r.IconRef,
+                            //    CreatorId = r.CreatorId,
+                            //})
+                            //.ToList()
+                        })
                     }
                 })
                 .FirstOrDefaultAsync();

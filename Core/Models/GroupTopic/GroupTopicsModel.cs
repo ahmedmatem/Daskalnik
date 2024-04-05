@@ -1,4 +1,5 @@
-﻿using TopicModel = Infrastructure.Data.Models.Topic;
+﻿using Core.Models.Topic;
+using TopicModel = Infrastructure.Data.Models.Topic;
 
 namespace Core.Models.GroupTopic
 {
@@ -12,6 +13,7 @@ namespace Core.Models.GroupTopic
         /// <summary>
         /// Topics in the group
         /// </summary>
-        public IEnumerable<TopicModel> Topics { get; set; } = new List<TopicModel>();
+        public IEnumerable<TopicListItemInGroupServiceModel> Topics { get; set; } 
+            = new List<TopicListItemInGroupServiceModel>();
     }
 }
