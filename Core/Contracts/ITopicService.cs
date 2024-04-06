@@ -1,4 +1,5 @@
 ﻿using Core.Models.Topic;
+using Infrastructure.Data.Models;
 
 namespace Core.Contracts
 {
