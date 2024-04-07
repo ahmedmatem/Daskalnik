@@ -8,8 +8,6 @@
         Model.CreatorAllResources.ExceptBy<ResourceServiceModel, string>(
             Model.AddedResources.Select(x => x.Id),
             x => x.Id);
-    string resourceDeletionSuccessMessage = "Ресурсът беше изтрит успешно.";
-    long successMessageDuration = 3000;
 }
 
 <nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">

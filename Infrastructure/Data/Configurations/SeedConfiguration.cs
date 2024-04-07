@@ -73,7 +73,6 @@ namespace Infrastructure.Data.Configurations
                 NormalizedUserName = "ADMIN@GMAIL.COM"
             };
             admin.PasswordHash = passwordHasher.HashPassword(admin, "adminPass");
-            // TODO: Add role Admin to admin
 
             return admin;
         }

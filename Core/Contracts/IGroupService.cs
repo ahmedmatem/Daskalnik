@@ -13,6 +13,6 @@ namespace Core.Contracts
 
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
 
-        Task<GroupServiceModel?> GetByIdAsync(string id);
+        Task<GroupServiceModel?> GetByIdAsync(string groupId);
     }
 }

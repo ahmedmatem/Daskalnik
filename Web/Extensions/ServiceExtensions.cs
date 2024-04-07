@@ -15,7 +15,6 @@ namespace Web.Extensions
             services.AddScoped<ISchoolService, SchoolService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IGroupService, GroupService>();
-            services.AddScoped<IGroupTopicService, GroupTopicService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IResourceService, ResourceService>();

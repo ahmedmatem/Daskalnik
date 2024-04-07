@@ -1,5 +1,4 @@
 ﻿using Core.Models.Topic;
-using TopicModel = Infrastructure.Data.Models.Topic;
 
 namespace Core.Models.GroupTopic
 {

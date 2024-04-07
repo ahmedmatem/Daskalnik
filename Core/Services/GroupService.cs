@@ -14,15 +14,18 @@ namespace Core.Services
         private readonly IRepository repository;
         private readonly ITopicService topicService;
         private readonly IResourceService resourceService;
+        private readonly ITopicResourceService topicResourceService;
 
         public GroupService(
             IRepository _repository,
             ITopicService _topicService,
-            IResourceService _resourceService)
+            IResourceService _resourceService,
+            ITopicResourceService _topicResourceService)
         {
             repository = _repository;
             topicService = _topicService;
             resourceService = _resourceService;
+            topicResourceService = _topicResourceService;
         }
 
         public async Task AddAsync(GroupFormServiceModel model)
@@ -56,12 +59,12 @@ namespace Core.Services
                 .ToListAsync();
         }
 
-        public async Task<GroupServiceModel?> GetByIdAsync(string id)
+        public async Task<GroupServiceModel?> GetByIdAsync(string groupId)
         {
-            IEnumerable<Resource> resourcesInGroupByTopics = new List<Resource>();
+            var topicResources = repository.All<TopicResource>();
 
             return await repository.All<Group>()
-                .Where(g => !g.IsDeleted && g.Id == id)
+                .Where(g => !g.IsDeleted && g.Id == groupId)
                 .Select(g => new GroupServiceModel()
                 {
                     Id = g.Id,
@@ -74,21 +77,29 @@ namespace Core.Services
                     GroupTopics = new GroupTopicsModel()
                     {
                         GroupId = g.Id,
-                        Topics = g.Topics.Select(t => new TopicListItemInGroupServiceModel()
+                        Topics = g.Topics
+                        .Where(t => !t.IsDeleted)
+                        .Select(t => new TopicListItemInGroupServiceModel()
                         {
                             GroupId = g.Id,
                             Contents = t.Contents,
                             CreatorId = t.CreatorId,
-                            //Resources = resourceService.GetAllByIds(t.Resources.Select(tr => tr.ResourceId).ToList())
-                            //.Select(r => new ResourceServiceModel()
-                            //{
-                            //    Id = r.Id,
-                            //    Link = r.Link,
-                            //    TextToDisplay = r.TextToDisplay,
-                            //    IconRef = r.IconRef,
-                            //    CreatorId = r.CreatorId,
-                            //})
-                            //.ToList()
+                            Resources = repository.All<Resource>()
+                            .Where(r => r.CreatorId == t.CreatorId && !r.IsDeleted)
+                            .Join(repository.All<TopicResource>(), ar => ar.Id, atr => atr.ResourceId,
+                            (ar, atr) => new { 
+                                AllResources = ar,
+                                AllTopoicResources = atr
+                            })
+                            .Where(x => x.AllTopoicResources.TopicId == t.Id)
+                            .Select(x => new ResourceServiceModel()
+                            {
+                                Id = x.AllResources.Id,
+                                Link = x.AllResources.Link,
+                                TextToDisplay = x.AllResources.TextToDisplay,
+                                IconRef = x.AllResources.IconRef,
+                                CreatorId = t.CreatorId
+                            })
                         })
                     }
                 })

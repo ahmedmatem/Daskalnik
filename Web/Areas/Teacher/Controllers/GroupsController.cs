@@ -5,6 +5,7 @@ using Web.Extensions;
 using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 using static Core.Constants.MessageConstants;
+using Core.Models.GroupTopic;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -40,7 +41,9 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(GroupFormServiceModel model, IFormFile postedFile)
+        public async Task<IActionResult> Add(
+            GroupFormServiceModel model, 
+            IFormFile postedFile)
         {
             if (postedFile == null)
             {
@@ -96,7 +99,16 @@ namespace Web.Areas.Teacher.Controllers
 
         [HttpGet]
         public async Task<IActionResult> AddTopicInGroup(string id)
-        {   
+        {
+            var model = await topicService
+                .GetAllCreatorTopicsExcludedFromGroupAsync(id, User.Id());
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddTopicInGroup(GroupTopicSelectFormServiceModel model)
+        {
             return View();
         }
     }

@@ -1,9 +1,10 @@
-﻿using Core.Models.Topic;
+﻿using Core.Models.Common;
+using Core.Models.Topic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.Models.GroupTopic
 {
-    public class GroupTopicFormServiceModel
+    public class GroupTopicSelectFormServiceModel
     {
         /// <summary>
         /// Unique group identifier.
@@ -18,14 +19,9 @@ namespace Core.Models.GroupTopic
 
         /// <summary>
         /// Contains all topics belonging to a teacher could be added to its group.
+        /// It does not contain already added topics in the group.
         /// </summary>
-        public IEnumerable<TopicListItemServiceModel> NotAddedTopics { get; set; } 
-            = new HashSet<TopicListItemServiceModel>();
-
-        /// <summary>
-        /// Contains id of the topic selected from topic list.
-        /// </summary>
-        [Display(Name = "Моите теми")]
-        public string SelectedTopicId { get; set; } = string.Empty;
+        public IList<CheckBoxModel> TopicsListToAdd { get; set; } 
+            = new List<CheckBoxModel>();
     }
 }

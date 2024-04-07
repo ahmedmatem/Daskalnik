@@ -1,4 +1,6 @@
 ﻿using Core.Contracts;
+using Core.Models.Common;
+using Core.Models.GroupTopic;
 using Core.Models.Resource;
 using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
@@ -44,7 +46,38 @@ namespace Core.Services
             await repository.SaveChangesAsync<Topic>();
         }
 
-        public async Task<IEnumerable<TopicListItemServiceModel>> GetAllTopicsByCreatorAsync(string creatorId)
+        public async Task<GroupTopicSelectFormServiceModel>
+            GetAllCreatorTopicsExcludedFromGroupAsync(string groupId, string creatorId)
+        {
+            var topicsByCreator = await repository.All<Topic>()
+                .Where(t => !t.IsDeleted && t.CreatorId == creatorId)
+                .Select(t => new CheckBoxModel()
+                {
+                    Key = t.Id,
+                    Value = t.Name
+                })
+                .ToListAsync();
+
+            var group = await repository.GetByIdAsync<Group>(groupId);
+
+            IEnumerable<CheckBoxModel> topicsListToAdd = new List<CheckBoxModel>();
+            if (group != null)
+            {
+                // Excluding all topics that are already in the group
+                topicsListToAdd = topicsByCreator
+                    .ExceptBy(group.Topics.Select(x => x.Id), x => x.Key);
+            }
+
+            return new GroupTopicSelectFormServiceModel()
+            {
+                GroupId = groupId,
+                GroupName = group?.Name ?? string.Empty,
+                TopicsListToAdd = topicsByCreator
+            };
+        }
+
+        public async Task<IEnumerable<TopicListItemServiceModel>>
+            GetAllTopicsByCreatorAsync(string creatorId)
         {
             return await repository.AllReadOnly<Topic>()
                 .Where(t => t.CreatorId == creatorId && !t.IsDeleted)
@@ -52,7 +85,7 @@ namespace Core.Services
                 {
                     Id = t.Id,
                     Name = t.Name,
-                    Description= t.Description,
+                    Description = t.Description,
                 })
                 .OrderBy(tl => tl.Name)
                 .ToListAsync();
@@ -88,7 +121,8 @@ namespace Core.Services
         public async Task UpdateAsync(TopicFormServiceModel model)
         {
             var topic = await repository.GetByIdAsync<Topic>(model.Id);
-            var newTopicResources = await resourceService.GetAllByIds(model.SelectedResources)
+            var newTopicResources = await resourceService
+                .GetAllByIds(model.SelectedResources)
                 .Select(sr => new TopicResource()
                 {
                     ResourceId = sr.Id,
@@ -105,7 +139,7 @@ namespace Core.Services
 
                 repository.Update(topic);
                 await repository.SaveChangesAsync<Topic>();
-            }            
+            }
         }
     }
 }

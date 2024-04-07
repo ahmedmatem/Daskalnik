@@ -1,5 +1,5 @@
-﻿using Core.Models.Topic;
-using Infrastructure.Data.Models;
+﻿using Core.Models.GroupTopic;
+using Core.Models.Topic;
 
 namespace Core.Contracts
 {
@@ -12,5 +12,7 @@ namespace Core.Contracts
         Task AddAsync(TopicFormServiceModel model);
 
         Task UpdateAsync(TopicFormServiceModel model);
+
+        Task<GroupTopicSelectFormServiceModel> GetAllCreatorTopicsExcludedFromGroupAsync(string groupId, string creatorID);
     }
 }
