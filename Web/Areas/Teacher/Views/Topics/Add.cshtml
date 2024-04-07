@@ -35,7 +35,7 @@
             </div>
 
             <div class ="form-group mt-3">
-                <label asp-for="SelectedResources" class="form-label">Resources</label>
+                <label asp-for="SelectedResources" class="form-label"></label>
                 <select asp-for="SelectedResources" class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
                     <option selected>Изберете ресурс ...</option>
                     @foreach (var res in Model.CreatorAllResources)
