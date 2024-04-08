@@ -44,21 +44,33 @@ namespace Core.Services
             await repository.SaveChangesAsync<Group>();
         }
 
-        public async Task AddTopicsInGroupAsync(
-            string groupId, IEnumerable<string> topicIds)
+        public async Task AddTopicsInGroupAsync( 
+            string groupId, 
+            IEnumerable<string> topicsIds)
         {
-            IEnumerable<GroupTopic> groupTopics = topicIds
-                .Select(tId => new GroupTopic
-                {
-                    GroupId = groupId,
-                    TopicId = tId
-                });
+            var group = await repository.GetByIdAsync<Group>(groupId);
 
-            await repository.AddRangeAsync(groupTopics);
-            await repository.SaveChangesAsync<GroupTopic>();
+            ICollection<Topic> topics = new List<Topic>();
+            foreach (var id in topicsIds)
+            {
+                var topic = await repository.GetByIdAsync<Topic>(id);
+                if(topic != null)
+                {
+                    topics.Add(topic);
+                }
+            }
+
+            if (group != null)
+            {
+                group.Topics.AddRange(topics);
+
+                repository.Update(group);
+                await repository.SaveChangesAsync<Group>();
+            }
         }
 
-        public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId)
+        public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(
+            string teacherId)
         {
             return await repository
                 .All<Group>()
