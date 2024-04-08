@@ -44,8 +44,6 @@ namespace Infrastructure.Data
 
         public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
 
-        public DbSet<GroupTopic> GroupsAndTopics { get; set; } = null!;
-
         public DbSet<Resource> Resources { get; set; } = null!;
 
         public DbSet<School> Schools { get; set; } = null!;
