@@ -116,7 +116,8 @@ namespace Web.Areas.Teacher.Controllers
 
             if (selectedTopicsids.Any())
             {
-                await groupService.AddTopicsInGroupAsync(model.GroupId, selectedTopicsids);
+                await groupService.AddTopicsInGroupAsync(
+                    model.GroupId, selectedTopicsids);
             }
 
             return RedirectToAction(nameof(Group), new { id = model.GroupId });

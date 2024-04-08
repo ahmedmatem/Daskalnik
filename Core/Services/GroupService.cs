@@ -107,6 +107,8 @@ namespace Core.Services
                         .Where(t => !t.IsDeleted)
                         .Select(t => new TopicListItemInGroupServiceModel()
                         {
+                            TopicId = t.Id,
+                            Name = t.Name,
                             GroupId = g.Id,
                             Contents = t.Contents,
                             CreatorId = t.CreatorId,

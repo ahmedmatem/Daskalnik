@@ -8,6 +8,16 @@ namespace Core.Models.Topic
     public class TopicListItemInGroupServiceModel
     {
         /// <summary>
+        /// Topic unique identifier.
+        /// </summary>
+        public string TopicId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Topic name.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
         /// Unique group identifier
         /// </summary>
         public string GroupId { get; set; } = string.Empty;

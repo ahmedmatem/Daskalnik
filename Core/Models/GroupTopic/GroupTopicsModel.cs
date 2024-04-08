@@ -1,4 +1,5 @@
 ﻿using Core.Models.Topic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Models.GroupTopic
 {
@@ -12,6 +13,7 @@ namespace Core.Models.GroupTopic
         /// <summary>
         /// Topics in the group
         /// </summary>
+        [Display(Name = "Съдържание")]
         public IEnumerable<TopicListItemInGroupServiceModel> Topics { get; set; } 
             = new List<TopicListItemInGroupServiceModel>();
     }
