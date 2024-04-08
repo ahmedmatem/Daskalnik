@@ -58,7 +58,10 @@ namespace Core.Services
                 })
                 .ToListAsync();
 
-            var group = await repository.GetByIdAsync<Group>(groupId);
+            var group = await repository.All<Group>()
+                .Where(g => g.Id == groupId)
+                .Include(g => g.Topics)
+                .FirstAsync();
 
             IEnumerable<CheckBoxModel> topicsListToAdd = new List<CheckBoxModel>();
             if (group != null)
@@ -72,7 +75,7 @@ namespace Core.Services
             {
                 GroupId = groupId,
                 GroupName = group?.Name ?? string.Empty,
-                TopicsListToAdd = topicsByCreator
+                TopicsListToAdd = topicsListToAdd.ToList()
             };
         }
 

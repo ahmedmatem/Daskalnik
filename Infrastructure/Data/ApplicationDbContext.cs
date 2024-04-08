@@ -27,7 +27,6 @@ namespace Infrastructure.Data
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new GroupTypeConfiguration())
-                .ApplyConfiguration(new GroupTopicTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);
