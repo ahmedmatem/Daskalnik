@@ -42,7 +42,7 @@ namespace Web.Areas.Teacher.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Add(
-            GroupFormServiceModel model, 
+            GroupFormServiceModel model,
             IFormFile postedFile)
         {
             if (postedFile == null)
@@ -107,9 +107,18 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddTopicInGroup(GroupTopicSelectFormServiceModel model)
+        public async Task<IActionResult> AddTopicInGroup(GroupTopicSelectFormServiceModel model)
         {
-            return View();
+            IEnumerable<string> selectedTopicsids = model.TopicsListToAdd
+                .Where(t => t.IsChecked)
+                .Select(t => t.Key);
+
+            if (selectedTopicsids.Any())
+            {
+                await groupService.AddTopicsInGroupAsync(model.GroupId, selectedTopicsids);
+            }
+
+            return RedirectToAction(nameof(Group), new { id = model.GroupId });
         }
     }
 }

@@ -40,4 +40,4 @@ const message = function () {
     }
 
     return { success, error, info, warning }
-}();
+}()
