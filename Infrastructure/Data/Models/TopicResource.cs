@@ -18,10 +18,8 @@ namespace Infrastructure.Data.Models
         [Required]
         public string TopicId { get; set; } = string.Empty;
 
-        [ForeignKey("TopicId")]
         public Topic Topic { get; set; } = null!;
 
-        [ForeignKey("ResourceId")]
         public Resource Resource { get; set; } = null!;
     }
 }
