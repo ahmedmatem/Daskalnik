@@ -14,5 +14,7 @@ namespace Core.Contracts
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
 
         Task<GroupServiceModel?> GetByIdAsync(string groupId);
+
+        Task AddTopicsInGroupAsync(string groupId, IEnumerable<string> topicIds);
     }
 }

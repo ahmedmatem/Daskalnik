@@ -44,6 +44,20 @@ namespace Core.Services
             await repository.SaveChangesAsync<Group>();
         }
 
+        public async Task AddTopicsInGroupAsync(
+            string groupId, IEnumerable<string> topicIds)
+        {
+            IEnumerable<GroupTopic> groupTopics = topicIds
+                .Select(tId => new GroupTopic
+                {
+                    GroupId = groupId,
+                    TopicId = tId
+                });
+
+            await repository.AddRangeAsync(groupTopics);
+            await repository.SaveChangesAsync<GroupTopic>();
+        }
+
         public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId)
         {
             return await repository
@@ -87,7 +101,8 @@ namespace Core.Services
                             Resources = repository.All<Resource>()
                             .Where(r => r.CreatorId == t.CreatorId && !r.IsDeleted)
                             .Join(repository.All<TopicResource>(), ar => ar.Id, atr => atr.ResourceId,
-                            (ar, atr) => new { 
+                            (ar, atr) => new
+                            {
                                 AllResources = ar,
                                 AllTopoicResources = atr
                             })

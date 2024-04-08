@@ -30,6 +30,8 @@ namespace Infrastructure.Data.DataRepository
 
         Task AddAsync<T>(T entity) where T : class;
 
+        Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class;
+
         /// <summary>
         /// Updates a record in database
         /// </summary>

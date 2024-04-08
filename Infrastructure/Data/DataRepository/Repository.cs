@@ -56,6 +56,11 @@ namespace Infrastructure.Data.DataRepository
             await context.AddAsync<T>(entity);
         }
 
+        public async Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class
+        {
+            await DbSet<T>().AddRangeAsync(entities);
+        }
+
         /// <summary>
         /// Updates a record in database
         /// </summary>
