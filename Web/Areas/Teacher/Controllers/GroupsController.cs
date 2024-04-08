@@ -107,7 +107,8 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTopicInGroup(GroupTopicSelectFormServiceModel model)
+        public async Task<IActionResult> AddTopicInGroup(
+            GroupTopicSelectFormServiceModel model)
         {
             IEnumerable<string> selectedTopicsids = model.TopicsListToAdd
                 .Where(t => t.IsChecked)
