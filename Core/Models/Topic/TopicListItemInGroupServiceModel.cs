@@ -18,6 +18,11 @@ namespace Core.Models.Topic
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
+        /// Topic description.
+        /// </summary>
+        public string Description { get; set; } = string.Empty;
+
+        /// <summary>
         /// Unique group identifier
         /// </summary>
         public string GroupId { get; set; } = string.Empty;

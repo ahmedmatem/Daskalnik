@@ -6,22 +6,26 @@ using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Services
 {
     public class GroupService : IGroupService
     {
+        private readonly ILogger<GroupService> logger;
         private readonly IRepository repository;
         private readonly ITopicService topicService;
         private readonly IResourceService resourceService;
         private readonly ITopicResourceService topicResourceService;
 
         public GroupService(
+            ILogger<GroupService> _logger,
             IRepository _repository,
             ITopicService _topicService,
             IResourceService _resourceService,
             ITopicResourceService _topicResourceService)
         {
+            logger = _logger;
             repository = _repository;
             topicService = _topicService;
             resourceService = _resourceService;
@@ -108,6 +112,7 @@ namespace Core.Services
                         .Select(t => new TopicListItemInGroupServiceModel()
                         {
                             TopicId = t.Id,
+                            Description = t.Description,
                             Name = t.Name,
                             GroupId = g.Id,
                             Contents = t.Contents,
@@ -150,6 +155,30 @@ namespace Core.Services
                 .Where(g => g.SchoolId == schoolId && !g.IsDeleted)
                 .CountAsync();
 
+        }
+
+        public async Task<bool> RemoveTopicFromGroupAsync(string topicId, string groupId)
+        {
+            var group = await repository.All<Group>()
+                .Where(g => g.Id == groupId)
+                .Include(g => g.Topics)
+                .FirstOrDefaultAsync();
+
+            if(group != null)
+            {
+                var removedTopicsNumber = group.Topics.RemoveAll(t => t.Id == topicId);
+                if(removedTopicsNumber > 0)
+                {
+                    repository.Update(group);
+                    await repository.SaveChangesAsync<Group>();
+
+                    return true;
+                }
+            }
+
+            logger.LogWarning("Group with id: {groupId} was not found.", groupId);
+
+            return false;
         }
     }
 }

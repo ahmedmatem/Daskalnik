@@ -110,17 +110,43 @@ namespace Web.Areas.Teacher.Controllers
         public async Task<IActionResult> AddTopicInGroup(
             GroupTopicSelectFormServiceModel model)
         {
-            IEnumerable<string> selectedTopicsids = model.TopicsListToAdd
+            IEnumerable<string> selectedTopicsIds = model.TopicsListToAdd
                 .Where(t => t.IsChecked)
                 .Select(t => t.Key);
 
-            if (selectedTopicsids.Any())
+            if (selectedTopicsIds.Any())
             {
                 await groupService.AddTopicsInGroupAsync(
-                    model.GroupId, selectedTopicsids);
+                    model.GroupId, selectedTopicsIds);
+            }
+
+            if (selectedTopicsIds.Count() > 1)
+            {
+                TempData[MessageSuccess] = "Темите бяха добавени успешно";
+            }
+            else
+            {
+                TempData[MessageSuccess] = "Темата беше добавена успешно";
             }
 
             return RedirectToAction(nameof(Group), new { id = model.GroupId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveTopicFromGroup(string groupId, string topicId)
+        {
+            var succes = await groupService.RemoveTopicFromGroupAsync(topicId, groupId);
+
+            if(succes)
+            {
+                TempData[MessageSuccess] = "Темата беше премахната успешно";
+            }
+            else
+            {
+                TempData[MessageError] = "Възникна грешка при опит за изтриване на темата.";
+            }
+            
+            return RedirectToAction(nameof(Group), new { id = groupId });
         }
     }
 }

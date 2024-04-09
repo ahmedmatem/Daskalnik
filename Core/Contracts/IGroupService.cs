@@ -16,5 +16,7 @@ namespace Core.Contracts
         Task<GroupServiceModel?> GetByIdAsync(string groupId);
 
         Task AddTopicsInGroupAsync(string groupId, IEnumerable<string> topicIds);
+
+        Task<bool> RemoveTopicFromGroupAsync(string topicId, string groupId);
     }
 }
