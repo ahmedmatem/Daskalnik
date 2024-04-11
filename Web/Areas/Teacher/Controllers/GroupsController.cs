@@ -7,6 +7,7 @@ using static Infrastructure.Data.ErrorMessages;
 using static Core.Constants.MessageConstants;
 using Core.Models.GroupTopic;
 using System.Security.Claims;
+using Infrastructure.Data.Models;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -137,17 +138,18 @@ namespace Web.Areas.Teacher.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemoveTopicFromGroup(string groupId, string topicId)
+        public async Task<IActionResult> RemoveTopicFromGroup(
+            string groupId, string topicId)
         {
             var succes = await groupService.RemoveTopicFromGroupAsync(topicId, groupId);
 
             if(succes)
             {
-                TempData[MessageSuccess] = "Темата беше премахната успешно";
+                TempData[MessageSuccess] = "Темата беше премахната успешно.";
             }
             else
             {
-                TempData[MessageError] = "Възникна грешка при опит за изтриване на темата.";
+                TempData[MessageError] = "Възникна грешка при премахване на темата.";
             }
             
             return RedirectToAction(nameof(Group), new { id = groupId });
@@ -160,6 +162,24 @@ namespace Web.Areas.Teacher.Controllers
                 .GettAllStudentsInSchoolExcludedFromGroupAsync(id, User.Id());
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveStudentFromGroup(
+            string groupId, string studentId)
+        {
+            var succes = await groupService.RemoveStudentFromGroupAsync(studentId, groupId);
+
+            if (succes)
+            {
+                TempData[MessageSuccess] = "Ученикът беше премахнат успешно.";
+            }
+            else
+            {
+                TempData[MessageError] = "Възникна грешка при премахване на ученика.";
+            }
+
+            return RedirectToAction(nameof(Group), new { id = groupId });
         }
     }
 }

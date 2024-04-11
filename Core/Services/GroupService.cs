@@ -186,6 +186,23 @@ namespace Core.Services
 
         }
 
+        public async Task<bool> RemoveStudentFromGroupAsync(string studentId, string groupId)
+        {
+            var studentInGroup = await repository.GetByIdAsync<GroupStudent>(
+                new string[] { groupId, studentId });
+
+            if(studentInGroup != null)
+            {
+                repository.Delete<GroupStudent>(studentInGroup);
+                await repository.SaveChangesAsync<GroupStudent>();
+                return true;
+            }
+
+            logger.LogWarning("Student with id: {studentId} was not found in Group with id: {groupId}.", studentId, groupId);
+
+            return false;
+        }
+
         public async Task<bool> RemoveTopicFromGroupAsync(string topicId, string groupId)
         {
             var group = await repository.All<Group>()

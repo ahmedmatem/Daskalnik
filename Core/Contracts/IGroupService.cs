@@ -18,5 +18,7 @@ namespace Core.Contracts
         Task AddTopicsInGroupAsync(string groupId, IEnumerable<string> topicIds);
 
         Task<bool> RemoveTopicFromGroupAsync(string topicId, string groupId);
+
+        Task<bool> RemoveStudentFromGroupAsync(string studentId, string groupId);
     }
 }
