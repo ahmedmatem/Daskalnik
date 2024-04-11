@@ -49,6 +49,40 @@ namespace Core.Services
             await repository.SaveChangesAsync<Group>();
         }
 
+        public async Task AddStudentsInGroupAsync(string groupId, IEnumerable<string> studentIds)
+        {
+            var group = await repository.GetByIdAsync<Group>(groupId);
+
+            ICollection<Student> students = new List<Student>();
+            ICollection<GroupStudent> studentsInGroup = new List<GroupStudent>();
+
+            if (group != null)
+            {
+                foreach (var id in studentIds)
+                {
+                    var student = await repository.GetByIdAsync<Student>(id);
+                    if (student != null)
+                    {
+                        // Activate student during adding it in the group.
+                        student.IsActivated = true;
+                        students.Add(student);
+
+                        studentsInGroup.Add(new GroupStudent
+                        {
+                            GroupId = groupId,
+                            StudentId = student.Id
+                        });
+                    }
+                }
+
+                repository.UpdateRange(students);
+                await repository.SaveChangesAsync<Student>();
+
+                await repository.AddRangeAsync(studentsInGroup);
+                await repository.SaveChangesAsync<Group>();
+            }
+        }
+
         public async Task AddTopicsInGroupAsync(
             string groupId,
             IEnumerable<string> topicsIds)
@@ -151,6 +185,7 @@ namespace Core.Services
                                 StudentId = identityStudentId,
                                 GroupId = groupStudent.GroupId,
                             })
+                        .Where(gs => gs.GroupId == groupId)
                         .Join(
                             repository.All<Student>().Include(s => s.School),
                             gs => gs.StudentId, student => student.Id,
@@ -191,7 +226,7 @@ namespace Core.Services
             var studentInGroup = await repository.GetByIdAsync<GroupStudent>(
                 new string[] { groupId, studentId });
 
-            if(studentInGroup != null)
+            if (studentInGroup != null)
             {
                 repository.Delete<GroupStudent>(studentInGroup);
                 await repository.SaveChangesAsync<GroupStudent>();

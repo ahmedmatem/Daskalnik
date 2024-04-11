@@ -8,6 +8,7 @@ using static Core.Constants.MessageConstants;
 using Core.Models.GroupTopic;
 using System.Security.Claims;
 using Infrastructure.Data.Models;
+using Core.Models.GroupStudent;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -127,11 +128,11 @@ namespace Web.Areas.Teacher.Controllers
 
             if (selectedTopicsIds.Count() > 1)
             {
-                TempData[MessageSuccess] = "Темите бяха добавени успешно";
+                TempData[MessageSuccess] = "Темите бяха добавени успешно.";
             }
             else
             {
-                TempData[MessageSuccess] = "Темата беше добавена успешно";
+                TempData[MessageSuccess] = "Темата беше добавена успешно.";
             }
 
             return RedirectToAction(nameof(Group), new { id = model.GroupId });
@@ -162,6 +163,31 @@ namespace Web.Areas.Teacher.Controllers
                 .GettAllStudentsInSchoolExcludedFromGroupAsync(id, User.Id());
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStudentInGroup(GroupStudentSelectFormServiceModel model)
+        {
+            IEnumerable<string> selectedStudentsIds = model.StudentsListToAdd
+                .Where(t => t.IsChecked)
+                .Select(t => t.Key);
+
+            if (selectedStudentsIds.Any())
+            {
+                await groupService.AddStudentsInGroupAsync(
+                    model.GroupId, selectedStudentsIds);
+            }
+
+            if (selectedStudentsIds.Count() > 1)
+            {
+                TempData[MessageSuccess] = "Учениците бяха добавени успешно.";
+            }
+            else
+            {
+                TempData[MessageSuccess] = "Ученикът беше добавен успешно.";
+            }
+
+            return RedirectToAction(nameof(Group), new { id = model.GroupId });
         }
 
         [HttpGet]
