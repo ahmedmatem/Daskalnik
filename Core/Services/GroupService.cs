@@ -2,6 +2,7 @@
 using Core.Models.Group;
 using Core.Models.GroupTopic;
 using Core.Models.Resource;
+using Core.Models.Student;
 using Core.Models.Topic;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
@@ -48,8 +49,8 @@ namespace Core.Services
             await repository.SaveChangesAsync<Group>();
         }
 
-        public async Task AddTopicsInGroupAsync( 
-            string groupId, 
+        public async Task AddTopicsInGroupAsync(
+            string groupId,
             IEnumerable<string> topicsIds)
         {
             var group = await repository.GetByIdAsync<Group>(groupId);
@@ -58,7 +59,7 @@ namespace Core.Services
             foreach (var id in topicsIds)
             {
                 var topic = await repository.GetByIdAsync<Topic>(id);
-                if(topic != null)
+                if (topic != null)
                 {
                     topics.Add(topic);
                 }
@@ -135,6 +136,34 @@ namespace Core.Services
                                 CreatorId = t.CreatorId
                             })
                         })
+                    },
+                    GroupStudents = new GroupStudentsModel
+                    {
+                        GroupId = groupId,
+                        Students = repository.All<Student>()
+                        .Select(identityStudent => identityStudent.Id)
+                        .Join(
+                            repository.All<GroupStudent>(),
+                            identityStudentId => identityStudentId,
+                            groupStudent => groupStudent.StudentId,
+                            (identityStudentId, groupStudent) => new GroupStudent
+                            {
+                                StudentId = identityStudentId,
+                                GroupId = groupStudent.GroupId,
+                            })
+                        .Join(
+                            repository.All<Student>().Include(s => s.School),
+                            gs => gs.StudentId, student => student.Id,
+                            (gs, student) => student)
+                        .Where(s => s.IsActivated && !s.IsDeleted)
+                        .OrderBy(s => s.FullName)
+                        .Select(s => new StudentListItemInGroupServiceModel()
+                        {
+                            StudentId = s.Id,
+                            FullName = s.FullName,
+                            School = s.School
+                        })
+                        .ToList()
                     }
                 })
                 .FirstOrDefaultAsync();
@@ -164,10 +193,10 @@ namespace Core.Services
                 .Include(g => g.Topics)
                 .FirstOrDefaultAsync();
 
-            if(group != null)
+            if (group != null)
             {
                 var removedTopicsNumber = group.Topics.RemoveAll(t => t.Id == topicId);
-                if(removedTopicsNumber > 0)
+                if (removedTopicsNumber > 0)
                 {
                     repository.Update(group);
                     await repository.SaveChangesAsync<Group>();

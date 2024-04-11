@@ -28,7 +28,10 @@
         }
     </div>
     <div class="tab-pane fade" id="nav-students" role="tabpanel" aria-labelledby="nav-students-tab">
-        ... Ученици
+        @if(Model.GroupTopics != null)
+        {
+            <partial name="_GroupStudentsTabContentPartial" model="Model.GroupStudents" />
+        }
     </div>
 </div>
 

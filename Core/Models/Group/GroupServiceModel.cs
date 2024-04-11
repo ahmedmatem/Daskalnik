@@ -46,5 +46,10 @@ namespace Core.Models.Group
         /// Contains all topics in the group.
         /// </summary>
         public GroupTopicsModel GroupTopics { get; set; } = null!;
+
+        /// <summary>
+        /// Contains all students in the group.
+        /// </summary>
+        public GroupStudentsModel GroupStudents { get; set; } = null!;
     }
 }
