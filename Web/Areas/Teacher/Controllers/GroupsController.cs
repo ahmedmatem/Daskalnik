@@ -6,6 +6,7 @@ using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 using static Core.Constants.MessageConstants;
 using Core.Models.GroupTopic;
+using System.Security.Claims;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -15,17 +16,20 @@ namespace Web.Areas.Teacher.Controllers
         private readonly ITeacherService teacherService;
         private readonly IGroupService groupService;
         private readonly ITopicService topicService;
+        private readonly IStudentService studentService;
 
         public GroupsController(
             IAzureBlobService _blobService,
             ITeacherService _teacherService,
             IGroupService _groupService,
-            ITopicService _topicService)
+            ITopicService _topicService,
+            IStudentService _studentService)
         {
             blobService = _blobService;
             teacherService = _teacherService;
             groupService = _groupService;
             topicService = _topicService;
+            studentService = _studentService;
         }
 
         public async Task<IActionResult> Index()
@@ -147,6 +151,15 @@ namespace Web.Areas.Teacher.Controllers
             }
             
             return RedirectToAction(nameof(Group), new { id = groupId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddStudentInGroup(string id)
+        {
+            var model = await studentService
+                .GettAllStudentsInSchoolExcludedFromGroupAsync(id, User.Id());
+
+            return View(model);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model GroupTopicSelectFormServiceModel
+﻿@model GroupStudentSelectFormServiceModel
 
 @{
     ViewData["Title"] = Model.GroupName;
@@ -12,26 +12,26 @@
     </ol>
 </nav>
 
-<h3 class="text-center text-secondary">Добавяне на тема в група</h3>
+<h3 class="text-center text-secondary">Добавяне на ученинци в група</h3>
 <h5 class="text-center text-secondary">@ViewData["Title"]</h5>
 
-@if (Model.TopicsListToAdd.Any())
+@if (Model.StudentsListToAdd.Any())
 {
     <div class="row justify-content-center">
         <div class="p-3 col-md-6">
             <form class="mt-2" method="post">
                 <input type="hidden" asp-for="GroupId" />
                 <ul class="list-group">
-                    @for (int i = 0; i < Model.TopicsListToAdd.Count(); i++)
+                    @for (int i = 0; i < Model.StudentsListToAdd.Count(); i++)
                     {
                         <li class="list-group-item">
                             <div class="form-check">
-                                <input asp-for="@Model.TopicsListToAdd[i].IsChecked" class="form-check-input" type="checkbox">
-                                <label asp-for="@Model.TopicsListToAdd[i].IsChecked" class="form-check-label">
-                                    @Model.TopicsListToAdd[i].Value
+                                <input asp-for="@Model.StudentsListToAdd[i].IsChecked" class="form-check-input" type="checkbox">
+                                <label asp-for="@Model.StudentsListToAdd[i].IsChecked" class="form-check-label">
+                                    @Model.StudentsListToAdd[i].Value
                                 </label>
-                                <input type="hidden" asp-for="@Model.TopicsListToAdd[i].Key" />
-                                <input type="hidden" asp-for="@Model.TopicsListToAdd[i].Value" />
+                                <input type="hidden" asp-for="@Model.StudentsListToAdd[i].Key" />
+                                <input type="hidden" asp-for="@Model.StudentsListToAdd[i].Value" />
                             </div>
                         </li>
                     }
@@ -48,7 +48,7 @@
 else
 {
     <div class="alert alert-primary text-center" role="alert">
-        Няма тема за добавяне. Може да създадете такава от меню "Теми".
+        Няма ученици регистрирани в училището
     </div>
 }
 
@@ -56,24 +56,24 @@ else
 <partial name="_FontAwesomePartial" />
 @section Scripts {
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('input[type="checkbox"]').on('change', () => {
                 let hasCheckedBox = false
                 $('input[type="checkbox"]').each(function (i) {
-                    if($(this).prop('checked') == true){
+                    if ($(this).prop('checked') == true) {
                         hasCheckedBox = true
                         return false
                     }
                 })
-                if(hasCheckedBox){
+                if (hasCheckedBox) {
                     $('button:submit').removeAttr('disabled')
                 }
-                else
-                {
+                else {
                     $('button:submit').attr('disabled', 'disabled')
                 }
             })
         })
     </script>
 }
+
 
