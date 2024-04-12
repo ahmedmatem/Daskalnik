@@ -4,7 +4,10 @@
     <div class="card align-items-center justify-content-center">
         <img class="card-img-top" src="@Model.ImageSrc">
         <div class="justify-content-center align-items-center">
-            <a asp-controller="@Model.Controller" class="btn btn-sm btn-primary">@Model.Title</a>
+            <a asp-controller="@Model.Controller" asp-route-id="@Model.Id"
+               class="btn btn-sm btn-primary">
+                @Model.Title
+            </a>
             <div class="text-center item-value">@Model.Value</div>
         </div>
     </div>

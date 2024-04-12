@@ -108,6 +108,25 @@ namespace Core.Services
             }
         }
 
+        public async Task<IEnumerable<GroupTableRowServiceModel>> GetAllGroupsInSchool(string schoolId)
+        {
+            return await repository.AllReadOnly<Group>()
+                .Where(g => g.SchoolId == schoolId)
+                .Include(g => g.Teacher)
+                .Select(g => new GroupTableRowServiceModel
+                {
+                    SchoolId = schoolId,
+                    GroupId = g.Id,
+                    IconUrl = g.IconUrl,
+                    Name = g.Name,
+                    ShortName = g.ShortName,
+                    GroupOwnerName = g.Teacher.FullName,
+                    IsDeleted = g.IsDeleted,
+                })
+                .OrderBy(x => x.ShortName)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(
             string teacherId)
         {
@@ -258,6 +277,54 @@ namespace Core.Services
             }
 
             logger.LogWarning("Group with id: {groupId} was not found.", groupId);
+
+            return false;
+        }
+
+        public async Task<bool> StopAsync(
+            string groupId,
+            string schoolId, 
+            string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+
+            // Only administrator of the school can stops and starts a group in the same school.
+            if(schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                var group = await repository.GetByIdAsync<Group>(groupId);
+                if (group != null && group.SchoolId == schoolId)
+                {
+                    group.IsDeleted = true;
+
+                    repository.Update(group);
+                    await repository.SaveChangesAsync<Group>();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> StartAsync(
+            string groupId,
+            string schoolId,
+            string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+
+            // Only administrator of the school can stops and starts a group in the same school.
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                var group = await repository.GetByIdAsync<Group>(groupId);
+                if (group != null && group.SchoolId == schoolId)
+                {
+                    group.IsDeleted = false;
+
+                    repository.Update(group);
+                    await repository.SaveChangesAsync<Group>();
+                    return true;
+                }
+            }
 
             return false;
         }

@@ -11,7 +11,8 @@
     string schoolId = Model.Id;
 
     var groupModel = new SummaryViewModel()
-    {        
+    {
+        Id = Model.Id,
         ImageSrc = "images/group_icon.png",
         Title = "Групи",
         Value = await groupService.GetGroupsCountInSchoolAsync(schoolId),
@@ -20,7 +21,8 @@
         Action = "Index",
     };
     var teacherModel = new SummaryViewModel()
-    {        
+    {
+        Id = Model.Id,
         ImageSrc = "images/teacher_icon.png",
         Title = "Учители",
         Value = await teacherService.GetTeachersCountInSchoolAsync(schoolId),
@@ -29,7 +31,8 @@
         Action = "Index",
     };
     var studentModel = new SummaryViewModel()
-    {        
+    {
+        Id = Model.Id,
         ImageSrc = "images/student_icon.png",
         Title = "Ученици",
         Value = await studentService.GetStudentsCountInSchoolAsync(schoolId),
