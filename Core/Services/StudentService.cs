@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.Common;
 using Core.Models.GroupStudent;
+using Core.Models.Student;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,27 @@ namespace Core.Services
         public StudentService(IRepository _repository)
         {
             repository = _repository;
+        }
+
+        public async Task<IEnumerable<StudentTableRowServiceModel>> GetAllStudentsInSchool(string schoolId, string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                return await repository.AllReadOnly<Student>()
+                .Where(s => s.SchoolId == schoolId)
+                .OrderBy(s => s.FullName)
+                .Select(s => new StudentTableRowServiceModel
+                {
+                    SchoolId = schoolId,
+                    StudentId = s.Id,
+                    FullName = s.FullName,
+                    IsDeleted = s.IsDeleted
+                })
+                .ToListAsync();
+            }
+
+            return Enumerable.Empty<StudentTableRowServiceModel>();
         }
 
         public async Task<int> GetStudentsCountAsync()
@@ -69,6 +91,50 @@ namespace Core.Services
                 GroupName = group?.Name ?? string.Empty,
                 StudentsListToAdd = studentsToAddInGroup.ToList(),
             };
+        }
+
+        public async Task<bool> DeleteAsync(
+            string studentId,
+            string schoolId,
+            string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                var student = await repository.GetByIdAsync<Student>(studentId);
+                if (student != null && student.SchoolId == schoolId)
+                {
+                    student.IsDeleted = true;
+                    repository.Update(student);
+                    await repository.SaveChangesAsync<Student>();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RestoreAsync(
+            string studentId,
+            string schoolId,
+            string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                var student = await repository.GetByIdAsync<Student>(studentId);
+                if (student != null && student.SchoolId == schoolId)
+                {
+                    student.IsDeleted = false;
+                    repository.Update(student);
+                    await repository.SaveChangesAsync<Student>();
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Models.GroupStudent;
+using Core.Models.Student;
 
 namespace Core.Contracts
 {
@@ -8,7 +9,16 @@ namespace Core.Contracts
 
         Task<int> GetStudentsCountInSchoolAsync(string schoolId);
 
+        Task<IEnumerable<StudentTableRowServiceModel>> GetAllStudentsInSchool(
+            string schoolId, string schoolAdminId);
+
         Task<GroupStudentSelectFormServiceModel> GettAllStudentsInSchoolExcludedFromGroupAsync(
             string groupId, string groupCreatorId);
+
+        Task<bool> DeleteAsync(
+            string studentId, string schoolId, string schoolAdminId);
+
+        Task<bool> RestoreAsync(
+            string studentId, string schoolId, string schoolAdminId);
     }
 }

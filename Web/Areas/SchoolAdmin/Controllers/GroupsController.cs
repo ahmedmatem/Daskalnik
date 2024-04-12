@@ -1,4 +1,5 @@
 ﻿using Core.Contracts;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Core.Constants.MessageConstants;
@@ -7,18 +8,29 @@ namespace Web.Areas.SchoolAdmin.Controllers
 {
     public class GroupsController : SchoolAdminBaseController
     {
+        private readonly ITeacherService teacherService;
         private readonly IGroupService groupService;
 
         public GroupsController(
+            ITeacherService _teacherService,
             IGroupService _groupService)
         {
+            teacherService = _teacherService;
             groupService = _groupService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
-            var model = await groupService.GetAllGroupsInSchool(id, User.Id());
+            if (id == null)
+            {
+                var teacher = await teacherService.GetByIdAsync(User.Id());
+                if (teacher != null)
+                {
+                    id = teacher.SchoolId;
+                }
+            }
+            var model = await groupService.GetAllGroupsInSchool(id!, User.Id());
 
             return View(model);
         }

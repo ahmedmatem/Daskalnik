@@ -16,5 +16,7 @@
         /// The name of the student.
         /// </summary>
         public string FullName { get; set; } = string.Empty;
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<StudentTableRowServiceModel>
+
+@{
+    ViewData["Title"] = "Всички ученици";
+}
+
+<nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home"><i class="fa-solid fa-arrow-left"></i> Назад</a>
+        </li>
+    </ol>
+</nav>
+
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+@if (Model.Any())
+{
+    <div class="container">
+        <div class="row">
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Име</th>
+                        <th scope="col" class="col-1 text-center">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@(item.IsDeleted ? "text-secondary" : "")">
+                            <td>@item.FullName</td>
+                            <td class="text-center">
+                                @if (item.IsDeleted)
+                                {
+                                    <a asp-action="Restore"
+                                       asp-route-id="@item.StudentId"
+                                       asp-route-schoolId="@item.SchoolId"
+                                       class="text-success" title="Възстанови">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.StudentId"
+                                       asp-route-schoolId="@item.SchoolId"
+                                       class="text-danger" title="Изтрий">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-primary text-center" role="alert">
+        Няма регистрирани ученици.
+    </div>
+}
+
+
+<partial name="_FontAwesomePartial" />

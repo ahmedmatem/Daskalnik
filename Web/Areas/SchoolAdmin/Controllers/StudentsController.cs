@@ -1,24 +1,27 @@
 ﻿using Core.Contracts;
-using Microsoft.AspNetCore.Identity;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Core.Constants.MessageConstants;
 
 namespace Web.Areas.SchoolAdmin.Controllers
 {
-    public class TeachersController : SchoolAdminBaseController
+    public class StudentsController : SchoolAdminBaseController
     {
         private readonly ITeacherService teacherService;
+        private readonly IStudentService studentService;
 
-        public TeachersController(
-            ITeacherService _teacherService)
+        public StudentsController(
+            ITeacherService _teacherService,
+            IStudentService _studentService)
         {
             teacherService = _teacherService;
+            studentService = _studentService;
         }
 
         public async Task<IActionResult> Index(string id)
         {
-            if(id == null)
+            if (id == null)
             {
                 var teacher = await teacherService.GetByIdAsync(User.Id());
                 if (teacher != null)
@@ -26,7 +29,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                     id = teacher.SchoolId;
                 }
             }
-            var model = await teacherService.GetAllTeachersInSchool(id!, User.Id());
+            var model = await studentService.GetAllStudentsInSchool(id!, User.Id());
 
             return View(model);
         }
@@ -34,15 +37,15 @@ namespace Web.Areas.SchoolAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id, string schoolId)
         {
-            var isDeleted = await teacherService.DeleteAsync(id, schoolId, User.Id());
+            var isDeleted = await studentService.DeleteAsync(id, schoolId, User.Id());
 
             if (isDeleted)
             {
-                TempData[MessageSuccess] = "Учителят бе изтрит успешно.";
+                TempData[MessageSuccess] = "Ученикът бе изтрит успешно.";
             }
             else
             {
-                TempData[MessageSuccess] = "Учителят бе възстановен успешно.";
+                TempData[MessageSuccess] = "Ученикът бе възстановен успешно.";
             }
 
             return RedirectToAction(nameof(Index), new { id = schoolId });
@@ -51,15 +54,15 @@ namespace Web.Areas.SchoolAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Restore(string id, string schoolId)
         {
-            var isRestored = await teacherService.RestoreAsync(id, schoolId, User.Id());
+            var isRestored = await studentService.RestoreAsync(id, schoolId, User.Id());
 
             if (isRestored)
             {
-                TempData[MessageSuccess] = "Учителят бе възстановен успешно.";
+                TempData[MessageSuccess] = "Ученикът бе възстановен успешно.";
             }
             else
             {
-                TempData[MessageSuccess] = "Групата бе изтрит успешно.";
+                TempData[MessageSuccess] = "Ученикът бе изтрит успешно.";
             }
 
             return RedirectToAction(nameof(Index), new { id = schoolId });
