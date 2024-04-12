@@ -24,7 +24,9 @@ namespace Web.Areas.Teacher.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await resourceService.GetAllByCreator(User.Id()).ToListAsync();
+            var model = await resourceService
+                .GetAllByCreator(User.Id())
+                .ToListAsync();
 
             return View(model);
         }

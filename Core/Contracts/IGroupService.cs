@@ -13,7 +13,8 @@ namespace Core.Contracts
 
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
 
-        Task<IEnumerable<GroupTableRowServiceModel>> GetAllGroupsInSchool(string schoolId);
+        Task<IEnumerable<GroupTableRowServiceModel>> 
+            GetAllGroupsInSchool(string schoolId, string schoolAdminId);
 
         Task<GroupServiceModel?> GetByIdAsync(string groupId);
 
@@ -25,8 +26,10 @@ namespace Core.Contracts
 
         Task<bool> RemoveStudentFromGroupAsync(string studentId, string groupId);
 
-        Task<bool> StopBySchoolAdminAsync(string groupId, string schoolId, string schoolAdminId);
+        Task<bool> StopBySchoolAdminAsync(
+            string groupId, string schoolId, string schoolAdminId);
 
-        Task<bool> StartBySchoolAdminAsync(string groupId, string schoolId, string schoolAdminId);
+        Task<bool> StartBySchoolAdminAsync(
+            string groupId, string schoolId, string schoolAdminId);
     }
 }

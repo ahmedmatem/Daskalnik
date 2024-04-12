@@ -12,11 +12,7 @@
 
 
 <div class="row justify-content-center align-items-center mt-3">
-    @if (Model.Count() == 0)
-    {
-        <p class="text-center text-secondary">Няма създадени теми.</p>
-    }
-    else
+    @if (Model.Any())
     {
         <ul class="list-group">
             @foreach (var topic in Model)
@@ -34,6 +30,12 @@
                 </li>
             }
         </ul>
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" role="alert">
+            Няма създадени теми.
+        </div>
     }
 </div>
 

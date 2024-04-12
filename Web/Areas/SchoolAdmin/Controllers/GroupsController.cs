@@ -18,7 +18,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
-            var model = await groupService.GetAllGroupsInSchool(id);
+            var model = await groupService.GetAllGroupsInSchool(id, User.Id());
 
             return View(model);
         }

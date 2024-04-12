@@ -108,9 +108,13 @@ namespace Core.Services
             }
         }
 
-        public async Task<IEnumerable<GroupTableRowServiceModel>> GetAllGroupsInSchool(string schoolId)
+        public async Task<IEnumerable<GroupTableRowServiceModel>> 
+            GetAllGroupsInSchool(string schoolId, string schoolAdminId)
         {
-            return await repository.AllReadOnly<Group>()
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+            if(schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                return await repository.AllReadOnly<Group>()
                 .Where(g => g.SchoolId == schoolId)
                 .Include(g => g.Teacher)
                 .Select(g => new GroupTableRowServiceModel
@@ -126,6 +130,9 @@ namespace Core.Services
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.GroupOwnerName)
                 .ToListAsync();
+            }
+
+            return Enumerable.Empty<GroupTableRowServiceModel>();
         }
 
         public async Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(
