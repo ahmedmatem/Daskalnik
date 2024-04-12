@@ -26,7 +26,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Stop(string id, string schoolId)
         {
-            var isStopped = await groupService.StopAsync(id, schoolId, User.Id());
+            var isStopped = await groupService.StopBySchoolAdminAsync(id, schoolId, User.Id());
 
             if(isStopped)
             {
@@ -43,7 +43,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Start(string id, string schoolId)
         {
-            var isStarted = await groupService.StartAsync(id, schoolId, User.Id());
+            var isStarted = await groupService.StartBySchoolAdminAsync(id, schoolId, User.Id());
 
             if (isStarted)
             {

@@ -20,7 +20,7 @@
 {
     <div class="container">
         <div class="row">
-            <table class="table">
+            <table class="table table-borderless">
                 <thead>
                     <tr class="table-primary">
                         <th scope="col">Група</th>
@@ -31,7 +31,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr class="@(item.IsDeleted ? "text-muted" : "fw-bold")">
+                        <tr class="@(item.IsDeleted ? "text-secondary" : "")">
                             <td>@item.Name</td>
                             <td>@item.GroupOwnerName</td>
                             <td class="text-center">

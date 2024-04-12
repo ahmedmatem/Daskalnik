@@ -123,7 +123,8 @@ namespace Core.Services
                     GroupOwnerName = g.Teacher.FullName,
                     IsDeleted = g.IsDeleted,
                 })
-                .OrderBy(x => x.ShortName)
+                .OrderBy(x => x.Name)
+                .ThenBy(x => x.GroupOwnerName)
                 .ToListAsync();
         }
 
@@ -281,7 +282,7 @@ namespace Core.Services
             return false;
         }
 
-        public async Task<bool> StopAsync(
+        public async Task<bool> StopBySchoolAdminAsync(
             string groupId,
             string schoolId, 
             string schoolAdminId)
@@ -305,7 +306,7 @@ namespace Core.Services
             return false;
         }
 
-        public async Task<bool> StartAsync(
+        public async Task<bool> StartBySchoolAdminAsync(
             string groupId,
             string schoolId,
             string schoolAdminId)

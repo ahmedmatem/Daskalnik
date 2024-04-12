@@ -25,8 +25,8 @@ namespace Core.Contracts
 
         Task<bool> RemoveStudentFromGroupAsync(string studentId, string groupId);
 
-        Task<bool> StopAsync(string groupId, string schoolId, string schoolAdminId);
+        Task<bool> StopBySchoolAdminAsync(string groupId, string schoolId, string schoolAdminId);
 
-        Task<bool> StartAsync(string groupId, string schoolId, string schoolAdminId);
+        Task<bool> StartBySchoolAdminAsync(string groupId, string schoolId, string schoolAdminId);
     }
 }
