@@ -6,8 +6,6 @@ using static Infrastructure.Constants.DataConstants;
 using static Infrastructure.Data.ErrorMessages;
 using static Core.Constants.MessageConstants;
 using Core.Models.GroupTopic;
-using System.Security.Claims;
-using Infrastructure.Data.Models;
 using Core.Models.GroupStudent;
 
 namespace Web.Areas.Teacher.Controllers

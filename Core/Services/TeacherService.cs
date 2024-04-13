@@ -2,16 +2,23 @@
 using Core.Models.Teacher;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using static Core.Claims.CustomUserClaims;
 
 namespace Core.Services
 {
     public class TeacherService : ITeacherService
     {
+        private readonly UserManager<IdentityUser> userManager;
         private readonly IRepository repository;
 
-        public TeacherService(IRepository _repository)
+        public TeacherService(
+            UserManager<IdentityUser> _userManager,
+            IRepository _repository)
         {
+            userManager = _userManager;
             repository = _repository;
         }
 
@@ -95,6 +102,12 @@ namespace Core.Services
                     teacher.IsDeleted = true;
                     repository.Update(teacher);
                     await repository.SaveChangesAsync<Teacher>();
+
+                    // Remove custom claim of type ActiveClaim from teacher.
+                    var user = await userManager.FindByIdAsync(teacherId);
+                    await userManager.RemoveClaimAsync(
+                        user, new Claim(ActiveClaim.Key, ActiveClaim.Value));
+
                     return true;
                 }
             }
@@ -117,6 +130,12 @@ namespace Core.Services
                     teacher.IsDeleted = false;
                     repository.Update(teacher);
                     await repository.SaveChangesAsync<Teacher>();
+
+                    // Add custom claim of type ActiveClaim for teacher.
+                    var user = await userManager.FindByIdAsync(teacherId);
+                    await userManager.AddClaimAsync(
+                        user, new Claim(ActiveClaim.Key, ActiveClaim.Value));
+
                     return true;
                 }
             }
