@@ -27,5 +27,8 @@ namespace Core.Contracts
 
         Task<bool> RestoreAsync(
             string teacherId, string schoolId, string schoolAdminId);
+
+        Task<bool> ActivateAsync(
+            string teacherId, string schoolId, string schoolAdminId);
     }
 }

@@ -44,7 +44,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
             }
             else
             {
-                TempData[MessageSuccess] = "Ученикът бе възстановен успешно.";
+                TempData[MessageError] = "Възникна грешка при изтриване на ученик.";
             }
 
             return RedirectToAction(nameof(Index));
@@ -61,7 +61,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
             }
             else
             {
-                TempData[MessageSuccess] = "Ученикът бе изтрит успешно.";
+                TempData[MessageError] = "Възникна грешка при възстановяване на ученик.";
             }
 
             return RedirectToAction(nameof(Index));

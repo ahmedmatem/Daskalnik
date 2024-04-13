@@ -157,5 +157,39 @@ namespace Core.Services
             await repository.AddAsync(teacher);
             await repository.SaveChangesAsync<Teacher>();
         }
+
+        public async Task<bool> ActivateAsync(string teacherId, string schoolId, string schoolAdminId)
+        {
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+            var teacherAsUser = await userManager.FindByIdAsync(teacherId);
+
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            {
+                var teacher = await repository.GetByIdAsync<Teacher>(teacherId);
+                if (teacher != null &&
+                    teacher.SchoolId == schoolId &&
+                    teacherAsUser != null)
+                {
+                    // Add teacher in Role Teacher
+                    var addToRoleResult = await userManager.AddToRoleAsync(teacherAsUser, "Teacher");
+
+                    if (addToRoleResult != null)
+                    {
+                        // Activate teacher.
+                        teacher.IsActivated = true;
+                        repository.Update(teacher);
+                        await repository.SaveChangesAsync<Teacher>();
+
+                        // Add custom claim of type ActiveClaim for teacher.
+                        await userManager.AddClaimAsync(
+                            teacherAsUser, new Claim(ActiveClaim.Key, ActiveClaim.Value));
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

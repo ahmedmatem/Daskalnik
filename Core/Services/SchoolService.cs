@@ -137,6 +137,7 @@ namespace Core.Services
                                     // Activate teacher.
                                     teacher.IsActivated = true;
                                     await repository.SaveChangesAsync<Teacher>();
+
                                     // Update school with SchoolAdmin teacher.
                                     school.SchoolAdmin = teacher;
                                     await repository.SaveChangesAsync<Teacher>();

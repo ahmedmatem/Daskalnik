@@ -41,7 +41,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
             }
             else
             {
-                TempData[MessageSuccess] = "Учителят бе възстановен успешно.";
+                TempData[MessageError] = "Възникна грешка при изтриване на учител.";
             }
 
             return RedirectToAction(nameof(Index));
@@ -58,7 +58,24 @@ namespace Web.Areas.SchoolAdmin.Controllers
             }
             else
             {
-                TempData[MessageSuccess] = "Групата бе изтрит успешно.";
+                TempData[MessageError] = "Възникна грешка при възстановяване на учител.";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Activate(string id, string schoolId)
+        {
+            var isActivated = await teacherService.ActivateAsync(id, schoolId, User.Id());
+
+            if (isActivated)
+            {
+                TempData[MessageSuccess] = "Учителят е активиран успешно.";
+            }
+            else
+            {
+                TempData[MessageSuccess] = "Възникна грешка при активиране на учител.";
             }
 
             return RedirectToAction(nameof(Index));
