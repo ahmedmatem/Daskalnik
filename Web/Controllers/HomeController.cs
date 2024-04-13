@@ -23,15 +23,15 @@ namespace Web.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index", "home", new { area = "Admin"});
+                return RedirectToAction("Index", "Home", new { area = "Admin"});
             }
             else if (User.IsInRole("SchoolAdmin"))
             {
-                return RedirectToAction("Index", "home", new { area = "SchoolAdmin" });
+                return RedirectToAction("Index", "Home", new { area = "SchoolAdmin" });
             }
             else if(User.IsInRole("Teacher"))
             {
-                return RedirectToAction("Index", "home", new { area = "Teacher" });
+                return RedirectToAction("Index", "Home", new { area = "Teacher" });
             }
 
             return View();
