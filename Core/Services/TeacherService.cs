@@ -79,7 +79,8 @@ namespace Core.Services
                     SchoolId = schoolId,
                     TeacherId = t.Id,
                     FullName = t.FullName,
-                    IsDeleted = t.IsDeleted
+                    IsDeleted = t.IsDeleted,
+                    IsActivated = t.IsActivated,
                 })
                 .OrderBy(m => m.FullName)
                 .ToListAsync();

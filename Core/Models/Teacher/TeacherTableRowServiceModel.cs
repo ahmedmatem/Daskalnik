@@ -18,5 +18,7 @@
         public string FullName { get; set; } = string.Empty;
 
         public bool IsDeleted { get; set; }
+
+        public bool IsActivated { get; set; }
     }
 }

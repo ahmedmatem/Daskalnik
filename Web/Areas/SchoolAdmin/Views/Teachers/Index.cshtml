@@ -20,36 +20,53 @@
         <div class="row">
             <table class="table table-borderless">
                 <thead>
-                    <tr class="table-primary">
+                    <tr class="table-primary text-secondary">
                         <th scope="col">Име</th>
+                        <th scope="col" class="col-2 text-center">Състояние</th>
                         <th scope="col" class="col-1 text-center">Действие</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var teacher in Model)
                     {
-                        <tr class="@(item.IsDeleted ? "text-secondary" : "")">
-                            <td>@item.FullName</td>
-                            <td class="text-center">
-                                @if (item.IsDeleted)
-                                {
+                        <tr class="@((teacher.IsDeleted || !teacher.IsActivated) ? "text-secondary" : "")">
+                            <td>@teacher.FullName</td>
+                            @if (!teacher.IsActivated)
+                            {
+                                <td class="text-center">изчаква</td>
+                                <td class="text-center">
+                                    <a asp-action="Activate"
+                                       asp-route-id="@teacher.TeacherId"
+                                       asp-route-schoolId="@teacher.SchoolId"
+                                       class="text-success" title="Активирай">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                </td>
+                            }
+                            else if (teacher.IsDeleted)
+                            {
+                                <td class="text-center">изтрит</td>
+                                <td class="text-center">
                                     <a asp-action="Restore"
-                                       asp-route-id="@item.TeacherId"
-                                       asp-route-schoolId="@item.SchoolId"
+                                       asp-route-id="@teacher.TeacherId"
+                                       asp-route-schoolId="@teacher.SchoolId"
                                        class="text-success" title="Възстанови">
                                         <i class="fa-solid fa-rotate-left"></i>
                                     </a>
-                                }
-                                else
-                                {
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-center">активен</td>
+                                <td class="text-center">
                                     <a asp-action="Delete"
-                                       asp-route-id="@item.TeacherId"
-                                       asp-route-schoolId="@item.SchoolId"
+                                       asp-route-id="@teacher.TeacherId"
+                                       asp-route-schoolId="@teacher.SchoolId"
                                        class="text-danger" title="Изтрий">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
-                                }
-                            </td>
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>
