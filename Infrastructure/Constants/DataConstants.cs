@@ -2,6 +2,9 @@
 {
     public static class DataConstants
     {
+        public const int UserFullNameMinLength = 5;
+        public const int UserFullNameMaxLength = 50;
+
         public const int StudentFullNameMinLength = 5;
         public const int StudentFullNameMaxLength = 50;
 
