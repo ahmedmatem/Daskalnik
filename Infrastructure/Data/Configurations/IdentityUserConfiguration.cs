@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static Infrastructure.Data.Configurations.SeedConfiguration;
 
 namespace Infrastructure.Data.Configurations
 {
-    public class IdentityUserConfiguration : IEntityTypeConfiguration<IdentityUser>
+    public class IdentityUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        private PasswordHasher<IdentityUser> passwordHasher =
-            new PasswordHasher<IdentityUser>();
+        private PasswordHasher<ApplicationUser> passwordHasher =
+            new PasswordHasher<ApplicationUser>();
 
-        public void Configure(EntityTypeBuilder<IdentityUser> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             SeedUsers();
             builder.HasData(Users);
@@ -44,14 +45,15 @@ namespace Infrastructure.Data.Configurations
             Users.Add(CreateUser("dimitar_barlev@gmail.com", "desiPass"));
         }
 
-        private IdentityUser CreateUser(string email, string password)
+        private ApplicationUser CreateUser(string email, string password)
         {
-            var user = new IdentityUser()
+            var user = new ApplicationUser()
             {
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
                 UserName = email,
                 NormalizedUserName = email.ToUpper(),
+                FullName = email.Split('@')[0] + " Пълно Име"
             };
             user.PasswordHash =
                 passwordHasher.HashPassword(user, password);

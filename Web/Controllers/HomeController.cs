@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web.Models;
@@ -8,11 +9,11 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         public HomeController(
             ILogger<HomeController> _logger,
-            SignInManager<IdentityUser> _signInManager)
+            SignInManager<ApplicationUser> _signInManager)
         {
             logger = _logger;
             signInManager = _signInManager;

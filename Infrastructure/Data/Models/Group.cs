@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Models
         [ForeignKey("SchoolId")]
         public School School { get; set; } = null!;
 
-        public List<IdentityUser> Students { get; set; } = new List<IdentityUser>();
+        public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
     }

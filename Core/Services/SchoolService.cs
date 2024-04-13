@@ -16,12 +16,12 @@ namespace Core.Services
     {
         private readonly IRepository repository;
         private readonly ILogger<SchoolService> logger;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public SchoolService(
             IRepository _repository,
             ILogger<SchoolService> _logger,
-            UserManager<IdentityUser> _userManager)
+            UserManager<ApplicationUser> _userManager)
         {
             repository = _repository;
             logger = _logger;

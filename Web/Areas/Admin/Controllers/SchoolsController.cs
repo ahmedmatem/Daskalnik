@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.School;
 using Core.Models.Teacher;
+using Infrastructure.Data.Models;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ namespace Web.Areas.Admin.Controllers
     {
         private readonly ISchoolService schoolService;
         private readonly ITeacherService teacherService;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public SchoolsController(
             ISchoolService _schoolService,
             ITeacherService _teacherService,
-            UserManager<IdentityUser> _userManager)
+            UserManager<ApplicationUser> _userManager)
         {
             schoolService = _schoolService;
             teacherService = _teacherService;

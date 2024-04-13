@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Configurations
         public static int TeachersCount = 5;
         public static int StudentStartIndex = 6;
 
-        public static IdentityUser Admin = CreateAdmin();
+        public static ApplicationUser Admin = CreateAdmin();
 
         public static readonly IList<School> Schools = new List<School>()
         {
@@ -57,20 +57,21 @@ namespace Infrastructure.Data.Configurations
         public static ICollection<IdentityRole> Roles
             = new HashSet<IdentityRole>();
 
-        public static IList<IdentityUser> Users
-            = new List<IdentityUser>();
+        public static IList<ApplicationUser> Users
+            = new List<ApplicationUser>();
 
-        private static IdentityUser CreateAdmin()
+        private static ApplicationUser CreateAdmin()
         {
-            PasswordHasher<IdentityUser> passwordHasher =
-                new PasswordHasher<IdentityUser>();
+            PasswordHasher<ApplicationUser> passwordHasher =
+                new PasswordHasher<ApplicationUser>();
 
-            var admin = new IdentityUser()
+            var admin = new ApplicationUser()
             {
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 UserName = "admin@gmail.com",
-                NormalizedUserName = "ADMIN@GMAIL.COM"
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                FullName = "Ахмед Матем Ахмед"
             };
             admin.PasswordHash = passwordHasher.HashPassword(admin, "adminPass");
 

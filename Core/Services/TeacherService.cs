@@ -11,11 +11,11 @@ namespace Core.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository repository;
 
         public TeacherService(
-            UserManager<IdentityUser> _userManager,
+            UserManager<ApplicationUser> _userManager,
             IRepository _repository)
         {
             userManager = _userManager;
