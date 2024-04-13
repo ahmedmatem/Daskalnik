@@ -1,5 +1,4 @@
 ﻿using Core.Contracts;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Core.Constants.MessageConstants;
@@ -16,19 +15,19 @@ namespace Web.Areas.SchoolAdmin.Controllers
             teacherService = _teacherService;
         }
 
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            if(id == null)
+            var teacher = await teacherService.GetByIdAsync(User.Id());
+            if (teacher != null)
             {
-                var teacher = await teacherService.GetByIdAsync(User.Id());
-                if (teacher != null)
-                {
-                    id = teacher.SchoolId;
-                }
-            }
-            var model = await teacherService.GetAllTeachersInSchool(id!, User.Id());
+                string schoolId = teacher.SchoolId;
+                var model = await teacherService
+                    .GetAllTeachersInSchool(schoolId, User.Id());
 
-            return View(model);
+                return View(model);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
@@ -45,7 +44,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Учителят бе възстановен успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -62,7 +61,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Групата бе изтрит успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
     }
 }

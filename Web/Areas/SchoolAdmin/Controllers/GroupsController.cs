@@ -19,19 +19,19 @@ namespace Web.Areas.SchoolAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            if (id == null)
+            var teacher = await teacherService.GetByIdAsync(User.Id());
+            if (teacher != null)
             {
-                var teacher = await teacherService.GetByIdAsync(User.Id());
-                if (teacher != null)
-                {
-                    id = teacher.SchoolId;
-                }
-            }
-            var model = await groupService.GetAllGroupsInSchool(id!, User.Id());
+                string schoolId = teacher.SchoolId;
+                var model = await groupService
+                    .GetAllGroupsInSchool(schoolId, User.Id());
 
-            return View(model);
+                return View(model);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
@@ -48,7 +48,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Групата бе пусната успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Групата бе спряна успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
     }
 }

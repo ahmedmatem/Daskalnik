@@ -18,19 +18,19 @@ namespace Web.Areas.SchoolAdmin.Controllers
             studentService = _studentService;
         }
 
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            if (id == null)
+            var teacher = await teacherService.GetByIdAsync(User.Id());
+            if (teacher != null)
             {
-                var teacher = await teacherService.GetByIdAsync(User.Id());
-                if (teacher != null)
-                {
-                    id = teacher.SchoolId;
-                }
-            }
-            var model = await studentService.GetAllStudentsInSchool(id!, User.Id());
+                string schoolId = teacher.SchoolId;
+                var model = await studentService
+                    .GetAllStudentsInSchool(schoolId, User.Id());
 
-            return View(model);
+                return View(model);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
@@ -47,7 +47,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Ученикът бе възстановен успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Ученикът бе изтрит успешно.";
             }
 
-            return RedirectToAction(nameof(Index), new { id = schoolId });
+            return RedirectToAction(nameof(Index));
         }
     }
 }
