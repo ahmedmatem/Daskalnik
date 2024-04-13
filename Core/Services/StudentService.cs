@@ -1,4 +1,5 @@
 ﻿using Core.Contracts;
+using Core.Models.ApplicationUser;
 using Core.Models.Common;
 using Core.Models.GroupStudent;
 using Core.Models.Student;
@@ -135,6 +136,19 @@ namespace Core.Services
             }
 
             return false;
+        }
+
+        public async Task CreateAsync(RegisterFormModel model)
+        {
+            Student student = new Student()
+            {
+                Id = model.Id,
+                FullName = model.FullName,
+                SchoolId = model.SchoolId
+            };
+
+            await repository.AddAsync(student);
+            await repository.SaveChangesAsync<Student>();
         }
     }
 }

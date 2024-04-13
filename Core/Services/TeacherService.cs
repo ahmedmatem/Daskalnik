@@ -1,4 +1,5 @@
 ﻿using Core.Contracts;
+using Core.Models.ApplicationUser;
 using Core.Models.Teacher;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
@@ -141,6 +142,19 @@ namespace Core.Services
             }
 
             return false;
+        }
+
+        public async Task CreateAsync(RegisterFormModel model)
+        {
+            Teacher teacher = new Teacher()
+            {
+                Id = model.Id,
+                FullName = model.FullName,
+                SchoolId = model.SchoolId
+            };
+
+            await repository.AddAsync(teacher);
+            await repository.SaveChangesAsync<Teacher>();
         }
     }
 }

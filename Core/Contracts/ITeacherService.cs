@@ -1,4 +1,5 @@
-﻿using Core.Models.Teacher;
+﻿using Core.Models.ApplicationUser;
+using Core.Models.Teacher;
 using Infrastructure.Data.Models;
 
 namespace Core.Contracts
@@ -6,6 +7,8 @@ namespace Core.Contracts
     public interface ITeacherService
     {
         Task<int> GetTeachersCountAsync();
+
+        Task CreateAsync(RegisterFormModel model);
 
         Task<int> GetTeachersCountInSchoolAsync(string schoolId);
 

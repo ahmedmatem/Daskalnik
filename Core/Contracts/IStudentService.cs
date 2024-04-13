@@ -1,4 +1,5 @@
-﻿using Core.Models.GroupStudent;
+﻿using Core.Models.ApplicationUser;
+using Core.Models.GroupStudent;
 using Core.Models.Student;
 
 namespace Core.Contracts
@@ -6,6 +7,8 @@ namespace Core.Contracts
     public interface IStudentService
     {
         Task<int> GetStudentsCountAsync();
+
+        Task CreateAsync(RegisterFormModel model);
 
         Task<int> GetStudentsCountInSchoolAsync(string schoolId);
 
