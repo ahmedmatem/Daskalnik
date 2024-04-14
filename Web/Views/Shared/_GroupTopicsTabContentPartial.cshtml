@@ -2,10 +2,6 @@
 
 @using static Infrastructure.Constants.DataConstants
 
-<div class="text-end">
-    <a asp-action="AddTopicInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави тема</a>
-</div>
-
 @if (Model.Topics.Any())
 {
     <div class="accordion" id="accordionPanels">
@@ -50,16 +46,6 @@
                                     </div>
                                 }
                             </div>
-                        </div>
-
-                        <hr class="mt-2" />
-                        <div class="text-end">
-                            <a asp-action="RemoveTopicFromGroup"
-                               asp-route-groupId="@Model.GroupId"
-                               asp-route-topicId="@topic.TopicId"
-                               class="btn btn-sm btn-outline-secondary">
-                                <i class="fa-regular fa-trash-can"></i> Премахни
-                            </a>
                         </div>
                     </div>
                 </div>

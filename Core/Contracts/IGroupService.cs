@@ -14,6 +14,8 @@ namespace Core.Contracts
 
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
 
+        Task<StudentGroupServiceModel?> GetStudentGroup(string groupId);
+
         IQueryable<Group> GetAllStudentGroups(string studentId);
 
         Task<IEnumerable<GroupTableRowServiceModel>> 

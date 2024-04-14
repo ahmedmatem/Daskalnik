@@ -347,5 +347,56 @@ namespace Core.Services
                     g => g.Id,
                     (gs, g) => g);
         }
+
+        public async Task<StudentGroupServiceModel?> GetStudentGroup(string groupId)
+        {
+            var topicResources = repository.All<TopicResource>();
+
+            return await repository.All<Group>()
+                .Where(g => !g.IsDeleted && g.Id == groupId)
+                .Select(g => new StudentGroupServiceModel()
+                {
+                    Id = g.Id,
+                    ShortName = g.ShortName,
+                    Name = g.Name,
+                    Description = g.Description,
+                    IconUrl = g.IconUrl,
+                    SchoolId = g.SchoolId,
+                    TeacherId = g.TeacherId,
+                    GroupTopics = new GroupTopicsModel()
+                    {
+                        GroupId = g.Id,
+                        Topics = g.Topics
+                        .Where(t => !t.IsDeleted)
+                        .Select(t => new TopicListItemInGroupServiceModel()
+                        {
+                            TopicId = t.Id,
+                            Description = t.Description,
+                            Name = t.Name,
+                            GroupId = g.Id,
+                            Contents = t.Contents,
+                            CreatorId = t.CreatorId,
+                            Resources = repository.All<Resource>()
+                            .Where(r => r.CreatorId == t.CreatorId && !r.IsDeleted)
+                            .Join(repository.All<TopicResource>(), ar => ar.Id, atr => atr.ResourceId,
+                            (ar, atr) => new
+                            {
+                                AllResources = ar,
+                                AllTopoicResources = atr
+                            })
+                            .Where(x => x.AllTopoicResources.TopicId == t.Id)
+                            .Select(x => new ResourceServiceModel()
+                            {
+                                Id = x.AllResources.Id,
+                                Link = x.AllResources.Link,
+                                TextToDisplay = x.AllResources.TextToDisplay,
+                                IconRef = x.AllResources.IconRef,
+                                CreatorId = t.CreatorId
+                            })
+                        })
+                    }
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

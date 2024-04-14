@@ -1,0 +1,24 @@
+﻿@model StudentGroupServiceModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action="Groups"><i class="fa-solid fa-arrow-left"></i> Моите групи</a>
+        </li>
+    </ol>
+</nav>
+
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+@if (Model.GroupTopics != null)
+{
+    <partial name="_GroupTopicsTabContentPartial" model="Model.GroupTopics" />
+}
+
+
+<partial name="_ValidationScriptsPartial" />
+<partial name="_FontAwesomePartial" />
