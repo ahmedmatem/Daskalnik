@@ -1,5 +1,6 @@
 ﻿using Core.Models.Group;
 using Core.Models.GroupTopic;
+using Infrastructure.Data.Models;
 
 namespace Core.Contracts
 {
@@ -12,6 +13,8 @@ namespace Core.Contracts
         Task AddAsync(GroupFormServiceModel model);
 
         Task<IEnumerable<GroupCardViewModel>> GetAllTeacherGroups(string teacherId);
+
+        IQueryable<Group> GetAllStudentGroups(string studentId);
 
         Task<IEnumerable<GroupTableRowServiceModel>> 
             GetAllGroupsInSchool(string schoolId, string schoolAdminId);

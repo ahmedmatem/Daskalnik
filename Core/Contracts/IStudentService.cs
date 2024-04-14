@@ -1,4 +1,5 @@
 ﻿using Core.Models.ApplicationUser;
+using Core.Models.Group;
 using Core.Models.GroupStudent;
 using Core.Models.Student;
 
@@ -6,6 +7,8 @@ namespace Core.Contracts
 {
     public interface IStudentService
     {
+        Task<bool> IsDeleted(string studentId);
+
         Task<int> GetStudentsCountAsync();
 
         Task CreateAsync(RegisterFormModel model);
@@ -23,5 +26,7 @@ namespace Core.Contracts
 
         Task<bool> RestoreAsync(
             string studentId, string schoolId, string schoolAdminId);
+
+        Task<IEnumerable<GroupCardViewModel>> GetAllStudentGroups(string studentId);
     }
 }

@@ -108,11 +108,11 @@ namespace Core.Services
             }
         }
 
-        public async Task<IEnumerable<GroupTableRowServiceModel>> 
+        public async Task<IEnumerable<GroupTableRowServiceModel>>
             GetAllGroupsInSchool(string schoolId, string schoolAdminId)
         {
             var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
-            if(schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
             {
                 return await repository.AllReadOnly<Group>()
                 .Where(g => g.SchoolId == schoolId)
@@ -291,13 +291,13 @@ namespace Core.Services
 
         public async Task<bool> StopBySchoolAdminAsync(
             string groupId,
-            string schoolId, 
+            string schoolId,
             string schoolAdminId)
         {
             var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
 
             // Only administrator of the school can stops and starts a group in the same school.
-            if(schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
+            if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
             {
                 var group = await repository.GetByIdAsync<Group>(groupId);
                 if (group != null && group.SchoolId == schoolId)
@@ -335,6 +335,17 @@ namespace Core.Services
             }
 
             return false;
+        }
+
+        public IQueryable<Group> GetAllStudentGroups(string studentId)
+        {
+            return repository.AllReadOnly<GroupStudent>()
+                .Where(gs => gs.StudentId == studentId)
+                .Join(
+                    repository.AllReadOnly<Group>(),
+                    gs => gs.GroupId,
+                    g => g.Id,
+                    (gs, g) => g);
         }
     }
 }

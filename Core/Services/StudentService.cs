@@ -1,6 +1,7 @@
 ﻿using Core.Contracts;
 using Core.Models.ApplicationUser;
 using Core.Models.Common;
+using Core.Models.Group;
 using Core.Models.GroupStudent;
 using Core.Models.Student;
 using Infrastructure.Data.DataRepository;
@@ -12,10 +13,14 @@ namespace Core.Services
     public class StudentService : IStudentService
     {
         private readonly IRepository repository;
+        private readonly IGroupService groupService;
 
-        public StudentService(IRepository _repository)
+        public StudentService(
+            IRepository _repository,
+            IGroupService _groupService)
         {
             repository = _repository;
+            groupService = _groupService;
         }
 
         public async Task<IEnumerable<StudentTableRowServiceModel>> GetAllStudentsInSchool(string schoolId, string schoolAdminId)
@@ -149,6 +154,25 @@ namespace Core.Services
 
             await repository.AddAsync(student);
             await repository.SaveChangesAsync<Student>();
+        }
+
+        public async Task<IEnumerable<GroupCardViewModel>> GetAllStudentGroups(string studentId)
+        {
+            return await groupService.GetAllStudentGroups(studentId)
+                .Select(g => new GroupCardViewModel
+                {
+                    Id = g.Id,
+                    IconUrl = g.IconUrl,
+                    ShortName = g.ShortName,
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsDeleted(string studentId)
+        {
+            var student = await repository.GetByIdAsync<Student>(studentId);
+
+            return student?.IsDeleted ?? false;                
         }
     }
 }

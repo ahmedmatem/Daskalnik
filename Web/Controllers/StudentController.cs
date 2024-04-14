@@ -1,14 +1,29 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Web.Extensions;
 
 namespace Web.Controllers
 {
-    [Authorize]
-    public class StudentController : Controller
+    public class StudentController : StudentBaseController
     {
-        public IActionResult Index()
+        private readonly IStudentService studentService;
+
+        public StudentController(IStudentService _studentservice)
         {
-            return View();
+            studentService = _studentservice;
+        }
+
+        public async Task<IActionResult> Groups()
+        {
+            string studentId = User.Id();
+            var model = await studentService.GetAllStudentGroups(studentId);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
         }
     }
 }

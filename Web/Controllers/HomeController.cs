@@ -33,10 +33,6 @@ namespace Web.Controllers
             {
                 return RedirectToAction("Index", "Home", new { area = "Teacher" });
             }
-            else if(signInManager.IsSignedIn(User)) // Student
-            {
-                return RedirectToAction("Index", "Student");
-            }
 
             return View();
         }
