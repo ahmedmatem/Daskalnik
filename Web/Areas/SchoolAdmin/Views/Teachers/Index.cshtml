@@ -71,6 +71,10 @@
                                     <a asp-action="Activate"
                                        asp-route-id="@teacher.TeacherId"
                                        asp-route-schoolId="@teacher.SchoolId"
+                                       asp-route-selectedpage="@Model.CurrentPage"
+                                       asp-route-currentpage="@Model.CurrentPage"
+                                       asp-route-status="@Model.Status"
+                                       asp-route-searchTerm="@Model.SearchTerm"
                                        class="text-success" title="Активирай">
                                         <i class="fa-solid fa-plus"></i>
                                     </a>
@@ -83,6 +87,10 @@
                                     <a asp-action="Restore"
                                        asp-route-id="@teacher.TeacherId"
                                        asp-route-schoolId="@teacher.SchoolId"
+                                       asp-route-selectedpage="@Model.CurrentPage"
+                                       asp-route-currentpage="@Model.CurrentPage"
+                                       asp-route-status="@Model.Status"
+                                       asp-route-searchTerm="@Model.SearchTerm"
                                        class="text-success" title="Възстанови">
                                         <i class="fa-solid fa-rotate-left"></i>
                                     </a>
@@ -95,6 +103,10 @@
                                     <a asp-action="Delete"
                                        asp-route-id="@teacher.TeacherId"
                                        asp-route-schoolId="@teacher.SchoolId"
+                                       asp-route-selectedpage="@Model.CurrentPage"
+                                       asp-route-currentpage="@Model.CurrentPage"
+                                       asp-route-status="@Model.Status"
+                                       asp-route-searchTerm="@Model.SearchTerm"
                                        class="text-danger" title="Изтрий">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
@@ -120,7 +132,7 @@
                     <i class="fa-solid fa-angle-left"></i>
                 </a>
             </li>
-            @for (int p = 1; p <= lastPage; p++)
+            @for (int p = 1; p <= lastPage && lastPage > 1; p++)
             {
                 <li class="page-item @((Model.CurrentPage == p) ? "active disabled border-bottom border-2 border-primary" : "")">
                     <a asp-controller="Teachers"

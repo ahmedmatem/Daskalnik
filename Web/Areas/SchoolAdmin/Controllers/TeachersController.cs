@@ -42,7 +42,10 @@ namespace Web.Areas.SchoolAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(string id, string schoolId)
+        public async Task<IActionResult> Delete(
+            string id, 
+            string schoolId,
+            [FromQuery] AllTeachersInSchoolQueryModel model)
         {
             var isDeleted = await teacherService.DeleteAsync(id, schoolId, User.Id());
 
@@ -55,11 +58,22 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageError] = "Възникна грешка при изтриване на учител.";
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), 
+                new 
+                {
+                    currentPage = model.CurrentPage,
+                    selectedPage = model.SelectedPage,
+                    searchTerm = model.SearchTerm,
+                    status = model.Status,
+                    teachersPerPage = model.TeachersPerPage
+                });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Restore(string id, string schoolId)
+        public async Task<IActionResult> Restore(
+            string id, 
+            string schoolId, 
+            [FromQuery] AllTeachersInSchoolQueryModel model)
         {
             var isRestored = await teacherService.RestoreAsync(id, schoolId, User.Id());
 
@@ -72,11 +86,22 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageError] = "Възникна грешка при възстановяване на учител.";
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),
+                new
+                {
+                    currentPage = model.CurrentPage,
+                    selectedPage = model.SelectedPage,
+                    searchTerm = model.SearchTerm,
+                    status = model.Status,
+                    teachersPerPage = model.TeachersPerPage
+                });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Activate(string id, string schoolId)
+        public async Task<IActionResult> Activate(
+            string id, 
+            string schoolId,
+            [FromQuery] AllTeachersInSchoolQueryModel model)
         {
             var isActivated = await teacherService.ActivateAsync(id, schoolId, User.Id());
 
@@ -89,7 +114,15 @@ namespace Web.Areas.SchoolAdmin.Controllers
                 TempData[MessageSuccess] = "Възникна грешка при активиране на учител.";
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),
+                new
+                {
+                    currentPage = model.CurrentPage,
+                    selectedPage = model.SelectedPage,
+                    searchTerm = model.SearchTerm,
+                    status = model.Status,
+                    teachersPerPage = model.TeachersPerPage
+                });
         }
     }
 }
