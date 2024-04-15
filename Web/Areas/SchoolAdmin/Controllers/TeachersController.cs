@@ -1,4 +1,5 @@
 ﻿using Core.Contracts;
+using Core.Models.Teacher;
 using Microsoft.AspNetCore.Mvc;
 using Web.Extensions;
 using static Core.Constants.MessageConstants;
@@ -15,14 +16,24 @@ namespace Web.Areas.SchoolAdmin.Controllers
             teacherService = _teacherService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllTeachersInSchoolQueryModel model)
         {
             var teacher = await teacherService.GetByIdAsync(User.Id());
             if (teacher != null)
             {
                 string schoolId = teacher.SchoolId;
-                var model = await teacherService
-                    .GetAllTeachersInSchool(schoolId, User.Id());
+                var teachers = await teacherService.GetAllTeachersInSchool(
+                    schoolId, 
+                    User.Id(),
+                    model.CurrentPage,
+                    model.SelectedPage,
+                    model.TeachersPerPage,
+                    model.Status,
+                    model.SearchTerm);
+
+                model.Teachers = teachers?.Teachers ?? Enumerable.Empty<TeacherTableRowServiceModel>();
+                model.TotalTeachersCount = teachers?.TotalTeachersCount ?? 0;
+                model.CurrentPage = teachers?.CurrentPage ?? 1;
 
                 return View(model);
             }

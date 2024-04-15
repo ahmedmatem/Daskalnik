@@ -1,4 +1,5 @@
 ﻿using Core.Models.ApplicationUser;
+using Core.Models.Common;
 using Core.Models.Teacher;
 using Infrastructure.Data.Models;
 
@@ -12,11 +13,16 @@ namespace Core.Contracts
 
         Task<int> GetTeachersCountInSchoolAsync(string schoolId);
 
-        Task<IEnumerable<TeacherDropdownViewModel>?> 
-            GetSchoolAdminCandidatesAsync(string schoolId);
+        Task<IEnumerable<TeacherDropdownViewModel>?> GetSchoolAdminCandidatesAsync(string schoolId);
 
-        Task<IEnumerable<TeacherTableRowServiceModel>> GetAllTeachersInSchool(
-            string schoolId, string schoolAdminId);
+        Task<AllTeachersInSchoolQueryModel?> GetAllTeachersInSchool(
+            string schoolId, 
+            string schoolAdminId,
+            int currentpage,
+            int selectedpage,
+            int teachersPerPage,
+            UserStatus status,
+            string? searchTerm);
 
         Task<Teacher?> GetByIdAsync(string id);
 

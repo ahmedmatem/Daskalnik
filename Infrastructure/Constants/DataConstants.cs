@@ -2,6 +2,8 @@
 {
     public static class DataConstants
     {
+        public const int DefaultTeachersPerPage = 2;
+
         public const int UserFullNameMinLength = 5;
         public const int UserFullNameMaxLength = 50;
 

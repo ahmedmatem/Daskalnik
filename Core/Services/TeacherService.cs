@@ -1,5 +1,6 @@
 ﻿using Core.Contracts;
 using Core.Models.ApplicationUser;
+using Core.Models.Common;
 using Core.Models.Teacher;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using static Core.Claims.CustomUserClaims;
+using static Infrastructure.Constants.DataConstants;
 
 namespace Core.Services
 {
@@ -65,14 +67,20 @@ namespace Core.Services
                 .CountAsync();
         }
 
-        public async Task<IEnumerable<TeacherTableRowServiceModel>>
-            GetAllTeachersInSchool(string schoolId, string schoolAdminId)
+        public async Task<AllTeachersInSchoolQueryModel?> GetAllTeachersInSchool(
+            string schoolId,
+            string schoolAdminId,
+            int currentPage = 1,
+            int selectedPage = 1,
+            int teachersPerPage = DefaultTeachersPerPage,
+            UserStatus status = UserStatus.All,
+            string? searchTerm = null)
         {
-            var schoolAdmin = await repository
-                .GetByIdAsync<Teacher>(schoolAdminId);
+            var schoolAdmin = await repository.GetByIdAsync<Teacher>(schoolAdminId);
+
             if (schoolAdmin != null && schoolAdmin.SchoolId == schoolId)
             {
-                return await repository.AllReadOnly<Teacher>()
+                var allTeachers = repository.AllReadOnly<Teacher>()
                 .Where(t => t.SchoolId == schoolId)
                 .Select(t => new TeacherTableRowServiceModel()
                 {
@@ -81,12 +89,44 @@ namespace Core.Services
                     FullName = t.FullName,
                     IsDeleted = t.IsDeleted,
                     IsActivated = t.IsActivated,
-                })
-                .OrderBy(m => m.FullName)
-                .ToListAsync();
+                });
+
+                if(searchTerm != null)
+                {
+                    string normalizedSearchTerm = searchTerm.ToLower();
+                    allTeachers = allTeachers
+                        .Where(m => m.FullName.ToLower().Contains(normalizedSearchTerm));
+                }
+
+                allTeachers = status switch
+                {
+                    UserStatus.Active => allTeachers
+                        .Where(m => m.IsActivated && !m.IsDeleted),
+                    UserStatus.Deleted => allTeachers
+                        .Where(m => m.IsDeleted),
+                    UserStatus.Pending => allTeachers
+                    .Where(m => !m.IsActivated),
+                    _ => allTeachers
+                };
+
+                allTeachers = allTeachers.OrderBy(m => m.FullName);
+
+                var teachersToShow = await allTeachers
+                    .Skip((selectedPage - 1) * teachersPerPage)
+                    .Take(teachersPerPage)
+                    .ToListAsync();
+
+                var teachersCount = await allTeachers.CountAsync();
+
+                return new AllTeachersInSchoolQueryModel()
+                {
+                    Teachers = teachersToShow,
+                    TotalTeachersCount = teachersCount,
+                    CurrentPage = selectedPage
+                };
             }
 
-            return Enumerable.Empty<TeacherTableRowServiceModel>();
+            return null;
         }
 
         public async Task<bool> DeleteAsync(
