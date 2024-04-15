@@ -6,6 +6,7 @@ namespace Core.Models.Teacher
 {
     public class AllTeachersInSchoolQueryModel
     {
+        [Display(Name = "Брой учители на страница")]
         public int TeachersPerPage { get; set; } = DefaultTeachersPerPage;
 
         [Display(Name = "Състояние")]

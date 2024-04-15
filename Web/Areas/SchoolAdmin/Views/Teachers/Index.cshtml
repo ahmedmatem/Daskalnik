@@ -1,5 +1,4 @@
-﻿@* @model IEnumerable<TeacherTableRowServiceModel> *@
-@model AllTeachersInSchoolQueryModel
+﻿@model AllTeachersInSchoolQueryModel
 
 @{
     ViewData["Title"] = "Всички учители";
@@ -20,6 +19,17 @@
 <form method="get" id="form-filter"
       class="my-1 p-2 rounded border-1 border border-secondary">
     <div class="row justify-content-center">
+        <div class="form-group col">
+            <div class="form-floating">
+                <select asp-for="TeachersPerPage" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                <label asp-for="TeachersPerPage"></label>
+            </div>
+        </div>
         <div class="form-group col-md-auto">
             <div class="form-floating">
                 <select asp-for="Status" class="form-control">
@@ -75,6 +85,7 @@
                                        asp-route-currentpage="@Model.CurrentPage"
                                        asp-route-status="@Model.Status"
                                        asp-route-searchTerm="@Model.SearchTerm"
+                                       asp-route-teachersPerPage="@Model.TeachersPerPage"
                                        class="text-success" title="Активирай">
                                         <i class="fa-solid fa-plus"></i>
                                     </a>
@@ -91,6 +102,7 @@
                                        asp-route-currentpage="@Model.CurrentPage"
                                        asp-route-status="@Model.Status"
                                        asp-route-searchTerm="@Model.SearchTerm"
+                                       asp-route-teachersPerPage="@Model.TeachersPerPage"
                                        class="text-success" title="Възстанови">
                                         <i class="fa-solid fa-rotate-left"></i>
                                     </a>
@@ -107,6 +119,7 @@
                                        asp-route-currentpage="@Model.CurrentPage"
                                        asp-route-status="@Model.Status"
                                        asp-route-searchTerm="@Model.SearchTerm"
+                                       asp-route-teachersPerPage="@Model.TeachersPerPage"
                                        class="text-danger" title="Изтрий">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
@@ -128,6 +141,7 @@
                    asp-route-currentpage="@Model.CurrentPage"
                    asp-route-status="@Model.Status"
                    asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-teachersPerPage="@Model.TeachersPerPage"
                    class="page-link" aria-label="Previous">
                     <i class="fa-solid fa-angle-left"></i>
                 </a>
@@ -141,6 +155,7 @@
                        asp-route-currentpage="@Model.CurrentPage"
                        asp-route-status="@Model.Status"
                        asp-route-searchTerm="@Model.SearchTerm"
+                       asp-route-teachersPerPage="@Model.TeachersPerPage"
                        class="page-link">
                         @p
                     </a>
@@ -153,6 +168,7 @@
                    asp-route-currentpage="@Model.CurrentPage"
                    asp-route-status="@Model.Status"
                    asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-teachersPerPage="@Model.TeachersPerPage"
                    class="page-link" aria-label="Next">
                     <i class="fa-solid fa-angle-right"></i>
                 </a>
