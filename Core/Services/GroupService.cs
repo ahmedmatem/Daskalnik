@@ -79,7 +79,7 @@ namespace Core.Services
                 await repository.SaveChangesAsync<Student>();
 
                 await repository.AddRangeAsync(studentsInGroup);
-                await repository.SaveChangesAsync<Group>();
+                await repository.SaveChangesAsync<GroupStudent>();
             }
         }
 
