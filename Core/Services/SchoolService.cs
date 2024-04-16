@@ -116,34 +116,31 @@ namespace Core.Services
                 {
                     // Get pure teacher
                     var teacher = await repository.GetByIdAsync<Teacher>(teacherId);
-                    // Check if the teacher belongs to school which it has to be added in.
-                    if(teacher != null && teacher.SchoolId == schoolId)
+
+                    if (teacher != null)
                     {
                         if(await userManager.IsInRoleAsync(teacherAsUser, "Teacher"))
                         {
-                            var removeFromRole = 
-                                await userManager.RemoveFromRoleAsync(teacherAsUser, "Teacher");
-                            if(removeFromRole.Succeeded)
-                            {
-                                // Set teacher in SchoolAdmin role.
-                                var addToRoleResult = 
-                                    await userManager.AddToRoleAsync(teacherAsUser, "SchoolAdmin");
-                                if(addToRoleResult.Succeeded)
-                                {
-                                    // Add custom claim of type ActiveClaim to the user
-                                    await userManager.AddClaimAsync(
-                                        teacherAsUser,
-                                        new Claim(ActiveClaim.Key, ActiveClaim.Value));
-                                    // Activate teacher.
-                                    teacher.IsActivated = true;
-                                    await repository.SaveChangesAsync<Teacher>();
+                            await userManager.RemoveFromRoleAsync(teacherAsUser, "Teacher");
+                        }
 
-                                    // Update school with SchoolAdmin teacher.
-                                    school.SchoolAdmin = teacher;
-                                    await repository.SaveChangesAsync<Teacher>();
-                                    return true;
-                                }
-                            }
+                        // Set teacher in SchoolAdmin role.
+                        var addToRoleResult =
+                            await userManager.AddToRoleAsync(teacherAsUser, "SchoolAdmin");
+                        if (addToRoleResult.Succeeded)
+                        {
+                            // Add custom claim of type ActiveClaim to the user
+                            await userManager.AddClaimAsync(
+                                teacherAsUser,
+                                new Claim(ActiveClaim.Key, ActiveClaim.Value));
+                            // Activate teacher.
+                            teacher.IsActivated = true;
+                            await repository.SaveChangesAsync<Teacher>();
+
+                            // Update school with SchoolAdmin teacher.
+                            school.SchoolAdmin = teacher;
+                            await repository.SaveChangesAsync<Teacher>();
+                            return true;
                         }
                     }
                 }
