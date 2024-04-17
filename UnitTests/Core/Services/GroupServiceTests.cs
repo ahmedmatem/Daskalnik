@@ -7,12 +7,6 @@ using Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests.Core.Services
 {
@@ -87,7 +81,7 @@ namespace UnitTests.Core.Services
                 new Student(){ Id = studentIds[0]},
                 new Student(){ Id = studentIds[1]},
                 new Student(){ Id = studentIds[2]},
-            });            
+            });
             await repository.SaveChangesAsync<Student>();
 
             await groupService.AddStudentsInGroupAsync(groupId, studentIds);
@@ -128,12 +122,124 @@ namespace UnitTests.Core.Services
                 .Where(g => g.Id == groupId)
                 .Include(g => g.Topics)
                 .SingleOrDefaultAsync();
-            var addedTopics = groupWithAddedTopics?.Topics 
+            var addedTopics = groupWithAddedTopics?.Topics
                 ?? Enumerable.Empty<Topic>();
 
             Assert.That(addedTopics, Is.Not.Null);
             Assert.That(addedTopics.Count, Is.EqualTo(3));
             Assert.That(addedTopics.All(t => topicIds.Contains(t.Id)), Is.True);
+        }
+
+        [Test]
+        public async Task TestGetAllTeachersGroup()
+        {
+            var teacherId = "teacher-id";
+            await repository.AddRangeAsync<Group>(new List<Group>()
+            {
+                new Group(){ TeacherId = teacherId},
+                new Group(){ TeacherId = teacherId},
+                new Group(){ TeacherId = teacherId},
+            });
+            await repository.SaveChangesAsync<Group>();
+
+            var allTeacherGroups = await groupService.GetAllTeacherGroups(teacherId);
+
+            Assert.That(allTeacherGroups, Is.Not.Null);
+            Assert.That(allTeacherGroups.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task TestGetByIdAsync()
+        {
+            var groupId = "group-id";
+            await repository.AddAsync<Group>(new Group() { Id = groupId });
+            await repository.SaveChangesAsync<Group>();
+
+            var group = await groupService.GetByIdAsync(groupId);
+
+            Assert.That(group, Is.Not.Null);
+            Assert.That(group, Has.Property("GroupTopics"));
+            Assert.That(group, Has.Property("GroupStudents"));
+        }
+
+        [Test]
+        public async Task TestGetGroupsCountAsync()
+        {
+            var currentGroupsCount = await repository.AllReadOnly<Group>().CountAsync();
+            await repository.AddAsync<Group>(new Group());
+            await repository.SaveChangesAsync<Group>();
+
+            var expectedGroupsCount = currentGroupsCount + 1;
+
+            var actualGroupsCount = await groupService.GetGroupsCountAsync();
+
+            Assert.That(actualGroupsCount, Is.EqualTo(expectedGroupsCount));
+        }
+
+        [Test]
+        public async Task TestGetGroupsCountInSchoolAsync()
+        {
+            string schoolId = "school-id";
+            await repository.AddRangeAsync<Group>(new List<Group>()
+            {
+                new Group(){ SchoolId = schoolId },
+                new Group(){ SchoolId = schoolId },
+                new Group(){ SchoolId = schoolId },
+            });
+            await repository.SaveChangesAsync<Group>();
+
+            var actualGroupsCountInSchool = await groupService
+                .GetGroupsCountInSchoolAsync(schoolId);
+
+            Assert.That(actualGroupsCountInSchool, Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task TestRemoveStudentFromGroupAsync()
+        {
+            var studentId = "student-id";
+            var groupId = "group-id";
+            await repository.AddAsync(new GroupStudent() { GroupId = groupId, StudentId = studentId });
+            await repository.SaveChangesAsync<GroupStudent>();
+
+            var hasStudentInGroup = await repository
+                .AllReadOnly<GroupStudent>()
+                .AnyAsync(gs => gs.GroupId == groupId && gs.StudentId == studentId);
+
+            Assert.That(hasStudentInGroup, Is.True);
+
+            await groupService.RemoveStudentFromGroupAsync(studentId, groupId);
+
+            hasStudentInGroup = await repository
+                .AllReadOnly<GroupStudent>()
+                .AnyAsync(gs => gs.GroupId == groupId && gs.StudentId == studentId);
+
+            Assert.That(hasStudentInGroup, Is.False);
+        }
+
+        [Test]
+        public async Task TestRemoveTopicFromGroupAsync()
+        {
+            var topicId = "topic-id";
+            var groupId = "group-id";
+
+            await repository.AddAsync(new Group()
+            {
+                Id = groupId,
+                Topics = new List<Topic>() { new Topic() { Id = topicId } }
+            });
+            await repository.SaveChangesAsync<Group>();
+
+            var group = await repository.GetByIdAsync<Group>(groupId);
+            var hasTopicInGroup = group!.Topics.Any(t => t.Id == topicId);
+
+            Assert.That(hasTopicInGroup, Is.True);
+
+            await groupService.RemoveTopicFromGroupAsync(topicId, groupId);
+
+            hasTopicInGroup = group!.Topics.Any(t => t.Id == topicId);
+
+            Assert.That(hasTopicInGroup, Is.False);
         }
 
         [TearDown]

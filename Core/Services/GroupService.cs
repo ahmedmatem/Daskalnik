@@ -153,8 +153,6 @@ namespace Core.Services
 
         public async Task<GroupServiceModel?> GetByIdAsync(string groupId)
         {
-            var topicResources = repository.All<TopicResource>();
-
             return await repository.All<Group>()
                 .Where(g => !g.IsDeleted && g.Id == groupId)
                 .Select(g => new GroupServiceModel()
