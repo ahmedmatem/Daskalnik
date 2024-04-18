@@ -56,5 +56,17 @@ namespace Web.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddApplicationAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:ClientID"];
+                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                });
+
+            return services;
+        }
     }
 }
