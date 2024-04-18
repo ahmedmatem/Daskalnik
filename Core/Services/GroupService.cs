@@ -343,7 +343,8 @@ namespace Core.Services
                     repository.AllReadOnly<Group>(),
                     gs => gs.GroupId,
                     g => g.Id,
-                    (gs, g) => g);
+                    (gs, g) => g)
+                .Where(g => !g.Teacher.IsDeleted);
         }
 
         public async Task<StudentGroupServiceModel?> GetStudentGroup(string groupId)
