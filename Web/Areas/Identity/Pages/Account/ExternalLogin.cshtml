@@ -1,0 +1,58 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<h4 class="text-center" id="external-login-title">Свържете профила си в @Model.ProviderDisplayName.</h4>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <p id="external-login-description" class="text-info">
+            Успешно се удостоверихте с профила си в <strong>@Model.ProviderDisplayName</strong>.
+            Моля попълнете формата за да свържете профила си в @Model.ProviderDisplayName със сайта и да завършите регистрацията си.
+        </p>
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating my-1">
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" />
+                <label asp-for="Input.Email" class="form-label"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating my-1">
+                <input asp-for="Input.FullName" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.FullName"></label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-floating my-1">
+                <select asp-for="Input.SchoolId" class="form-select" aria-label="Default select example">
+                    <option value="">Изберете училище</option>
+                    @foreach (var school in Model.Input.Schools)
+                    {
+                        <option value="@school.Id">
+                            @school.Type @school.Name - @school.City
+                        </option>
+                    }
+                </select>
+                <label asp-for="Input.SchoolId"></label>
+                <span asp-validation-for="Input.SchoolId" class="text-danger"></span>
+            </div>
+            <div class="form-floating my-1">
+                <select asp-for="Input.Role" class="form-select" aria-label="Default select example">
+                    <option value="">Изберете роля</option>
+                    <option value="Student">Ученик</option>
+                    <option value="Teacher">Учител</option>
+                </select>
+                <label asp-for="Input.Role"></label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Регистрация</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

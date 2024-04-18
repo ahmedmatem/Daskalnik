@@ -20,6 +20,13 @@ namespace Web
 
             builder.Services.AddApplicationServices();
 
+            builder.Services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = builder.Configuration["Authentication:Google:ClientID"];
+                    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+                });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
