@@ -116,6 +116,9 @@ namespace Web.Areas.Identity.Pages.Account
                 }
             }
 
+            var allSchools = await _schoolService.GetAllAsync();
+            Input = new RegisterFormModel { Schools = allSchools };
+
             return Page();
         }
 

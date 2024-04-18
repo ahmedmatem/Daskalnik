@@ -26,26 +26,26 @@ namespace Infrastructure.Data.Configurations
             // in SeedConfiguration if TeachersCount changed.
 
             // The following users are teachers
-            Users.Add(CreateUser("turhan@gmail.com", "turhanPass"));
-            Users.Add(CreateUser("venci@gmail.com", "venciPass"));
-            Users.Add(CreateUser("ahmed@gmail.com", "ahmedPass"));
-            Users.Add(CreateUser("martin@gmail.com", "martinPass"));
-            Users.Add(CreateUser("desi@gmail.com", "desiPass"));
+            Users.Add(CreateUser("turhan@gmail.com", "turhanPass", "Турхан Мюмюн Сюлейман"));
+            Users.Add(CreateUser("venci@gmail.com", "venciPass", "Венцислав Кочанов"));
+            Users.Add(CreateUser("ahmed@gmail.com", "ahmedPass", "Ахмед Матем Ахмед"));
+            Users.Add(CreateUser("martin@gmail.com", "martinPass", "Мартин Катев"));
+            Users.Add(CreateUser("desi@gmail.com", "desiPass", "Десислава Петкова"));
 
             // The following users are students
-            Users.Add(CreateUser("baran@gmail.com", "turhanPass")); // StudentStartIndex
-            Users.Add(CreateUser("viktoriya@gmail.com", "venciPass"));
-            Users.Add(CreateUser("daniel@gmail.com", "ahmedPass"));
-            Users.Add(CreateUser("dimana@gmail.com", "martinPass"));
-            Users.Add(CreateUser("dimitar@gmail.com", "desiPass"));
-            Users.Add(CreateUser("emre@gmail.com", "turhanPass"));
-            Users.Add(CreateUser("ivayla@gmail.com", "venciPass"));
-            Users.Add(CreateUser("ivan@gmail.com", "ahmedPass"));
-            Users.Add(CreateUser("ivan_ivanov@gmail.com", "martinPass"));
-            Users.Add(CreateUser("dimitar_barlev@gmail.com", "desiPass"));
+            Users.Add(CreateUser("baran@gmail.com", "baranPass", "Баран Ахмедов")); // StudentStartIndex
+            Users.Add(CreateUser("viktoriya@gmail.com", "viktoriyaPass", "Виктория Петрова"));
+            Users.Add(CreateUser("daniel@gmail.com", "danielPass", "Даниел Петорв"));
+            Users.Add(CreateUser("dimana@gmail.com", "dimanaPass", "Димана Иванова Колева"));
+            Users.Add(CreateUser("dimitar@gmail.com", "dimitarPass", "Димитар Димитров"));
+            Users.Add(CreateUser("emre@gmail.com", "emrePass", "Емре Алиев"));
+            Users.Add(CreateUser("ivayla@gmail.com", "ivaylaPass", "Ивайла Иванова"));
+            Users.Add(CreateUser("ivan@gmail.com", "ivanPass", "Иван Манолов Кишанов"));
+            Users.Add(CreateUser("ivan_ivanov@gmail.com", "ivan_ivanovPass", "Иван Петров Иванов"));
+            Users.Add(CreateUser("dimitar_barlev@gmail.com", "dimitar_barlevPass", "Димитър Димов Барлев"));
         }
 
-        private ApplicationUser CreateUser(string email, string password)
+        private ApplicationUser CreateUser(string email, string password, string fullName)
         {
             var user = new ApplicationUser()
             {
@@ -53,7 +53,7 @@ namespace Infrastructure.Data.Configurations
                 NormalizedEmail = email.ToUpper(),
                 UserName = email,
                 NormalizedUserName = email.ToUpper(),
-                FullName = email.Split('@')[0] + " Пълно Име"
+                FullName = fullName
             };
             user.PasswordHash =
                 passwordHasher.HashPassword(user, password);

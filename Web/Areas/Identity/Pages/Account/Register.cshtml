@@ -36,7 +36,7 @@
                     @foreach (var school in Model.Input.Schools)
                     {
                         <option value="@school.Id">
-                            @school.Name - @school.City
+                            @school.Type @school.Name - @school.City
                         </option>
                     }
                 </select>
