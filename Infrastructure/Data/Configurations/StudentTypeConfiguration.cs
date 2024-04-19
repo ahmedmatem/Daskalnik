@@ -33,7 +33,7 @@ namespace Infrastructure.Data.Configurations
                 student = new Student()
                 {
                     Id = user.Id,
-                    FullName = string.Join(" ", email.Split('@')),
+                    FullName = user.FullName,
                     SchoolId = Schools[schoolIndex].Id
                 };
             }

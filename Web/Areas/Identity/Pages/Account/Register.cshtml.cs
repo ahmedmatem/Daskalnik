@@ -78,8 +78,6 @@ namespace Web.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            var allSchools = await _schoolService.GetAllAsync();
-            Input = new RegisterFormModel { Schools = allSchools };
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -119,6 +117,8 @@ namespace Web.Areas.Identity.Pages.Account
                 }
             }
 
+            var allSchools = await _schoolService.GetAllAsync();
+            Input = new RegisterFormModel { Schools = allSchools };
             return Page();
         }
 

@@ -37,7 +37,7 @@ namespace Core.Services
         {
             return await repository
                 .AllReadOnly<Teacher>()
-                .Where(t => !t.IsActivated && t.SchoolId == schoolId)
+                .Where(t => !t.IsActivated && !t.IsDeleted && t.SchoolId == schoolId)
                 .Select(t => new TeacherDropdownViewModel()
                 {
                     Id = t.Id,
