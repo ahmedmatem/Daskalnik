@@ -55,9 +55,34 @@
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Регистрация</button>
         </form>
+
+        <p class="text-center mt-2 text-info">
+            Регистрация и вход чрез профил в
+        </p>
+
+        <form id="external-account"
+              asp-page="./ExternalLogin"
+              asp-route-returnUrl="@Model.ReturnUrl"
+              method="post" class="form-horizontal">
+            <div>
+                <p>
+                    @foreach (var provider in Model.ExternalLogins!)
+                    {
+                        <button type="submit"
+                                class="btn btn-outline-primary w-100"
+                                name="provider"
+                                value="@provider.Name"
+                                title="Регистрация през @provider.DisplayName профил">
+                            <i class="fa-brands fa-google"></i> @provider.DisplayName
+                        </button>
+                    }
+                </p>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_FontAwesomePartial" />
 }
