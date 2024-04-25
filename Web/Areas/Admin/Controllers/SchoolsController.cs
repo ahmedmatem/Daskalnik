@@ -103,7 +103,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SchoolViewModel model)
+        public async Task<IActionResult> Edit(SchoolServiceModel model)
         {
             if(!ModelState.IsValid)
             {
@@ -126,7 +126,16 @@ namespace Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Block(string id)
         {
-            await schoolService.BlockAsync(id);
+            try
+            {
+                await schoolService.BlockAsync(id);
+            }
+            catch(EntityNotFoundException)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageSuccess] = "Училището бе блокирано успешно.";
 
             return RedirectToAction(nameof(Index));
         }
@@ -134,7 +143,16 @@ namespace Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Unblock(string id)
         {
-            await schoolService.UnblockAsync(id);
+            try
+            {
+                await schoolService.UnblockAsync(id);
+            }
+            catch(EntityNotFoundException)
+            {
+                return BadRequest();
+            }
+
+            TempData[MessageSuccess] = "Училището бе отблокирано успешно.";
 
             return RedirectToAction(nameof(Index));
         }

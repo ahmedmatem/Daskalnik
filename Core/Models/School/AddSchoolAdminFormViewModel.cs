@@ -5,7 +5,7 @@ namespace Core.Models.School
 {
     public class AddSchoolAdminFormViewModel
     {
-        public SchoolViewModel School { get; set; } = null!;
+        public SchoolServiceModel School { get; set; } = null!;
 
         [Display(Name = "Администратор")]
         public string TeacherId { get; set; } = string.Empty;

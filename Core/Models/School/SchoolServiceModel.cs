@@ -4,7 +4,7 @@ using static Infrastructure.Data.ErrorMessages;
 
 namespace Core.Models.School
 {
-    public class SchoolViewModel
+    public class SchoolServiceModel
     {
         /// <summary>
         /// School unique identifier.

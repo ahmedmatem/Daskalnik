@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SchoolViewModel>
+﻿@model IEnumerable<SchoolServiceModel>
 
 @{
     ViewData["Title"] = "Всички училища";
@@ -20,9 +20,9 @@
     <i class="fa-solid fa-ban"></i> Блокирани училища
 </a>
 
-<table class="table table-hover">
+<table class="table mt-1">
     <thead>
-        <tr>
+        <tr class="bg-danger text-white">
             <th scope="col">Име</th>
             <th scope="col">Населено място</th>
             <th scope="col">Администратор</th>
@@ -39,8 +39,8 @@
                     @if (school.SchoolAdmin == null)
                     {
                         <a asp-action="AddSchoolAdmin" asp-route-id="@school.Id"
-                           class="btn btn-outline-success btn-sm" title="Добави уилищен администратор">
-                            <i class="fa-solid fa-plus"></i> Админ
+                           class="btn btn-success btn-sm" title="Добави уилищен администратор">
+                            Добави
                         </a>
                     }
                     else

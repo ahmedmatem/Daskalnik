@@ -46,12 +46,12 @@ namespace Core.Services
             var school = await repository.GetByIdAsync<School>(teacher.SchoolId);
         }
 
-        public async Task<IEnumerable<SchoolViewModel>> GetAllAsync()
+        public async Task<IEnumerable<SchoolServiceModel>> GetAllAsync()
         {
             return await repository
                 .AllReadOnly<School>()
                 .Where(s => !s.IsDeleted)
-                .Select(s => new SchoolViewModel()
+                .Select(s => new SchoolServiceModel()
                 {
                     Id = s.Id,
                     Name = s.Name,
@@ -62,12 +62,12 @@ namespace Core.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<SchoolViewModel>> GetAllBlockedAsync()
+        public async Task<IEnumerable<SchoolServiceModel>> GetAllBlockedAsync()
         {
             return await repository
                 .AllReadOnly<School>()
                 .Where(s => s.IsDeleted)
-                .Select(s => new SchoolViewModel()
+                .Select(s => new SchoolServiceModel()
                 {
                     Id = s.Id,
                     Name = s.Name,
@@ -78,11 +78,11 @@ namespace Core.Services
                 .ToListAsync();
         }
 
-        public async Task<SchoolViewModel?> GetByIdAsync(string id)
+        public async Task<SchoolServiceModel?> GetByIdAsync(string id)
         {
             return await repository.AllReadOnly<School>()
                 .Where(s => s.Id == id && !s.IsDeleted)
-                .Select(s => new SchoolViewModel()
+                .Select(s => new SchoolServiceModel()
                 {
                     Id = s.Id,
                     Name = s.Name,
@@ -149,7 +149,7 @@ namespace Core.Services
             return false;
         }
 
-        public async Task UpdateAsync(SchoolViewModel model)
+        public async Task UpdateAsync(SchoolServiceModel model)
         {
             School? school = await repository.GetByIdAsync<School>(model.Id);
             if(school == null)

@@ -61,7 +61,7 @@ namespace Core.Models.ApplicationUser
         /// <summary>
         /// Contains list of all schools.
         /// </summary>
-        public IEnumerable<SchoolViewModel> Schools { get; set; } = new List<SchoolViewModel>();
+        public IEnumerable<SchoolServiceModel> Schools { get; set; } = new List<SchoolServiceModel>();
 
         /// <summary>
         /// The role which the user wants to participate on.

@@ -26,7 +26,7 @@ namespace Core.Services
         {
             using (var memoryStream = new MemoryStream())
             {
-                file.CopyTo(memoryStream);
+                await file.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
                 return await blobContainerClient.UploadBlobAsync(blobName, memoryStream, default);
             }

@@ -7,19 +7,19 @@ namespace Core.Contracts
     {
         Task<int> GetSchoolsCountAsync();
 
-        Task<IEnumerable<SchoolViewModel>> GetAllAsync();
+        Task<IEnumerable<SchoolServiceModel>> GetAllAsync();
 
-        Task<IEnumerable<SchoolViewModel>> GetAllBlockedAsync();
+        Task<IEnumerable<SchoolServiceModel>> GetAllBlockedAsync();
 
         Task AddAsync(SchoolFormViewModel model);
 
-        Task<SchoolViewModel?> GetByIdAsync(string id);
+        Task<SchoolServiceModel?> GetByIdAsync(string id);
 
         Task<bool> SchoolExistsAsync(string id);
 
         Task<bool> TryAddSchoolAdminAsync(string schoolId, string teacherId);
 
-        Task UpdateAsync(SchoolViewModel model);
+        Task UpdateAsync(SchoolServiceModel model);
 
         Task BlockAsync(string id);
 
