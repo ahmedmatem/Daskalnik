@@ -48,5 +48,13 @@
             { "code", "<i class=\"fa-regular fa-file-code\"></i>"},
             { "youtube", "<i class=\"fa-brands fa-youtube\"></i>"},
         };
+
+        public const int QuizNameMaxLength = 100;
+        public const int QuizNameMinLength = 5;
+
+        public const int QuizQuestionTextMaxLength = 500;
+        public const int QuizQuestionTextMinLength = 0;
+
+        public const int OptionMessageMaxLength = 150;
     }
 }
