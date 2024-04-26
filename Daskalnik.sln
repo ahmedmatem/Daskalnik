@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{6701AAE7-2BD1-4B46-AD96-CB0822A6377F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{414D5469-6B7E-40DF-839E-BD927C9BFAEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{414D5469-6B7E-40DF-839E-BD927C9BFAEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daskalnik.Infrastructure", "Daskalnik.Infrastructure\Daskalnik.Infrastructure.csproj", "{EA87D683-6066-4B8C-B2F7-BC60CA5E7AC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{414D5469-6B7E-40DF-839E-BD927C9BFAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{414D5469-6B7E-40DF-839E-BD927C9BFAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{414D5469-6B7E-40DF-839E-BD927C9BFAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA87D683-6066-4B8C-B2F7-BC60CA5E7AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA87D683-6066-4B8C-B2F7-BC60CA5E7AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA87D683-6066-4B8C-B2F7-BC60CA5E7AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA87D683-6066-4B8C-B2F7-BC60CA5E7AC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
