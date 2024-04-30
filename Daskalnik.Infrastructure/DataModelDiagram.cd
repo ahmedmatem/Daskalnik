@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Daskalnik.Infrastructure.Data.Contracts.DataModel" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAQAAAAAAAAAAAAAAAAAACAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Data\Contracts\DataModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Daskalnik.Infrastructure.Data.Models.Group" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAggAAAAAAACAQAAAAAAJAAQAAEACAAAAA=</HashCode>
+      <FileName>Data\Models\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Daskalnik.Infrastructure.Data.Models.Topic" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAIAAgAAACAAAAAAQAAAAAAAAAEAAAAABAAAA=</HashCode>
+      <FileName>Data\Models\Topic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Daskalnik.Infrastructure.Data.Models.TopicResource" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAYCEAAAA=</HashCode>
+      <FileName>Data\Models\TopicResource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Daskalnik.Infrastructure.Data.Models.School" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAIAAAAAAQAAAAQAAAAAQAEAAAAAAA=</HashCode>
+      <FileName>Data\Models\School.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

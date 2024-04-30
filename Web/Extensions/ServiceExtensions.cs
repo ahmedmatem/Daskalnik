@@ -1,11 +1,15 @@
 ﻿using Azure.Storage.Blobs;
 using Core.Contracts;
 using Core.Services;
+using Daskalnik.Infrastructure.Data;
 using Infrastructure.Data;
 using Infrastructure.Data.DataRepository;
 using Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DefaultDbContext = Infrastructure.Data.ApplicationDbContext;
+using DaskalnikDbContext = Daskalnik.Infrastructure.Data.ApplicationDbContext;
+using Daskalnik.Infrastructure.Data.Models;
 
 namespace Web.Extensions
 {
@@ -28,10 +32,13 @@ namespace Web.Extensions
 
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection") 
+            string defaultConnectionString = configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            string daskalnikConnectionString = configuration.GetConnectionString("DaskalnikDbConnection") 
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            services
+                .AddDbContext<DefaultDbContext>(options => options.UseSqlServer(defaultConnectionString))
+                .AddDbContext<DaskalnikDbContext>(options => options.UseSqlServer(daskalnikConnectionString));
 
             services.AddSingleton(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorage")));
 
@@ -44,7 +51,7 @@ namespace Web.Extensions
 
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services)
         {
-            services.AddDefaultIdentity<ApplicationUser>(options =>
+            services.AddDefaultIdentity<Infrastructure.Data.Models.ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = false;
                 options.Password.RequireDigit = false;
@@ -53,7 +60,18 @@ namespace Web.Extensions
                 options.Password.RequireLowercase = false;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<DefaultDbContext>();
+
+            services.AddDefaultIdentity<Daskalnik.Infrastructure.Data.Models.ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<DaskalnikDbContext>();
 
             return services;
         }
