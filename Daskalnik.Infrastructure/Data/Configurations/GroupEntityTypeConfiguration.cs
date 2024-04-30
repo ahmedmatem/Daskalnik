@@ -11,29 +11,42 @@ namespace Daskalnik.Infrastructure.Data.Configurations
             builder
                 .HasMany(g => g.Members)
                 .WithMany(m => m.Groups)
-                .UsingEntity<GroupsAndMembers>(
+                .UsingEntity<GroupMember>(
                     j => j.HasOne(g => g.Member)
                         .WithMany()
-                        .HasForeignKey(g => g.MemberId),
+                        .HasForeignKey(g => g.MemberId)
+                        .OnDelete(DeleteBehavior.NoAction),
                     j => j.HasOne(m => m.Group)
                         .WithMany()
-                        .HasForeignKey(m => m.GroupId));
+                        .HasForeignKey(m => m.GroupId)
+                        .OnDelete(DeleteBehavior.NoAction))
+                .ToTable("GroupsAndMembers");
 
             builder
                 .HasMany(g => g.Topics)
                 .WithMany(t => t.Groups)
-                .UsingEntity<GroupsAndTopics>(
+                .UsingEntity<GroupTopic>(
                     j => j.HasOne(g => g.Topic)
                         .WithMany()
-                        .HasForeignKey(g => g.TopicId),
+                        .HasForeignKey(g => g.TopicId)
+                        .OnDelete(DeleteBehavior.NoAction),
                     j => j.HasOne(t => t.Group)
                         .WithMany()
-                        .HasForeignKey(t => t.GroupId));
+                        .HasForeignKey(t => t.GroupId)
+                        .OnDelete(DeleteBehavior.NoAction))
+                .ToTable("GroupsAndTopics");
 
             builder
                 .HasOne(g => g.Teacher)
                 .WithMany()
                 .HasForeignKey(g => g.TeacherId);
+
+            builder
+                .HasOne(g => g.School)
+                .WithMany()
+                .HasForeignKey(g => g.SchoolId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

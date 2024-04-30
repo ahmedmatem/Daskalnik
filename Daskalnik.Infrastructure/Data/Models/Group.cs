@@ -15,7 +15,6 @@ namespace Daskalnik.Infrastructure.Data.Models
     {
         [Required]
         [Comment("Unique school identifier the group belongng to.")]
-        [ForeignKey("School")]
         public string SchoolId { get; set; } = string.Empty;
 
         /// <summary>
@@ -50,8 +49,7 @@ namespace Daskalnik.Infrastructure.Data.Models
         /// <summary>
         /// School which the group belongs to.
         /// </summary>
-        [NotMapped]
-        public ApplicationUser School { get; set; } = null!;
+        public School School { get; set; } = null!;
 
         /// <summary>
         /// The creator of the group. Only teachers can create a group.

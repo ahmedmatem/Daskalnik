@@ -1,7 +1,7 @@
 ﻿
 namespace Daskalnik.Infrastructure.Data.Models
 {
-    public class GroupsAndTopics
+    public class GroupTopic
     {
         public string GroupId { get; set; } = string.Empty;
 

@@ -12,7 +12,8 @@ namespace Daskalnik.Infrastructure.Data.Configurations
                 .HasMany(s => s.Members)
                 .WithOne()
                 .HasForeignKey(s => s.SchoolId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

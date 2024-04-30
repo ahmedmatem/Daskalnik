@@ -45,7 +45,7 @@ namespace Daskalnik.Infrastructure.Data.Models
 
         /// <summary>
         /// The school the user participate in.
-        /// </summary>
-        //public School School { get; set; } = null!;
+        /// </summary>]
+        public School School { get; set; } = null!;
     }
 }

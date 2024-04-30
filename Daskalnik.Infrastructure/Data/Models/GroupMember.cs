@@ -1,6 +1,6 @@
 ﻿namespace Daskalnik.Infrastructure.Data.Models
 {
-    public class GroupsAndMembers
+    public class GroupMember
     {
         public string GroupId { get; set; } = string.Empty;
 
