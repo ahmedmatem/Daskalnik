@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using static Infrastructure.Constants.DataConstants;
-using static Infrastructure.Data.ErrorMessages;
-
-namespace Infrastructure.Data.Models
+﻿namespace Infrastructure.Data.Models
 {
+    using Microsoft.AspNetCore.Identity;
+    using System.ComponentModel.DataAnnotations;
+    using static Infrastructure.Constants.DataConstants;
+    using static Infrastructure.Data.ErrorMessages;
+
     public class ApplicationUser : IdentityUser
     {
         /// <summary>

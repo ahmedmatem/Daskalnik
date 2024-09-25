@@ -33,7 +33,7 @@ namespace Web.Extensions
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddSingleton(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorage")));
+            services.AddSingleton(x => new BlobServiceClient(configuration.GetValue<string>("ConnectionStrings:AzureBlobStorageConnection")));
 
             services.AddScoped<IRepository, Repository>();
 
@@ -60,12 +60,12 @@ namespace Web.Extensions
 
         public static IServiceCollection AddApplicationAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = configuration["Authentication:Google:ClientID"];
-                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-                });
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        options.ClientId = configuration["Authentication:Google:ClientID"];
+            //        options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            //    });
 
             return services;
         }
