@@ -44,5 +44,7 @@ namespace Infrastructure.Data.Models
         public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
+
+        public List<Exam> Exams { get; set; } = new List<Exam>();
     }
 }

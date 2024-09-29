@@ -26,6 +26,7 @@ namespace Infrastructure.Data
             // Entity type configurations
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
+                .ApplyConfiguration(new ExamRecourceTypeConfiguration())
                 .ApplyConfiguration(new GroupTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
@@ -54,5 +55,9 @@ namespace Infrastructure.Data
         public DbSet<Topic> Topics { get; set; } = null!;
 
         public DbSet<TopicResource> TopicsAndResources { get; set; } = null!;
+
+        public DbSet<Exam> Exams { get; set; } = null!;
+
+        public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
     }
 }
