@@ -24,6 +24,24 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exams",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Unique data model identifier."),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Exam name"),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "Exam description"),
+                    CreatorId = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Unique identifier of the creator of the exam."),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Indicate a record in table as deleted or not."),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Mark the date of deleting the record in the table."),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Mark the date of created the record on in the table."),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Mark the date of last modifing the record in the table.")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exams", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Resources",
                 columns: table => new
                 {
@@ -100,6 +118,31 @@ namespace Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ExamsAndResources",
+                columns: table => new
+                {
+                    ResourceId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Part of primary key"),
+                    ExamId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Part of primary key")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamsAndResources", x => new { x.ExamId, x.ResourceId });
+                    table.ForeignKey(
+                        name: "FK_ExamsAndResources_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExamsAndResources_Resources_ResourceId",
+                        column: x => x.ResourceId,
+                        principalTable: "Resources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Many-to-many mapping table for Exam and Resource.");
 
             migrationBuilder.CreateTable(
                 name: "Schools",
@@ -243,6 +286,30 @@ namespace Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ExamGroup",
+                columns: table => new
+                {
+                    ExamsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GroupsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamGroup", x => new { x.ExamsId, x.GroupsId });
+                    table.ForeignKey(
+                        name: "FK_ExamGroup_Exams_ExamsId",
+                        column: x => x.ExamsId,
+                        principalTable: "Exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExamGroup_Groups_GroupsId",
+                        column: x => x.GroupsId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GroupsAndStudents",
                 columns: table => new
                 {
@@ -381,9 +448,9 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "097be129-4d59-41bc-9d6c-54d1b09d2276", "Teacher", "TEACHER" },
-                    { "94e8ff7b-7848-4d45-87da-972c3a799253", "94e8ff7b-7848-4d45-87da-972c3a799253", "Admin", "ADMIN" },
-                    { "b3eb4ddc-dc8a-4956-9262-45efadcc5ff6", "b3eb4ddc-dc8a-4956-9262-45efadcc5ff6", "SchoolAdmin", "SCHOOLADMIN" }
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "4482f408-1d74-4dba-9db3-9db676baefc1", "Teacher", "TEACHER" },
+                    { "4855dd7d-0a23-41b4-b7ea-282eeb3c9798", "4855dd7d-0a23-41b4-b7ea-282eeb3c9798", "SchoolAdmin", "SCHOOLADMIN" },
+                    { "58a72da0-9e2d-420c-8dbc-ebd28bcaa3e2", "58a72da0-9e2d-420c-8dbc-ebd28bcaa3e2", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -391,22 +458,22 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FullName", "GroupId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SchoolId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "0f52e149-3b5d-49bd-9d94-21e126906ff2", 0, "ed12ab70-0f14-4933-93fb-b0bb8d564af5", "ApplicationUser", "ivan@gmail.com", false, "Иван Манолов Кишанов", null, false, null, "IVAN@GMAIL.COM", "IVAN@GMAIL.COM", "AQAAAAEAACcQAAAAENcAYqxJCUsMLlOULEESpi1zNvD+2ZySIv35CmsjoJflfk9LRR3XV/MctmK47M2Mow==", null, false, "", "233605e3-97d8-4fc8-838b-d9545e780d82", false, "ivan@gmail.com" },
-                    { "1f7580b4-6941-4428-8fa9-1a9195e5885e", 0, "e1684488-f3b5-4e15-82b6-686df32e18ef", "ApplicationUser", "dimitar_barlev@gmail.com", false, "Димитър Димов Барлев", null, false, null, "DIMITAR_BARLEV@GMAIL.COM", "DIMITAR_BARLEV@GMAIL.COM", "AQAAAAEAACcQAAAAEGuTQ3Gv8jEUZe07CYsgJ/LJ5aNmb2Aqpx5rNEymUwoZnrxpZHSLKotLSfw7P27euQ==", null, false, "", "f3c3d843-94d5-4dfc-9f49-529b0a388a8b", false, "dimitar_barlev@gmail.com" },
-                    { "2eb5ae09-9ee9-4967-ac3b-7878c179be9e", 0, "6965b617-6620-4826-8988-89d4b481ecde", "ApplicationUser", "venci@gmail.com", false, "Венцислав Кочанов", null, false, null, "VENCI@GMAIL.COM", "VENCI@GMAIL.COM", "AQAAAAEAACcQAAAAEDg5djPrSjd0GmkICv87w9xmwnYphFse8eyN/A70FJ+FIGEsF2ptbh7PaEWBG53frw==", null, false, "", "065bb65d-b44b-48d2-8ee2-c0102b354941", false, "venci@gmail.com" },
-                    { "50622b61-4fcf-4588-b42e-9411d1610365", 0, "dfc9981f-35a3-41af-a50d-c7d296142861", "ApplicationUser", "turhan@gmail.com", false, "Турхан Мюмюн Сюлейман", null, false, null, "TURHAN@GMAIL.COM", "TURHAN@GMAIL.COM", "AQAAAAEAACcQAAAAEAkOnKGfGhtmtDxOHJe2YvOlJVJegLAobyeA3oZbndge9fWhuWg3+kDYhYTOUu0kNw==", null, false, "", "d12e2a91-4a76-46f8-adf8-5ec69d5e3018", false, "turhan@gmail.com" },
-                    { "6635e364-7ee1-411d-b629-ee90759226d0", 0, "1c400d9b-0937-4cfe-aee6-a6b7c48fa40a", "ApplicationUser", "viktoriya@gmail.com", false, "Виктория Петрова", null, false, null, "VIKTORIYA@GMAIL.COM", "VIKTORIYA@GMAIL.COM", "AQAAAAEAACcQAAAAEGoCDnaFWgYFY4rYTqjoBktMh0JLqijonibcssz03L6kavVyz8kIxYZ7kEWQ1QhlNw==", null, false, "", "c67566f1-c8d6-4203-898c-751053f7d707", false, "viktoriya@gmail.com" },
-                    { "6ba15a60-030a-4e95-b697-dc2f8df1e4a5", 0, "9b46daab-3186-4d8f-a29d-76e170e9e1be", "ApplicationUser", "baran@gmail.com", false, "Баран Ахмедов", null, false, null, "BARAN@GMAIL.COM", "BARAN@GMAIL.COM", "AQAAAAEAACcQAAAAEA0JfKZdo0l34jP+qKwiz8OwjHyvhIZVts7BShH2KurRyzTt6xRS+ECbJ7YBzD7Q9Q==", null, false, "", "2dddc3fe-6c79-4166-ab4f-c89445b20c2e", false, "baran@gmail.com" },
-                    { "70e01106-5323-40c7-b2dd-842641d97242", 0, "8b61f30f-efdb-4d76-8ef8-8e76c1eaf415", "ApplicationUser", "admin@gmail.com", false, "Ахмед Матем Ахмед", null, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEItuXW2Y+8cxMFKso7BQ9qC1u7WupndeK0mLREcklN5kuNp/rH2kWI6GNQMKqpOT5A==", null, false, "", "151c541c-d05b-469a-96bb-300fdedcf89f", false, "admin@gmail.com" },
-                    { "85341edb-268f-40de-9960-62d0ae3f8c70", 0, "ba9cacb8-e941-4831-8ff7-bed7aa037f05", "ApplicationUser", "daniel@gmail.com", false, "Даниел Петорв", null, false, null, "DANIEL@GMAIL.COM", "DANIEL@GMAIL.COM", "AQAAAAEAACcQAAAAEFKPYvr+/2hbdB55uoCoSJeXQkHNvk5mvNj5mizXpMkR8NBNQ00VNhSLf8dP8xDf5Q==", null, false, "", "52267c32-0bd2-4276-b68c-d4bdf94dbaf1", false, "daniel@gmail.com" },
-                    { "9f3f9dfd-8141-4fa9-b079-ebd81793124a", 0, "9ab3fb7f-23b7-4d2a-9063-c955c8b68ea5", "ApplicationUser", "ivayla@gmail.com", false, "Ивайла Иванова", null, false, null, "IVAYLA@GMAIL.COM", "IVAYLA@GMAIL.COM", "AQAAAAEAACcQAAAAEI/aWsMtZIymlLAImMAWD4KeKkQcIs7pRRP4cvod4sJSSWSh0wajWIV+ig7VsH+M/A==", null, false, "", "fe7b5d18-513c-4dee-bae5-722b01b0cae4", false, "ivayla@gmail.com" },
-                    { "a2a87cb0-f049-4d50-b401-1ed4df43215c", 0, "4a4e4245-d722-4a2e-868d-a2c34c2e3a54", "ApplicationUser", "dimitar@gmail.com", false, "Димитар Димитров", null, false, null, "DIMITAR@GMAIL.COM", "DIMITAR@GMAIL.COM", "AQAAAAEAACcQAAAAEEWx2OEfPK0IohO14WtIdoRG0I0Hc1vAu0XO9PfQrby6uxdLYqi+5YmUWBslG+evmA==", null, false, "", "e0bec12f-6296-4902-9f4f-a7bc01dd17f9", false, "dimitar@gmail.com" },
-                    { "cba27598-ea61-4482-b607-b400beb200e3", 0, "142f0fc4-fb6a-49a7-8d78-d1186f6b5f4e", "ApplicationUser", "ahmed@gmail.com", false, "Ахмед Матем Ахмед", null, false, null, "AHMED@GMAIL.COM", "AHMED@GMAIL.COM", "AQAAAAEAACcQAAAAEE9/UPGund/0OjdIhXffMpubG/tvepq52XqKLU24Ry/FCLLi8EWScXn4YppmPLtwJQ==", null, false, "", "2f06639e-41f8-45e5-819b-ef48df5003f6", false, "ahmed@gmail.com" },
-                    { "de3ef7a8-706f-4a46-a68e-48d70d7203e5", 0, "1de21934-4ddd-4fc1-b79d-c7224171d266", "ApplicationUser", "emre@gmail.com", false, "Емре Алиев", null, false, null, "EMRE@GMAIL.COM", "EMRE@GMAIL.COM", "AQAAAAEAACcQAAAAEOTkMKNpTa0hztOq9I7/W55myQmuXsXbPkEaOSAV6G82T4gy23/ptjj15sM48p+Z4A==", null, false, "", "0e506384-e0a3-4578-81de-2a07982a0d8e", false, "emre@gmail.com" },
-                    { "de6e6126-9eb4-4260-8aa4-e4eac9d22c68", 0, "a0452455-d015-4ea7-9176-efdf5d2a1838", "ApplicationUser", "martin@gmail.com", false, "Мартин Катев", null, false, null, "MARTIN@GMAIL.COM", "MARTIN@GMAIL.COM", "AQAAAAEAACcQAAAAEEtU6k1B6BB7gf0U1xeuZSwebz2Sonb6v0M2YOc45nttoV/XmM8gXLXBBxpIYaMFmA==", null, false, "", "3057d706-fad1-43df-bc0b-5f2a974ca7a2", false, "martin@gmail.com" },
-                    { "deb60b01-476c-4561-a61c-f3fb3dfd89b2", 0, "96e419dd-f542-4789-b19a-962079931e8c", "ApplicationUser", "ivan_ivanov@gmail.com", false, "Иван Петров Иванов", null, false, null, "IVAN_IVANOV@GMAIL.COM", "IVAN_IVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAEPcYj9hnBGfpel9N8zvm8QluUVuONWBQcru74AzijZe6cIsEzIuo0VW+HTcUNqXMsg==", null, false, "", "abf6e902-0d2a-430a-a326-d813d178288d", false, "ivan_ivanov@gmail.com" },
-                    { "df4a85ed-173b-4f97-bba7-8990729a581c", 0, "616757ff-21c2-4365-ae51-61a3df1a9f55", "ApplicationUser", "dimana@gmail.com", false, "Димана Иванова Колева", null, false, null, "DIMANA@GMAIL.COM", "DIMANA@GMAIL.COM", "AQAAAAEAACcQAAAAEJKzTDthMbPMchVSfzWgn8LEbL8JBjAnyC7rwDHHV6p0/JXzxNC8ttIlgD4GXtX72w==", null, false, "", "8d86a100-a5f2-45fa-ab09-f44b836f7fca", false, "dimana@gmail.com" },
-                    { "e786b479-e1f0-456f-b0f0-0d1b47b403ab", 0, "47017619-ce07-4c97-8eb0-0d47efd4850d", "ApplicationUser", "desi@gmail.com", false, "Десислава Петкова", null, false, null, "DESI@GMAIL.COM", "DESI@GMAIL.COM", "AQAAAAEAACcQAAAAEEDXyGHDx+s+LwSre8BpbJGkSxmMie8WA1KLmeWREMUdKZZrXlBg+QgcAnGtNaALlQ==", null, false, "", "e25e2fef-c6c2-4996-a8ab-8046dcbaa8bd", false, "desi@gmail.com" }
+                    { "1b074c6b-7468-4327-9759-7b3525212c79", 0, "ec1cbd68-8bba-4841-9ff2-25fc6053a61f", "ApplicationUser", "dimitar_barlev@gmail.com", false, "Димитър Димов Барлев", null, false, null, "DIMITAR_BARLEV@GMAIL.COM", "DIMITAR_BARLEV@GMAIL.COM", "AQAAAAEAACcQAAAAEGHVu8QkpSvzieO0MT5SR9nMoOW+MhzvQCvy89CxdjY/0obLckiJ9P1Uj+AdeURDRg==", null, false, "", "2317ad1e-8e07-4261-a973-f5f66ef92527", false, "dimitar_barlev@gmail.com" },
+                    { "3a988763-fbce-4d00-adb0-e9932ea86cea", 0, "5d439c25-6c00-42e5-a5ac-1050d35f4f69", "ApplicationUser", "desi@gmail.com", false, "Десислава Петкова", null, false, null, "DESI@GMAIL.COM", "DESI@GMAIL.COM", "AQAAAAEAACcQAAAAEBGI/dsicSeA37AT69TTL5mFIKmsK9+gWkby21wV+Kwm+k8GEm8o8OZLslHZuME+Ow==", null, false, "", "0c41e628-24d7-43d4-83bd-ba24f862b23f", false, "desi@gmail.com" },
+                    { "484509aa-0d30-4406-b58b-b6a0678cf7d3", 0, "412b3ce1-c570-4c1d-b5aa-e4fc54f111c5", "ApplicationUser", "ivan@gmail.com", false, "Иван Манолов Кишанов", null, false, null, "IVAN@GMAIL.COM", "IVAN@GMAIL.COM", "AQAAAAEAACcQAAAAEJGDbB+tqFDH0CqTonqBQTSq4y63acQJW5UmM2ua2gh4J2BYZ0ug6fVAZi4eqE8kSw==", null, false, "", "448fd482-c24e-45a1-b2ea-e3a038c7e7b5", false, "ivan@gmail.com" },
+                    { "51a6291d-4cbb-4eeb-8fed-3b1daea4d18d", 0, "bbcfcc1d-ebf0-4ec8-99a5-48b540088b82", "ApplicationUser", "ivan_ivanov@gmail.com", false, "Иван Петров Иванов", null, false, null, "IVAN_IVANOV@GMAIL.COM", "IVAN_IVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAEGxTip4BSZYXlRU4hRTkaZ9EiCJrtzzyc0GVkf9m/ecDWSoulmWhUFxZUhKyiNugGA==", null, false, "", "30af17dc-a9db-42d7-a5fa-205ea34f768d", false, "ivan_ivanov@gmail.com" },
+                    { "5a85bdc7-f350-4d0f-ae1d-7dc77f0f8cf4", 0, "e2d286ad-ffc8-4a18-8cfb-60e07b27863f", "ApplicationUser", "venci@gmail.com", false, "Венцислав Кочанов", null, false, null, "VENCI@GMAIL.COM", "VENCI@GMAIL.COM", "AQAAAAEAACcQAAAAEPb2m6bS4OU3zuzSeAX8Xec66cP59v/D1drzmoizvMa24Pp3w/OSWQ0Hoa4pEfHe2Q==", null, false, "", "885f39a5-3c5d-43ab-9e46-b8e6e5ea2c93", false, "venci@gmail.com" },
+                    { "700910c3-f628-4991-8b73-886465feda8a", 0, "1a2714c4-71e9-41f4-a885-b474810df6a2", "ApplicationUser", "admin@gmail.com", false, "Ахмед Матем Ахмед", null, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEKMc1EsXaRn23pZM9BCYRsesNx0KTxCXl9A37l8qTbHuDGdcoljcb8ub2pZ1sL4OUA==", null, false, "", "41ccf560-8f39-4c45-9573-2fabeedd8650", false, "admin@gmail.com" },
+                    { "750cb8a2-75ab-4a45-8c0b-4c7e33b3ccfa", 0, "5e980c12-32dc-4af1-b1da-508d918fcac9", "ApplicationUser", "dimana@gmail.com", false, "Димана Иванова Колева", null, false, null, "DIMANA@GMAIL.COM", "DIMANA@GMAIL.COM", "AQAAAAEAACcQAAAAEOlOVIN12WZkCRgccf2FQt6LfbmH4iLp0WSvUI3DchPcf/l/7Bbg1u+3rcm8sXtHCg==", null, false, "", "408acf6a-cfe8-4f1e-a502-0962fe9afa22", false, "dimana@gmail.com" },
+                    { "8a1cbdac-c4c2-457b-8fde-88916cafb62f", 0, "8a8a080e-af31-42b5-8643-1f15191cdd90", "ApplicationUser", "emre@gmail.com", false, "Емре Алиев", null, false, null, "EMRE@GMAIL.COM", "EMRE@GMAIL.COM", "AQAAAAEAACcQAAAAEHBTwuCyqQhrZHUunDF2covsq/vVpfDF1j1MuRcyWTSclFnJTamFqSTwmhoK+2TEcw==", null, false, "", "bcae1215-f071-4670-8c61-e8afa9946bf8", false, "emre@gmail.com" },
+                    { "a05462ee-8ca1-4242-abb2-97d1bb10c715", 0, "27d2422e-30d4-45fd-8285-2572f1d4fc22", "ApplicationUser", "dimitar@gmail.com", false, "Димитар Димитров", null, false, null, "DIMITAR@GMAIL.COM", "DIMITAR@GMAIL.COM", "AQAAAAEAACcQAAAAEH9ANpOZ4Bl9KvNyrsardPf9DTXmM8JuzD9+SdiZkrwQrfOwUhrjuV4XVj+A+Qni2g==", null, false, "", "a958065a-4df4-40c7-a38c-fd1214fd25ef", false, "dimitar@gmail.com" },
+                    { "c6050397-b9b2-49ea-b1da-614c40bb7dd2", 0, "beac615e-eeb8-47ba-866e-970b77677c77", "ApplicationUser", "turhan@gmail.com", false, "Турхан Мюмюн Сюлейман", null, false, null, "TURHAN@GMAIL.COM", "TURHAN@GMAIL.COM", "AQAAAAEAACcQAAAAEFDMIcQk5frqXKAtDIKdSwCHpxnFIRpDGn/XhgxqshNS8lBo4uIrpvk8mjicF4z6NA==", null, false, "", "e5a6f334-5441-4d7b-b940-353e5fb0d1e7", false, "turhan@gmail.com" },
+                    { "ca023b61-a4e1-407e-830c-ded191275872", 0, "cbc4d0ae-bde1-45f1-b772-0782b26ba0d1", "ApplicationUser", "daniel@gmail.com", false, "Даниел Петорв", null, false, null, "DANIEL@GMAIL.COM", "DANIEL@GMAIL.COM", "AQAAAAEAACcQAAAAEEh0Q6qvB3tDYC/e1qTjC40s6JtORbTMkpZVJVvuzEH2i+EJ3/ki1GiQXzKGxb83zA==", null, false, "", "bdb5aae8-52be-4b84-a1a7-641de7665d63", false, "daniel@gmail.com" },
+                    { "d08f570e-9c68-4d48-954b-b500d4a8db5d", 0, "b24217dc-4514-4060-9f8a-980a1904e255", "ApplicationUser", "martin@gmail.com", false, "Мартин Катев", null, false, null, "MARTIN@GMAIL.COM", "MARTIN@GMAIL.COM", "AQAAAAEAACcQAAAAEE9OscQggMN7LznjR8szemOJlTOuvgchyhK7OyZAHd4QnWME2u81BntjdSg9EsM2mw==", null, false, "", "90f755a7-cc31-4aa9-af6e-f130eb9090f1", false, "martin@gmail.com" },
+                    { "e171d05e-da91-4e2e-bbd5-f149d4ee1d15", 0, "4f25d5e5-fddf-4a3e-88f7-a77c06e7c5a3", "ApplicationUser", "ivayla@gmail.com", false, "Ивайла Иванова", null, false, null, "IVAYLA@GMAIL.COM", "IVAYLA@GMAIL.COM", "AQAAAAEAACcQAAAAEJ1kcu6Y1vFBvDrfHSt1DpxXZ5M8YznLEAO4Wv7X07IgLXiwc2ulTpVyCRWwe0A+KA==", null, false, "", "2d37c2a4-9596-41a5-ae5f-1d624feeb9cb", false, "ivayla@gmail.com" },
+                    { "e5586bfd-2c1a-407d-bb25-32cc95f44f6d", 0, "274db227-4a2d-4c67-ac58-6db4f5531b91", "ApplicationUser", "ahmed@gmail.com", false, "Ахмед Матем Ахмед", null, false, null, "AHMED@GMAIL.COM", "AHMED@GMAIL.COM", "AQAAAAEAACcQAAAAEIm64LrLlFcRO8nOWwCOwknbOc1brXrbUbCFXvXFg/k0FlTMm8kaMpNTGynUiOukQQ==", null, false, "", "9d2dfcb5-f060-4928-bb0e-f11e1b7c5b67", false, "ahmed@gmail.com" },
+                    { "f7236521-3161-4174-85dc-475719291f80", 0, "7d6de250-8195-48f3-a4b7-71c69e6b843c", "ApplicationUser", "viktoriya@gmail.com", false, "Виктория Петрова", null, false, null, "VIKTORIYA@GMAIL.COM", "VIKTORIYA@GMAIL.COM", "AQAAAAEAACcQAAAAENbBFjmvjPX+c1dZHbQ8/g5cVwxjynGegR+WB1iZSoQrKI0Sf2kfa2jQKGp2yzqsgw==", null, false, "", "52b6f56f-ddf2-453e-a99a-a6216bb6958f", false, "viktoriya@gmail.com" },
+                    { "fad9d140-1f06-4b3a-a7e4-82d7cf6f99de", 0, "f3ababc1-c8af-4afa-911d-c3f011b73dd8", "ApplicationUser", "baran@gmail.com", false, "Баран Ахмедов", null, false, null, "BARAN@GMAIL.COM", "BARAN@GMAIL.COM", "AQAAAAEAACcQAAAAEOjMKVEFxnYBFs/CH5XMGLY8ABFPYQ1vRgNxJ2QInsSq49GhwYcIu99K6uEu0OvJKA==", null, false, "", "f6c1b091-fbde-4d43-bfbf-b94b82fc615a", false, "baran@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -414,10 +481,10 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "City", "CreatedOn", "DeletedOn", "IsDeleted", "LastModifiedOn", "Name", "SchoolAdminId", "Type" },
                 values: new object[,]
                 {
-                    { "81c9f2c4-37af-4067-921f-9abd2ecfe44f", "Разград", new DateTime(2024, 4, 19, 17, 53, 9, 362, DateTimeKind.Local).AddTicks(3528), null, true, null, "Никола Йонков Вапцаров", null, "ОУ" },
-                    { "83ee23c5-ab42-4f15-80da-e82acbaefece", "Разград", new DateTime(2024, 4, 19, 17, 53, 9, 359, DateTimeKind.Local).AddTicks(7476), null, false, null, "Акад. Никола Обрешков", null, "ППМГ" },
-                    { "8a928e92-6258-4957-bf5e-a2bfcedb8912", "Разград", new DateTime(2024, 4, 19, 17, 53, 9, 362, DateTimeKind.Local).AddTicks(3562), null, true, null, "Екзарх Йосиф", null, "ГПИЧЕ" },
-                    { "dc687f3b-cebe-4996-b63b-fcf9cc5f347f", "Разград", new DateTime(2024, 4, 19, 17, 53, 9, 362, DateTimeKind.Local).AddTicks(3580), null, false, null, "Васил Левски", null, "ОУ" }
+                    { "308d65a6-1179-4961-80be-d558ebe10428", "Разград", new DateTime(2024, 9, 29, 22, 50, 34, 472, DateTimeKind.Local).AddTicks(4116), null, false, null, "Акад. Никола Обрешков", null, "ППМГ" },
+                    { "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1", "Разград", new DateTime(2024, 9, 29, 22, 50, 34, 473, DateTimeKind.Local).AddTicks(9321), null, false, null, "Васил Левски", null, "ОУ" },
+                    { "9db51b36-9493-4833-9c48-6e16b820009f", "Разград", new DateTime(2024, 9, 29, 22, 50, 34, 473, DateTimeKind.Local).AddTicks(9316), null, true, null, "Екзарх Йосиф", null, "ГПИЧЕ" },
+                    { "c05305c4-caa8-4db6-83d7-c39edcaca968", "Разград", new DateTime(2024, 9, 29, 22, 50, 34, 473, DateTimeKind.Local).AddTicks(9293), null, true, null, "Никола Йонков Вапцаров", null, "ОУ" }
                 });
 
             migrationBuilder.InsertData(
@@ -425,11 +492,11 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ActivetedOn", "CreatedOn", "DeletedOn", "FullName", "IsActivated", "IsDeleted", "LastModifiedOn", "SchoolId" },
                 values: new object[,]
                 {
-                    { "2eb5ae09-9ee9-4967-ac3b-7878c179be9e", null, null, null, "Венцислав Кочанов", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" },
-                    { "50622b61-4fcf-4588-b42e-9411d1610365", null, null, null, "Турхан Мюмюн Сюлейман", false, false, null, "8a928e92-6258-4957-bf5e-a2bfcedb8912" },
-                    { "cba27598-ea61-4482-b607-b400beb200e3", null, null, null, "Ахмед Матем Ахмед", false, false, null, "dc687f3b-cebe-4996-b63b-fcf9cc5f347f" },
-                    { "de6e6126-9eb4-4260-8aa4-e4eac9d22c68", null, null, null, "Мартин Катев", false, false, null, "dc687f3b-cebe-4996-b63b-fcf9cc5f347f" },
-                    { "e786b479-e1f0-456f-b0f0-0d1b47b403ab", null, null, null, "Десислава Петкова", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" }
+                    { "3a988763-fbce-4d00-adb0-e9932ea86cea", null, null, null, "Десислава Петкова", false, false, null, "308d65a6-1179-4961-80be-d558ebe10428" },
+                    { "5a85bdc7-f350-4d0f-ae1d-7dc77f0f8cf4", null, null, null, "Венцислав Кочанов", false, false, null, "9db51b36-9493-4833-9c48-6e16b820009f" },
+                    { "c6050397-b9b2-49ea-b1da-614c40bb7dd2", null, null, null, "Турхан Мюмюн Сюлейман", false, false, null, "9db51b36-9493-4833-9c48-6e16b820009f" },
+                    { "d08f570e-9c68-4d48-954b-b500d4a8db5d", null, null, null, "Мартин Катев", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "e5586bfd-2c1a-407d-bb25-32cc95f44f6d", null, null, null, "Ахмед Матем Ахмед", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" }
                 });
 
             migrationBuilder.InsertData(
@@ -437,12 +504,12 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "2eb5ae09-9ee9-4967-ac3b-7878c179be9e" },
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "50622b61-4fcf-4588-b42e-9411d1610365" },
-                    { "94e8ff7b-7848-4d45-87da-972c3a799253", "70e01106-5323-40c7-b2dd-842641d97242" },
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "cba27598-ea61-4482-b607-b400beb200e3" },
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "de6e6126-9eb4-4260-8aa4-e4eac9d22c68" },
-                    { "097be129-4d59-41bc-9d6c-54d1b09d2276", "e786b479-e1f0-456f-b0f0-0d1b47b403ab" }
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "3a988763-fbce-4d00-adb0-e9932ea86cea" },
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "5a85bdc7-f350-4d0f-ae1d-7dc77f0f8cf4" },
+                    { "58a72da0-9e2d-420c-8dbc-ebd28bcaa3e2", "700910c3-f628-4991-8b73-886465feda8a" },
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "c6050397-b9b2-49ea-b1da-614c40bb7dd2" },
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "d08f570e-9c68-4d48-954b-b500d4a8db5d" },
+                    { "4482f408-1d74-4dba-9db3-9db676baefc1", "e5586bfd-2c1a-407d-bb25-32cc95f44f6d" }
                 });
 
             migrationBuilder.InsertData(
@@ -450,16 +517,16 @@ namespace Infrastructure.Data.Migrations
                 columns: new[] { "Id", "ActivetedOn", "CreatedOn", "DeletedOn", "FullName", "IsActivated", "IsDeleted", "LastModifiedOn", "SchoolId" },
                 values: new object[,]
                 {
-                    { "0f52e149-3b5d-49bd-9d94-21e126906ff2", null, null, null, "Иван Манолов Кишанов", false, false, null, "8a928e92-6258-4957-bf5e-a2bfcedb8912" },
-                    { "1f7580b4-6941-4428-8fa9-1a9195e5885e", null, null, null, "Димитър Димов Барлев", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" },
-                    { "6635e364-7ee1-411d-b629-ee90759226d0", null, null, null, "Виктория Петрова", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" },
-                    { "6ba15a60-030a-4e95-b697-dc2f8df1e4a5", null, null, null, "Баран Ахмедов", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" },
-                    { "85341edb-268f-40de-9960-62d0ae3f8c70", null, null, null, "Даниел Петорв", false, false, null, "dc687f3b-cebe-4996-b63b-fcf9cc5f347f" },
-                    { "9f3f9dfd-8141-4fa9-b079-ebd81793124a", null, null, null, "Ивайла Иванова", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" },
-                    { "a2a87cb0-f049-4d50-b401-1ed4df43215c", null, null, null, "Димитар Димитров", false, false, null, "dc687f3b-cebe-4996-b63b-fcf9cc5f347f" },
-                    { "de3ef7a8-706f-4a46-a68e-48d70d7203e5", null, null, null, "Емре Алиев", false, false, null, "8a928e92-6258-4957-bf5e-a2bfcedb8912" },
-                    { "deb60b01-476c-4561-a61c-f3fb3dfd89b2", null, null, null, "Иван Петров Иванов", false, false, null, "81c9f2c4-37af-4067-921f-9abd2ecfe44f" },
-                    { "df4a85ed-173b-4f97-bba7-8990729a581c", null, null, null, "Димана Иванова Колева", false, false, null, "83ee23c5-ab42-4f15-80da-e82acbaefece" }
+                    { "1b074c6b-7468-4327-9759-7b3525212c79", null, null, null, "Димитър Димов Барлев", false, false, null, "308d65a6-1179-4961-80be-d558ebe10428" },
+                    { "484509aa-0d30-4406-b58b-b6a0678cf7d3", null, null, null, "Иван Манолов Кишанов", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "51a6291d-4cbb-4eeb-8fed-3b1daea4d18d", null, null, null, "Иван Петров Иванов", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "750cb8a2-75ab-4a45-8c0b-4c7e33b3ccfa", null, null, null, "Димана Иванова Колева", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "8a1cbdac-c4c2-457b-8fde-88916cafb62f", null, null, null, "Емре Алиев", false, false, null, "9db51b36-9493-4833-9c48-6e16b820009f" },
+                    { "a05462ee-8ca1-4242-abb2-97d1bb10c715", null, null, null, "Димитар Димитров", false, false, null, "308d65a6-1179-4961-80be-d558ebe10428" },
+                    { "ca023b61-a4e1-407e-830c-ded191275872", null, null, null, "Даниел Петорв", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "e171d05e-da91-4e2e-bbd5-f149d4ee1d15", null, null, null, "Ивайла Иванова", false, false, null, "308d65a6-1179-4961-80be-d558ebe10428" },
+                    { "f7236521-3161-4174-85dc-475719291f80", null, null, null, "Виктория Петрова", false, false, null, "45ffe1cd-14ef-444a-a30f-a892ec3ef6e1" },
+                    { "fad9d140-1f06-4b3a-a7e4-82d7cf6f99de", null, null, null, "Баран Ахмедов", false, false, null, "9db51b36-9493-4833-9c48-6e16b820009f" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -505,6 +572,21 @@ namespace Infrastructure.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExamGroup_GroupsId",
+                table: "ExamGroup",
+                column: "GroupsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExamsAndResources_ResourceId",
+                table: "ExamsAndResources",
+                column: "ResourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_SchoolId",
+                table: "Groups",
+                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_TeacherId",
@@ -557,6 +639,12 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ExamGroup");
+
+            migrationBuilder.DropTable(
+                name: "ExamsAndResources");
+
+            migrationBuilder.DropTable(
                 name: "GroupsAndStudents");
 
             migrationBuilder.DropTable(
@@ -570,6 +658,9 @@ namespace Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Exams");
 
             migrationBuilder.DropTable(
                 name: "Resources");
