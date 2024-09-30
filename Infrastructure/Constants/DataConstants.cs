@@ -35,7 +35,7 @@
 
         public const int ExamNameMinLength = 2;
         public const int ExamNameMaxLength = 100;
-        public const int ExamNameDescriptionMaxLength = 200;
+        public const int ExamDescriptionMaxLength = 200;
 
         public const long PostedFileMaxSizeInBytes = 50 * 1024; // 50KB
 
