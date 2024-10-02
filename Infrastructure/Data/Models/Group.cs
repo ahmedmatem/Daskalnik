@@ -31,15 +31,15 @@ namespace Infrastructure.Data.Models
         [Comment("School identifier in which the group belongs to. ")]
         public string SchoolId { get; set; } = string.Empty;
 
+        [ForeignKey(nameof(SchoolId))]
+        public School School { get; set; } = null!;
+
         [Required]
         [Comment("Group creater identifier.")]
         public string TeacherId { get; set; } = string.Empty;
 
-        [ForeignKey("TeacherId")]
+        [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; } = null!;
-
-        [ForeignKey("SchoolId")]
-        public School School { get; set; } = null!;
 
         public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
 

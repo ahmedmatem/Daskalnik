@@ -1,12 +1,12 @@
-﻿using Infrastructure.Data.Abstracts;
-using Infrastructure.Data.Contracts;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static Infrastructure.Constants.DataConstants;
-
-namespace Infrastructure.Data.Models
+﻿namespace Infrastructure.Data.Models
 {
+    using Infrastructure.Data.Abstracts;
+    using Infrastructure.Data.Contracts;
+    using Microsoft.EntityFrameworkCore;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using static Infrastructure.Constants.DataConstants;
+
     public class Student : PersonModel
     {
         [Required]

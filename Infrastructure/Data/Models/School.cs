@@ -26,7 +26,7 @@ namespace Infrastructure.Data.Models
         [Comment("String type refers to teacher with SchoolAdmin role(null – school has no administrator yet).")]
         public string? SchoolAdminId { get; set; }
 
-        [ForeignKey("SchoolAdminId")]
+        [ForeignKey(nameof(SchoolAdminId))]
         public Teacher? SchoolAdmin { get; set; }
 
         public List<Group> Groups { get; set; } = new List<Group>();
