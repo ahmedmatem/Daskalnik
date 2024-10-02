@@ -11,7 +11,7 @@ namespace Infrastructure.Data.Configurations
             builder.HasOne(x => x.Teacher)
                 .WithMany(t => t.Groups)
                 .HasForeignKey(t => t.TeacherId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -14,13 +14,13 @@ namespace Infrastructure.Data.Configurations
                 .HasOne(x => x.Student)
                 .WithMany()
                 .HasForeignKey(x => x.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(x => x.Group)
                 .WithMany()
                 .HasForeignKey(x => x.GroupId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
