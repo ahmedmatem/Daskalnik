@@ -41,7 +41,8 @@ namespace Infrastructure.Data.Models
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; } = null!;
 
-        public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
+        //public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
+        public List<Student> Students { get; set; } = new List<Student>();
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
 
