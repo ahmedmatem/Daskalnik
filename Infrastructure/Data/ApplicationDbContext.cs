@@ -1,10 +1,10 @@
-﻿using Infrastructure.Data.Configurations;
-using Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace Infrastructure.Data
+﻿namespace Infrastructure.Data
 {
+    using Infrastructure.Data.Configurations;
+    using Infrastructure.Data.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -27,8 +27,8 @@ namespace Infrastructure.Data
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new ExamRecourceTypeConfiguration())
-                .ApplyConfiguration(new GroupTypeConfiguration());
-                //.ApplyConfiguration(new GroupStudentTypeConfiguration());
+                .ApplyConfiguration(new GroupTypeConfiguration())
+                .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -42,7 +42,7 @@ namespace Infrastructure.Data
 
         public DbSet<Group> Groups { get; set; } = null!;
 
-        //public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
+        public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
 
         public DbSet<Resource> Resources { get; set; } = null!;
 

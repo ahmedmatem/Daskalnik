@@ -1,9 +1,9 @@
-﻿using Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Infrastructure.Data.Configurations
+﻿namespace Infrastructure.Data.Configurations
 {
+    using Infrastructure.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class GroupStudentTypeConfiguration : IEntityTypeConfiguration<GroupStudent>
     {
         public void Configure(EntityTypeBuilder<GroupStudent> builder)
