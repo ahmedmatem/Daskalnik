@@ -1,0 +1,83 @@
+﻿@model GroupTopicsModel
+
+@using static Infrastructure.Constants.DataConstants
+
+<div class="text-end">
+    <button type="button" 
+        class="btn btn-outline-primary my-2" 
+        data-bs-toggle="modal"
+        data-bs-target=".add-exam-modal-large">
+        Добави изпит
+    </button>
+    <!-- Large modal -->
+    <partial name="_AddExamModalPartial" />
+    @* <a asp-action="AddExamInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави изпит</a> *@
+</div>
+
+@if (Model.Topics.Any())
+{
+    <div class="accordion" id="accordionPanels">
+        @foreach (var topic in Model.Topics.OrderBy(t => t.Name))
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panel-heading-@topic.TopicId">
+                    <button class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#panel-@topic.TopicId"
+                            aria-expanded="true"
+                            aria-controls="panel-@topic.TopicId">
+                        <h6 class="text-secondary">
+                            <span class="fw-bold">@topic.Name</span>&nbsp;
+                            <span class="text-secondary">(@topic.Description)</span>
+                        </h6>
+                    </button>
+                </h2>
+
+                <div id="panel-@topic.TopicId"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#accordionPanels"
+                     aria-labelledby="panel-heading-@topic.TopicId">
+                    <div class="accordion-body bg-light">
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="fw-bold text-secondary">Съдържание</span>
+                                @foreach (var item in topic.Contents.Split(Environment.NewLine))
+                                {
+                                    <div class="mt-2">@item</div>
+                                }
+                            </div>
+                            <div class="col-6">
+                                <span class="fw-bold text-secondary">Ресурси</span>
+                                @foreach (var res in topic.Resources)
+                                {
+                                    <div class="my-2">
+                                        <a href="@res.Link" target="_blank" class="link-primary">
+                                            @Html.Raw(ResourceIconRef[res.IconRef]) @res.TextToDisplay
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <hr class="mt-2" />
+                        <div class="text-end">
+                            <a asp-action="RemoveTopicFromGroup"
+                               asp-route-groupId="@Model.GroupId"
+                               asp-route-topicId="@topic.TopicId"
+                               class="btn btn-sm btn-outline-secondary">
+                                <i class="fa-regular fa-trash-can"></i> Премахни
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-primary text-center" role="alert">
+        Няма добавени теми в групата
+    </div>
+}

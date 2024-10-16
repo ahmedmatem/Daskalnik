@@ -1,0 +1,32 @@
+﻿<div class="modal fade add-exam-modal-large" tabindex="-1" role="dialog" aria-labelledby="addExamMpdalLarge" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Нов изпит</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="text-start">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Име</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Описание</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Съдържание</label>
+                        <textarea rows="3" class="form-control" id="exampleInputPassword1"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-resource" class="form-label">Ресурси</label>
+                        <input type="button" class="btn btn-outline-primary" id="add-resource" value="Ресурси" />
+                        <button type="button" class="btn btn-outline-primary">Създай</button>
+                    </div>
+                    <button asp-action="CreateExam" type="submit" class="btn btn-primary">Създай</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
