@@ -8,9 +8,9 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            //builder.HasMany(x => x.Students)
-            //    .WithMany(x => x.Groups)
-            //    .UsingEntity<GroupStudent>();
+            builder.HasMany(x => x.Students)
+                .WithMany(x => x.Groups)
+                .UsingEntity<GroupStudent>();
 
             //builder.HasOne<Teacher>()
             //    .WithMany()

@@ -1,8 +1,9 @@
 ﻿namespace Infrastructure.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// Many-to-many mapping table for Group and Student.

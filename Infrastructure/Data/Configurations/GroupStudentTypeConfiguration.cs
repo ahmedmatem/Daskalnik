@@ -9,6 +9,7 @@
         public void Configure(EntityTypeBuilder<GroupStudent> builder)
         {
             builder.HasKey(x => new { x.GroupId, x.StudentId });
+            builder.ToTable("GroupsAndStudents");
 
             builder
                 .HasOne(x => x.Student)

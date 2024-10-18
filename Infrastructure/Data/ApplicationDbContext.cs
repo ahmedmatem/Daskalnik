@@ -1,9 +1,10 @@
 ﻿namespace Infrastructure.Data
 {
-    using Infrastructure.Data.Configurations;
-    using Infrastructure.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using Infrastructure.Data.Configurations;
+    using Infrastructure.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -19,16 +20,16 @@
             //    .ApplyConfiguration(new IdentityRoleTypeConfiguration())
             //    .ApplyConfiguration(new IdentityUserConfiguration())
             //    .ApplyConfiguration(new TeacherTypeConfiguration())
-            //    .ApplyConfiguration(new StudentTypeConfiguration())
+                .ApplyConfiguration(new StudentTypeConfiguration())
             //    .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
                 .ApplyConfiguration(new SchoolTypeConfiguration());
 
             //// Entity type configurations
-            //builder
+            builder
             //    .ApplyConfiguration(new TopicResourceTypeConfiguration())
             //    .ApplyConfiguration(new ExamRecourceTypeConfiguration())
-            //    .ApplyConfiguration(new GroupTypeConfiguration())
-            //    .ApplyConfiguration(new GroupStudentTypeConfiguration());
+                .ApplyConfiguration(new GroupTypeConfiguration())
+                .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -42,13 +43,13 @@
 
         public DbSet<Group> Groups { get; set; } = null!;
 
-        //public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
+        public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
 
         //public DbSet<Resource> Resources { get; set; } = null!;
 
         public DbSet<School> Schools { get; set; } = null!;
 
-        //public DbSet<Student> Students { get; set; } = null!;
+        public DbSet<Student> Students { get; set; } = null!;
 
         public DbSet<Teacher> Teachers { get; set; } = null!;
 
