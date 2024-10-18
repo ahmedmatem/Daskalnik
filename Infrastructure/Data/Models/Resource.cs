@@ -1,10 +1,12 @@
-﻿using Infrastructure.Data.Abstracts;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using static Infrastructure.Constants.DataConstants;
-
-namespace Infrastructure.Data.Models
+﻿namespace Infrastructure.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using Infrastructure.Data.Abstracts;
+    using static Infrastructure.Constants.DataConstants;
+
     public class Resource : DataModel
     {
         [Required]

@@ -47,7 +47,6 @@
 
         public List<Student> Students { get; set; } = new List<Student>();
 
-        [NotMapped]
         public List<Topic> Topics { get; set; } = new List<Topic>();
 
         //public List<Exam> Exams { get; set; } = new List<Exam>();

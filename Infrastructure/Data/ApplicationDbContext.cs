@@ -53,7 +53,7 @@
 
         public DbSet<Teacher> Teachers { get; set; } = null!;
 
-        //public DbSet<Topic> Topics { get; set; } = null!;
+        public DbSet<Topic> Topics { get; set; } = null!;
 
         //public DbSet<TopicResource> TopicsAndResources { get; set; } = null!;
 
