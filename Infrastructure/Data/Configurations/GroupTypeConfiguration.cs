@@ -8,14 +8,19 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.HasMany(x => x.Students)
-                .WithMany(x => x.Groups)
-                .UsingEntity<GroupStudent>();
+            //builder.HasMany(x => x.Students)
+            //    .WithMany(x => x.Groups)
+            //    .UsingEntity<GroupStudent>();
 
-            builder.HasOne(x => x.Teacher)
-                .WithMany(t => t.Groups)
-                .HasForeignKey(t => t.TeacherId)
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne<Teacher>()
+            //    .WithMany()
+            //    .HasForeignKey(t => t.TeacherId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+
+            //builder.HasOne<School>()
+            //    .WithMany()
+            //    .HasForeignKey(x => x.SchoolId)
+            //    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

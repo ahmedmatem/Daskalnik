@@ -1,11 +1,13 @@
-﻿using Infrastructure.Data.Abstracts;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static Infrastructure.Constants.DataConstants;
-
-namespace Infrastructure.Data.Models
+﻿namespace Infrastructure.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using Infrastructure.Data.Abstracts;
+    using static Infrastructure.Constants.DataConstants;
+
     public class School : DataModel
     {
         [Required]
@@ -25,6 +27,8 @@ namespace Infrastructure.Data.Models
 
         [Comment("String type refers to teacher with SchoolAdmin role(null – school has no administrator yet).")]
         public string? SchoolAdminId { get; set; }
+
+        // Navigation properties
 
         [ForeignKey(nameof(SchoolAdminId))]
         public Teacher? SchoolAdmin { get; set; }

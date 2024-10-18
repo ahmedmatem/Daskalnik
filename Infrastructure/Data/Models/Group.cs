@@ -1,10 +1,12 @@
 ﻿namespace Infrastructure.Data.Models
 {
-    using Infrastructure.Data.Abstracts;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
+    using Infrastructure.Data.Abstracts;
     using static Infrastructure.Constants.DataConstants;
 
     public class Group : DataModel
@@ -31,21 +33,24 @@
         [Comment("School identifier in which the group belongs to. ")]
         public string SchoolId { get; set; } = string.Empty;
 
-        [ForeignKey(nameof(SchoolId))]
-        public School School { get; set; } = null!;
-
         [Required]
         [Comment("Group creater identifier.")]
         public string TeacherId { get; set; } = string.Empty;
+
+        // NAvigation propeties
+
+        [ForeignKey(nameof(SchoolId))]
+        public School School { get; set; } = null!;
 
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; } = null!;
 
         //public List<ApplicationUser> Students { get; set; } = new List<ApplicationUser>();
-        public List<Student> Students { get; set; } = new List<Student>();
+        //public List<Student> Students { get; set; } = new List<Student>();
 
+        [NotMapped]
         public List<Topic> Topics { get; set; } = new List<Topic>();
 
-        public List<Exam> Exams { get; set; } = new List<Exam>();
+        //public List<Exam> Exams { get; set; } = new List<Exam>();
     }
 }

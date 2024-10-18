@@ -9,7 +9,12 @@ namespace Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<School> builder)
         {
-            builder.HasData(Schools);
+            //builder.HasData(Schools);
+
+            builder.HasMany<Teacher>()
+                .WithOne()
+                .HasForeignKey(x => x.SchoolId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

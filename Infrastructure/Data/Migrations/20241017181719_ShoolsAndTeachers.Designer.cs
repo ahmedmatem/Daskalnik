@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241017181719_ShoolsAndTeachers")]
+    partial class ShoolsAndTeachers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,70 +23,6 @@ namespace Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Infrastructure.Data.Models.Group", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("Unique data model identifier.");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("datetime2")
-                        .HasComment("Mark the date of created the record on in the table.");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2")
-                        .HasComment("Mark the date of deleting the record in the table.");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("Group description.");
-
-                    b.Property<string>("IconUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("Group icon url.");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Indicate a record in table as deleted or not.");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2")
-                        .HasComment("Mark the date of last modifing the record in the table.");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasComment("Group name.");
-
-                    b.Property<string>("SchoolId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("School identifier in which the group belongs to. ");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasComment("Group short name.");
-
-                    b.Property<string>("TeacherId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("Group creater identifier.");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("Groups");
-                });
 
             modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
                 {
@@ -177,12 +115,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("SchoolId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("Unique identifier of school the teacher attends.");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Teachers");
                 });
@@ -389,25 +325,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Models.Group", b =>
-                {
-                    b.HasOne("Infrastructure.Data.Models.School", "School")
-                        .WithMany("Groups")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Data.Models.Teacher", "Teacher")
-                        .WithMany("Groups")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("School");
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
                 {
                     b.HasOne("Infrastructure.Data.Models.Teacher", "SchoolAdmin")
@@ -415,15 +332,6 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("Infrastructure.Data.Models.School", "SchoolAdminId");
 
                     b.Navigation("SchoolAdmin");
-                });
-
-            modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
-                {
-                    b.HasOne("Infrastructure.Data.Models.School", null)
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -477,15 +385,8 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
-                {
-                    b.Navigation("Groups");
-                });
-
             modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
                 {
-                    b.Navigation("Groups");
-
                     b.Navigation("School")
                         .IsRequired();
                 });

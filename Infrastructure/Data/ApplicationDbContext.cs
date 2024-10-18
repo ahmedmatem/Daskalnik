@@ -14,21 +14,21 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Data seed
+            //// Data seed
             builder
-                .ApplyConfiguration(new IdentityRoleTypeConfiguration())
-                .ApplyConfiguration(new IdentityUserConfiguration())
-                .ApplyConfiguration(new TeacherTypeConfiguration())
-                .ApplyConfiguration(new StudentTypeConfiguration())
-                .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
+            //    .ApplyConfiguration(new IdentityRoleTypeConfiguration())
+            //    .ApplyConfiguration(new IdentityUserConfiguration())
+            //    .ApplyConfiguration(new TeacherTypeConfiguration())
+            //    .ApplyConfiguration(new StudentTypeConfiguration())
+            //    .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
                 .ApplyConfiguration(new SchoolTypeConfiguration());
 
-            // Entity type configurations
-            builder
-                .ApplyConfiguration(new TopicResourceTypeConfiguration())
-                .ApplyConfiguration(new ExamRecourceTypeConfiguration())
-                .ApplyConfiguration(new GroupTypeConfiguration())
-                .ApplyConfiguration(new GroupStudentTypeConfiguration());
+            //// Entity type configurations
+            //builder
+            //    .ApplyConfiguration(new TopicResourceTypeConfiguration())
+            //    .ApplyConfiguration(new ExamRecourceTypeConfiguration())
+            //    .ApplyConfiguration(new GroupTypeConfiguration())
+            //    .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -42,22 +42,22 @@
 
         public DbSet<Group> Groups { get; set; } = null!;
 
-        public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
+        //public DbSet<GroupStudent> GroupsAndStudents { get; set; } = null!;
 
-        public DbSet<Resource> Resources { get; set; } = null!;
+        //public DbSet<Resource> Resources { get; set; } = null!;
 
         public DbSet<School> Schools { get; set; } = null!;
 
-        public DbSet<Student> Students { get; set; } = null!;
+        //public DbSet<Student> Students { get; set; } = null!;
 
         public DbSet<Teacher> Teachers { get; set; } = null!;
 
-        public DbSet<Topic> Topics { get; set; } = null!;
+        //public DbSet<Topic> Topics { get; set; } = null!;
 
-        public DbSet<TopicResource> TopicsAndResources { get; set; } = null!;
+        //public DbSet<TopicResource> TopicsAndResources { get; set; } = null!;
 
-        public DbSet<Exam> Exams { get; set; } = null!;
+        //public DbSet<Exam> Exams { get; set; } = null!;
 
-        public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
+        //public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
     }
 }
