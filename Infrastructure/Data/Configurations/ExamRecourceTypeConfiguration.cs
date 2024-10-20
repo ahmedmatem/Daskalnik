@@ -1,8 +1,9 @@
 ﻿namespace Infrastructure.Data.Configurations
 {
-    using Infrastructure.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using Infrastructure.Data.Models;
 
     public class ExamRecourceTypeConfiguration : IEntityTypeConfiguration<ExamResource>
     {

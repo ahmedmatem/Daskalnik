@@ -1,7 +1,8 @@
 ﻿namespace Infrastructure.Data.Models
 {
-    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// Many-to-many mapping table for Exam and Resource.
