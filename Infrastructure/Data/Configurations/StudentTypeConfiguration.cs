@@ -12,8 +12,8 @@
 
         public void Configure(EntityTypeBuilder<Student> builder)
         {
-            //SeedStudents();
-            //builder.HasData(students);
+            SeedStudents();
+            builder.HasData(students);
 
             builder.HasMany(x => x.Groups)
                 .WithMany(x => x.Students)

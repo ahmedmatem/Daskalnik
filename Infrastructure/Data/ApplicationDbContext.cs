@@ -15,16 +15,16 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //// Data seed
+            // Data seed
             builder
-            //    .ApplyConfiguration(new IdentityRoleTypeConfiguration())
-            //    .ApplyConfiguration(new IdentityUserConfiguration())
-            //    .ApplyConfiguration(new TeacherTypeConfiguration())
+                .ApplyConfiguration(new IdentityRoleTypeConfiguration())
+                .ApplyConfiguration(new IdentityUserConfiguration())
+                .ApplyConfiguration(new TeacherTypeConfiguration())
                 .ApplyConfiguration(new StudentTypeConfiguration())
-            //    .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
+                .ApplyConfiguration(new IdentityUserRoleTypeConfiguration())
                 .ApplyConfiguration(new SchoolTypeConfiguration());
 
-            //// Entity type configurations
+            // Entity type configurations
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
                 .ApplyConfiguration(new ExamRecourceTypeConfiguration())

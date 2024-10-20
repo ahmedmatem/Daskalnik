@@ -10,7 +10,7 @@
     {
         public void Configure(EntityTypeBuilder<School> builder)
         {
-            //builder.HasData(Schools);
+            builder.HasData(Schools);
 
             builder.HasMany<Teacher>()
                 .WithOne()
