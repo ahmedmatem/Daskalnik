@@ -21,6 +21,8 @@
 
         public Topic Topic { get; set; } = null!;
 
+        // Navigation properties
+
         public Resource Resource { get; set; } = null!;
     }
 }

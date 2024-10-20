@@ -18,7 +18,7 @@
         /// Exam name
         /// </summary>
         [Required(ErrorMessage = RequiredErrorMessage)]
-        [StringLength(ExamNameMaxLength,
+        [StringLength(ExamTitleMaxLength,
             MinimumLength = ExamNameMinLength, 
             ErrorMessage = StringLengthErrorMessage)]
         [Display(Name = "Име")]

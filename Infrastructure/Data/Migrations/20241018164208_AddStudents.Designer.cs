@@ -57,7 +57,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Mark the date of last modifing the record in the table.");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
@@ -135,7 +135,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Mark the date of last modifing the record in the table.");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
@@ -265,7 +265,7 @@ namespace Infrastructure.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -446,14 +446,14 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Title")
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasKey("UserId", "LoginProvider", "Title");
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });

@@ -57,7 +57,7 @@
 
         public DbSet<TopicResource> TopicsAndResources { get; set; } = null!;
 
-        //public DbSet<Exam> Exams { get; set; } = null!;
+        public DbSet<Exam> Exams { get; set; } = null!;
 
         //public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
     }

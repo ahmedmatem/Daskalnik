@@ -21,5 +21,7 @@
         public School School { get; set; } = null!;
 
         public List<Group> Groups { get; set; } = new List<Group>();
+
+        public List<Exam> Exams { get; set; } = new List<Exam>();
     }
 }

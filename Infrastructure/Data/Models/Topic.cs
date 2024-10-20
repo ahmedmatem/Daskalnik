@@ -25,9 +25,10 @@
         [Comment("Unique identifier of the creator of the topic.")]
         public string CreatorId { get; set; } = string.Empty;
 
+        // Navigation properties
+
         public List<Group> Groups { get; set; } = new List<Group>();
 
-        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         public List<TopicResource> Resources { get; set; } = new List<TopicResource>();
     }
 }

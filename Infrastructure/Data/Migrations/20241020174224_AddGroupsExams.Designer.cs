@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241018130332_AddGroups")]
-    partial class AddGroups
+    [Migration("20241020174224_AddGroupsExams")]
+    partial class AddGroupsExams
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,104 @@ namespace Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ExamGroup", b =>
+                {
+                    b.Property<string>("ExamsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GroupsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ExamsId", "GroupsId");
+
+                    b.HasIndex("GroupsId");
+
+                    b.ToTable("ExamGroup");
+                });
+
+            modelBuilder.Entity("GroupTopic", b =>
+                {
+                    b.Property<string>("GroupsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TopicsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GroupsId", "TopicsId");
+
+                    b.HasIndex("TopicsId");
+
+                    b.ToTable("GroupTopic");
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.Exam", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Unique data model identifier.");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of created the record on in the table.");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Unique identifier of the creator of the exam.");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of deleting the record in the table.");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("A brief description of the exam’s content, scope, or purpose.");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int")
+                        .HasComment("The time duration of the exam, measured in minutes.");
+
+                    b.Property<string>("Instruction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Any special instructions or rules for taking the exam (e.g., No calculators allowed).");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Indicate a record in table as deleted or not.");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of last modifing the record in the table.");
+
+                    b.Property<int>("PassMarks")
+                        .HasColumnType("int")
+                        .HasComment("The minimum marks required to pass the exam (e.g., 40 points out of 100).\r\n");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("The scheduled date and time when the exam is to be taken.");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("The current state of the exam (e.g., Scheduled, Ongoing, Completed, Graded).");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Exam title");
+
+                    b.Property<int>("TotalMarks")
+                        .HasColumnType("int")
+                        .HasComment("The total number of marks the exam is worth (e.g., 100 points).");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Exams");
+                });
 
             modelBuilder.Entity("Infrastructure.Data.Models.Group", b =>
                 {
@@ -57,7 +155,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Mark the date of last modifing the record in the table.");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
@@ -88,6 +186,73 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("Infrastructure.Data.Models.GroupStudent", b =>
+                {
+                    b.Property<string>("GroupId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Primary key.");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Primary key.");
+
+                    b.HasKey("GroupId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("GroupsAndStudents", (string)null);
+
+                    b.HasComment("Many-to-many mapping table for Group and Student.");
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.Resource", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Unique data model identifier.");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of created the record on in the table.");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Unique identifier of the creator of the resource.");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of deleting the record in the table.");
+
+                    b.Property<string>("IconRef")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Resource icon reference.");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Indicate a record in table as deleted or not.");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of last modifing the record in the table.");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Link to resource.");
+
+                    b.Property<string>("TextToDisplay")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Resource text to display.");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Resources");
+                });
+
             modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
                 {
                     b.Property<string>("Id")
@@ -116,7 +281,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Mark the date of last modifing the record in the table.");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
@@ -139,6 +304,54 @@ namespace Infrastructure.Data.Migrations
                         .HasFilter("[SchoolAdminId] IS NOT NULL");
 
                     b.ToTable("Schools");
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.Student", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Unique data model identifier.");
+
+                    b.Property<DateTime?>("ActivetedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the person activation date.");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of created the record on in the table.");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of deleting the record in the table.");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Student full name.");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("bit")
+                        .HasComment("Indicate person as activated ot not.");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Indicate a record in table as deleted or not.");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of last modifing the record in the table.");
+
+                    b.Property<string>("SchoolId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Unique identifier of school the student attends.");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
@@ -189,6 +402,74 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("Infrastructure.Data.Models.Topic", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Unique data model identifier.");
+
+                    b.Property<string>("Contents")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Topic contents items separated each in a new line.");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of created the record on in the table.");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Unique identifier of the creator of the topic.");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of deleting the record in the table.");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("Topic description.");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Indicate a record in table as deleted or not.");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Mark the date of last modifing the record in the table.");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Topic name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.TopicResource", b =>
+                {
+                    b.Property<string>("TopicId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Primary key.");
+
+                    b.Property<string>("ResourceId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Primary key.");
+
+                    b.HasKey("TopicId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("TopicsAndResources");
+
+                    b.HasComment("Many-to-many mapping table for Topic and Resource.");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -198,7 +479,7 @@ namespace Infrastructure.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -379,16 +660,46 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Title");
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ExamGroup", b =>
+                {
+                    b.HasOne("Infrastructure.Data.Models.Exam", null)
+                        .WithMany()
+                        .HasForeignKey("ExamsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Data.Models.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GroupTopic", b =>
+                {
+                    b.HasOne("Infrastructure.Data.Models.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Data.Models.Topic", null)
+                        .WithMany()
+                        .HasForeignKey("TopicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Infrastructure.Data.Models.Group", b =>
@@ -410,6 +721,25 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("Infrastructure.Data.Models.GroupStudent", b =>
+                {
+                    b.HasOne("Infrastructure.Data.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Data.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Infrastructure.Data.Models.School", b =>
                 {
                     b.HasOne("Infrastructure.Data.Models.Teacher", "SchoolAdmin")
@@ -419,6 +749,17 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("SchoolAdmin");
                 });
 
+            modelBuilder.Entity("Infrastructure.Data.Models.Student", b =>
+                {
+                    b.HasOne("Infrastructure.Data.Models.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
             modelBuilder.Entity("Infrastructure.Data.Models.Teacher", b =>
                 {
                     b.HasOne("Infrastructure.Data.Models.School", null)
@@ -426,6 +767,25 @@ namespace Infrastructure.Data.Migrations
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.TopicResource", b =>
+                {
+                    b.HasOne("Infrastructure.Data.Models.Resource", "Resource")
+                        .WithMany()
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Data.Models.Topic", "Topic")
+                        .WithMany("Resources")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -490,6 +850,11 @@ namespace Infrastructure.Data.Migrations
 
                     b.Navigation("School")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Data.Models.Topic", b =>
+                {
+                    b.Navigation("Resources");
                 });
 #pragma warning restore 612, 618
         }

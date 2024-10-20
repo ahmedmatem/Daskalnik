@@ -12,7 +12,7 @@ namespace Core.Models.Group
         public string Id { get; set; } = string.Empty;
 
         /// <summary>
-        /// Name of the group.
+        /// Title of the group.
         /// </summary>
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(

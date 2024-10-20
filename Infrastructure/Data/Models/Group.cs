@@ -37,7 +37,7 @@
         [Comment("Group creater identifier.")]
         public string TeacherId { get; set; } = string.Empty;
 
-        // NAvigation propeties
+        // Navigation propeties
 
         [ForeignKey(nameof(SchoolId))]
         public School School { get; set; } = null!;
@@ -49,6 +49,6 @@
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
 
-        //public List<Exam> Exams { get; set; } = new List<Exam>();
+        public List<Exam> Exams { get; set; } = new List<Exam>();
     }
 }
