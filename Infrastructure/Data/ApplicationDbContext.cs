@@ -27,7 +27,7 @@
             //// Entity type configurations
             builder
                 .ApplyConfiguration(new TopicResourceTypeConfiguration())
-            //    .ApplyConfiguration(new ExamRecourceTypeConfiguration())
+                .ApplyConfiguration(new ExamRecourceTypeConfiguration())
                 .ApplyConfiguration(new GroupTypeConfiguration())
                 .ApplyConfiguration(new GroupStudentTypeConfiguration());
 
@@ -59,6 +59,6 @@
 
         public DbSet<Exam> Exams { get; set; } = null!;
 
-        //public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
+        public DbSet<ExamResource> ExamsAndResources { get; set; } = null!;
     }
 }

@@ -46,5 +46,7 @@
         public List<Group> Groups { get; set; } = new List<Group>();
 
         public List<Student> AssignedStudents { get; set; } = new List<Student>();
+
+        public List<ExamResource> Resources { get; set; } = new List<ExamResource>();
     }
 }
