@@ -1,14 +1,16 @@
-﻿using Core.Contracts;
-using Core.Models.Common;
-using Core.Models.GroupTopic;
-using Core.Models.Resource;
-using Core.Models.Topic;
-using Infrastructure.Data.DataRepository;
-using Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
+    using Core.Contracts;
+    using Core.Models.Common;
+    using Core.Models.GroupTopic;
+    using Core.Models.Resource;
+    using Core.Models.Topic;
+
+    using Infrastructure.Data.DataRepository;
+    using Infrastructure.Data.Models;
+
     public class TopicService : ITopicService
     {
         private readonly IRepository repository;

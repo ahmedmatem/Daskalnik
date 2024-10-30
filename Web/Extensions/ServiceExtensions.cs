@@ -20,6 +20,7 @@ namespace Web.Extensions
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<ITopicResourceService, TopicResourceService>();
+            services.AddScoped<IExamService, ExamService>();
 
             services.AddScoped<IAzureBlobService, AzureBlobService>();
 

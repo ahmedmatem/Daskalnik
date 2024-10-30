@@ -1,17 +1,62 @@
 ﻿namespace Web.Areas.Teacher.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using Core.Contracts;
+    using Core.Models.Exam;
+    using static Core.Constants.MessageConstants;
+
+    using Web.Extensions;
 
     public class ExamsController : TeacherBaseController
     {
+        private readonly ILogger<ExamsController> logger;
+        private readonly IExamService examService;
+        private readonly IResourceService resourceService;
+
+        public ExamsController(
+            ILogger<ExamsController> _logger, 
+            IExamService _examService,
+            IResourceService _resourceService)
+        {
+            logger = _logger;
+            examService = _examService;
+            resourceService = _resourceService;
+        }
+
         public async Task<IActionResult> Index()
         {
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return View();
+            CreateExamServiceModel model = new CreateExamServiceModel()
+            {
+                CreatorAllResources = await resourceService
+                .GetAllByCreator(User.Id())
+                .ToListAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateExamServiceModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.CreatorId = User.Id();
+            await examService.CreateAsync(model);
+
+            TempData[MessageSuccess] = "Изпитният материал е създаден успешно.";
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

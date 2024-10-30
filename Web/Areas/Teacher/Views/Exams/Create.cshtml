@@ -1,17 +1,60 @@
-﻿
+﻿@model CreateExamServiceModel
+
 @{
-    ViewData["Title"] = "Тест";
+    ViewData["Title"] = "Създаване на изпитен материал";
 }
 
 <nav class="d-flex" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a @* asp-action="Group" asp-route-id="@Model.GroupId" *@><i class="fa-solid fa-arrow-left"></i> Назад</a>
+            <a asp-action=""><i class="fa-solid fa-arrow-left"></i> Моите изпитни материали</a>
         </li>
     </ol>
 </nav>
 
-<h3 class="text-center text-secondary">Създаване на изпит</h3>
-<h5 class="text-center text-secondary">@ViewData["Title"]</h5>
+<h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+<div class="row justify-content-center">
+    <div class="p-3 col-md-6">
+        <form asp-action="Create" method="post">
+            <div class="form-floating">
+                <input asp-for="Title" class="form-control" aria-required="true" />
+                <label asp-for="Title" class="form-label"></label>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-2">
+                <textarea asp-for="Description" rows="3" class="form-control h-100" aria-required="true"></textarea>
+                <label asp-for="Description" class="form-label"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <span class="text-secondary">Максимален брой символи - @Infrastructure.Constants.DataConstants.ExamDescriptionMaxLength</span>
+            </div>
+            @* <div class="form-floating mt-2">
+                <textarea asp-for="Contents" class="form-control" aria-required="true"></textarea>
+                <label asp-for="Contents" class="form-label"></label>
+                <span class="text-secondary">Въведете всяка точка от съдържанието на нов ред.</span>
+            </div> *@
+
+            <div class ="form-group mt-3">
+                <label asp-for="SelectedResources" class="form-label"></label>
+                <select asp-for="SelectedResources" class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
+                    <option selected>Изберете ресурс ...</option>
+                    @foreach (var res in Model.CreatorAllResources)
+                    {
+                            <option value="@res.Id">@res.TextToDisplay</option>
+                    }
+                </select>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="" class="btn btn-outline-secondary">Отказ</a>
+                <button type="submit" class="btn btn-primary">Създай</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_FontAwesomePartial" />
+}
