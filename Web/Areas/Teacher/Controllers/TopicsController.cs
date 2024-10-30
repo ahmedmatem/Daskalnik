@@ -1,12 +1,14 @@
-﻿using Core.Contracts;
-using Core.Models.Topic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web.Extensions;
-using static Core.Constants.MessageConstants;
-
-namespace Web.Areas.Teacher.Controllers
+﻿namespace Web.Areas.Teacher.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using Web.Extensions;
+
+    using Core.Contracts;
+    using Core.Models.Topic;
+    using static Core.Constants.MessageConstants;
+
     public class TopicsController : TeacherBaseController
     {
         private readonly IAzureBlobService azureBlobService;

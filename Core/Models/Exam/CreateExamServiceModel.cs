@@ -7,7 +7,7 @@
     using static Infrastructure.Data.ErrorMessages;
     using static Infrastructure.Constants.DataConstants;
 
-    public class ExamAddServiceModel
+    public class CreateExamServiceModel
     {
         /// <summary>
         /// Exam unique identifier
@@ -19,10 +19,10 @@
         /// </summary>
         [Required(ErrorMessage = RequiredErrorMessage)]
         [StringLength(ExamTitleMaxLength,
-            MinimumLength = ExamNameMinLength, 
+            MinimumLength = ExamTitleMinLength, 
             ErrorMessage = StringLengthErrorMessage)]
         [Display(Name = "Име")]
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Exam description

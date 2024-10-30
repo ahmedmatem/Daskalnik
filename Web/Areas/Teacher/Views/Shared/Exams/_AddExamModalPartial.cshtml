@@ -1,14 +1,16 @@
-﻿<div class="modal fade add-exam-modal-large" tabindex="-1" role="dialog" aria-labelledby="addExamMpdalLarge" aria-hidden="true">
+﻿@* @model Core.Models.Exam.CreateExamServiceModel *@
+
+<div class="modal fade add-exam-modal-large" tabindex="-1" role="dialog" aria-labelledby="addExamMpdalLarge" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">Нов изпит</h5>
+                <h5 class="modal-title" id="exampleModalToggleLabel">Създаване на изпит</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="text-start">
+                <form class="text-start" method="post">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Име</label>
+                        <label @* asp-for="@Model.Title" *@ class="form-label">Име</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
@@ -19,10 +21,15 @@
                         <label for="exampleInputPassword1" class="form-label">Съдържание</label>
                         <textarea rows="3" class="form-control" id="exampleInputPassword1"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="add-resource" class="form-label">Ресурси</label>
-                        <input type="button" class="btn btn-outline-primary" id="add-resource" value="Ресурси" />
-                        <button type="button" class="btn btn-outline-primary">Създай</button>
+                    <div class="form-group mb-3">
+                        <label @* asp-for="SelectedResources" *@ class="form-label">Ресурси</label>
+                        <select @* asp-for="SelectedResources" *@ class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
+                            <option selected>Изберете ресурс ...</option>
+                            @* @foreach (var res in Model.CreatorAllResources)
+                            {
+                                <option value="@res.Id">@res.TextToDisplay</option>
+                            } *@
+                        </select>
                     </div>
                     <button asp-action="CreateExam" type="submit" class="btn btn-primary">Създай</button>
                 </form>

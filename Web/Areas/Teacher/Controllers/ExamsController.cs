@@ -9,7 +9,7 @@
             return View();
         }
 
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Create()
         {
             return View();
         }

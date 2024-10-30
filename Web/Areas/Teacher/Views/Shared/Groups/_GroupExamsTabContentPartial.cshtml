@@ -3,14 +3,12 @@
 @using static Infrastructure.Constants.DataConstants
 
 <div class="text-end">
-    <button type="button" 
-        class="btn btn-outline-primary my-2" 
-        data-bs-toggle="modal"
-        data-bs-target=".add-exam-modal-large">
-        Добави изпит
-    </button>
+    <a asp-action="Create" asp-controller="Exams"
+        class="btn btn-outline-primary my-2">
+        Създай изпит
+    </a>
     <!-- Large modal -->
-    <partial name="_AddExamModalPartial" />
+    <partial name="Exams/_AddExamModalPartial" />
     @* <a asp-action="AddExamInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави изпит</a> *@
 </div>
 

@@ -28,7 +28,7 @@
          aria-labelledby="nav-topics-tab">
         @if (Model.GroupTopics != null)
         {
-            <partial name="_GroupTopicsTabContentPartial" model="Model.GroupTopics" />
+            <partial name="Groups/_GroupTopicsTabContentPartial" model="Model.GroupTopics" />
         }
     </div>
     <div class="tab-pane fade"
@@ -37,13 +37,13 @@
          aria-labelledby="nav-exams-tab">
         @if (Model.GroupTopics != null)
         {
-            <partial name="_GroupExamsTabContentPartial" model="Model.GroupTopics" />
+            <partial name="Groups/_GroupExamsTabContentPartial" model="Model.GroupTopics" />
         }
     </div>
     <div class="tab-pane fade" id="nav-students" role="tabpanel" aria-labelledby="nav-students-tab">
         @if (Model.GroupTopics != null)
         {
-            <partial name="_GroupStudentsTabContentPartial" model="Model.GroupStudents" />
+            <partial name="Groups/_GroupStudentsTabContentPartial" model="Model.GroupStudents" />
         }
     </div>
 </div>

@@ -33,7 +33,7 @@
         public const int ResourceTextToDisplayMinLength = 3;
         public const int ResourceTextToDisplayMaxLength = 50;
 
-        public const int ExamNameMinLength = 2;
+        public const int ExamTitleMinLength = 2;
         public const int ExamTitleMaxLength = 100;
         public const int ExamDescriptionMaxLength = 200;
         public const int ExamMaxDurationInMinutes = 200;
