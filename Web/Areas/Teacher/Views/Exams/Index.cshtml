@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ExamListItemServiceModel>
+
+@{
     ViewData["Title"] = "Моите изпитни материали";
 }
 
@@ -7,3 +9,33 @@
 </div>
 
 <h3 class="text-center text-secondary">@ViewData["Title"]</h3>
+
+<div class="row justify-content-center align-items-center mt-3">
+    @if (Model.Any())
+    {
+        <ul class="list-group">
+            @foreach (var exam in Model)
+            {
+                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                    <a class="ms-2 me-auto text-secondary"
+                       asp-action="Exam" asp-route-id="@exam.Id">
+                        <div class="fw-bold">@exam.Title</div>
+                        @exam.Description
+                    </a>
+                    <a class="text-secondary" title="Редактиране"
+                       asp-action="Edit" asp-route-id="@exam.Id">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="alert alert-primary text-center" role="alert">
+            Няма създадени изпитни материали.
+        </div>
+    }
+</div>
+
+<partial name="_FontAwesomePartial" />

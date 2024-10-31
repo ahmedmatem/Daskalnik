@@ -1,11 +1,12 @@
 ﻿namespace Core.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
     using Core.Contracts;
     using Core.Models.Exam;
 
     using Infrastructure.Data.DataRepository;
     using Infrastructure.Data.Models;
-    using Microsoft.EntityFrameworkCore;
 
     public class ExamService : IExamService
     {
@@ -41,6 +42,20 @@
 
             await repository.AddAsync<Exam>(exam);
             await repository.SaveChangesAsync<Exam>();
+        }
+
+        public async Task<IEnumerable<ExamListItemServiceModel>> GetAllExamsByCreatorAsync(string creatorId)
+        {
+            return await repository
+                .AllReadonly<Exam>(e => e.CreatorId == creatorId && !e.IsDeleted)
+                .Select(e => new ExamListItemServiceModel()
+                {
+                    Id = e.Id,
+                    Title = e.Title,
+                    Description= e.Description,
+                })
+                .OrderBy(e => e.Title)
+                .ToListAsync();
         }
     }
 }

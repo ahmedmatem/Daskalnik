@@ -27,7 +27,8 @@
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await examService.GetAllExamsByCreatorAsync(User.Id());
+            return View(model);
         }
 
         [HttpGet]
