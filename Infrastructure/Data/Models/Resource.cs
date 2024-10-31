@@ -25,5 +25,9 @@
         [Required]
         [Comment("Unique identifier of the creator of the resource.")]
         public string CreatorId { get; set; } = string.Empty;
+
+        [Required]
+        [Comment("Resource type (e.g. Topic, Exam, ...)")]
+        public int ResourceType { get; set; }
     }
 }
