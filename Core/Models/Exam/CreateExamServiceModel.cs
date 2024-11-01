@@ -37,10 +37,10 @@
         public string CreatorId { get; set; } = string.Empty;
 
         /// <summary>
-        /// List of all resources belongs to creator.
+        /// List of all exam resources belongs to creator.
         /// </summary>
-        [Display(Name = "Ресурси")]
-        public IEnumerable<ResourceServiceModel> CreatorAllResources { get; set; } =
+        [Display(Name = "Изпитни ресурси")]
+        public IEnumerable<ResourceServiceModel> CreatorAllExamResources { get; set; } =
             new List<ResourceServiceModel>();
 
         /// <summary>

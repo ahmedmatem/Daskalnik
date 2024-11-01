@@ -7,6 +7,7 @@
 
     using Infrastructure.Data.DataRepository;
     using Infrastructure.Data.Models;
+    using Infrastructure.Data.Types;
 
     public class ExamService : IExamService
     {
@@ -25,9 +26,10 @@
         {
             var examResources = await resourceService
                 .GetAllByIds(model.SelectedResources)
-                .Select(sr => new ExamResource()
+                .Where(r => r.ResourceType == (int)ResourceType.Exam)
+                .Select(r => new ExamResource()
                 {
-                    ResourceId = sr.Id,
+                    ResourceId = r.Id,
                     ExamId = model.Id
                 })
                 .ToListAsync();

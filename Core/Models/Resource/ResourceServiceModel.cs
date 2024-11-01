@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static Infrastructure.Constants.DataConstants;
-using static Infrastructure.Data.ErrorMessages;
-
-namespace Core.Models.Resource
+﻿namespace Core.Models.Resource
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using static Infrastructure.Constants.DataConstants;
+    using static Infrastructure.Data.ErrorMessages;
     public class ResourceServiceModel
     {
         /// <summary>

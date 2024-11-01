@@ -28,17 +28,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
                 <span class="text-secondary">Максимален брой символи - @Infrastructure.Constants.DataConstants.ExamDescriptionMaxLength</span>
             </div>
-            @* <div class="form-floating mt-2">
-                <textarea asp-for="Contents" class="form-control" aria-required="true"></textarea>
-                <label asp-for="Contents" class="form-label"></label>
-                <span class="text-secondary">Въведете всяка точка от съдържанието на нов ред.</span>
-            </div> *@
-
             <div class ="form-group mt-3">
                 <label asp-for="SelectedResources" class="form-label"></label>
                 <select asp-for="SelectedResources" class="form-select form-select mb-3" multiple aria-label=".form-select-lg example">
                     <option selected>Изберете ресурс ...</option>
-                    @foreach (var res in Model.CreatorAllResources)
+                    @foreach (var res in Model.CreatorAllExamResources)
                     {
                             <option value="@res.Id">@res.TextToDisplay</option>
                     }

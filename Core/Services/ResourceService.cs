@@ -1,13 +1,17 @@
-﻿using Core.Contracts;
-using Core.Models.Resource;
-using Infrastructure.Data.DataRepository;
-using Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using IResourceService = Core.Contracts.IResourceService;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+
+    using Core.Contracts;
+    using Core.Models.Resource;
+
+    using Infrastructure.Data.DataRepository;
+    using Infrastructure.Data.Models;
+
+    using IResourceService = Core.Contracts.IResourceService;
+    using Infrastructure.Data.Types;
+
     public class ResourceService : IResourceService
     {
         private readonly IRepository repository;
@@ -47,6 +51,42 @@ namespace Core.Services
         {
             return repository.AllReadOnly<Resource>()
                 .Where(r => r.CreatorId == creatorId && !r.IsDeleted)
+                .Select(r => new ResourceServiceModel()
+                {
+                    Id = r.Id,
+                    Link = r.Link,
+                    TextToDisplay = r.TextToDisplay,
+                    IconRef = r.IconRef,
+                    CreatorId = r.CreatorId,
+                })
+                .OrderBy(r => r.TextToDisplay);
+        }
+
+        public IQueryable<ResourceServiceModel> GettAllExamsByCreator(string creatorId)
+        {
+            return repository.AllReadOnly<Resource>()
+                .Where(r => 
+                    r.CreatorId == creatorId && 
+                    r.ResourceType == (int)ResourceType.Exam && 
+                    !r.IsDeleted)
+                .Select(r => new ResourceServiceModel()
+                {
+                    Id = r.Id,
+                    Link = r.Link,
+                    TextToDisplay = r.TextToDisplay,
+                    IconRef = r.IconRef,
+                    CreatorId = r.CreatorId,
+                })
+                .OrderBy(r => r.TextToDisplay);
+        }
+
+        public IQueryable<ResourceServiceModel> GettAllTopicsByCreator(string creatorId)
+        {
+            return repository.AllReadOnly<Resource>()
+                .Where(r =>
+                    r.CreatorId == creatorId &&
+                    r.ResourceType == (int)ResourceType.Topic &&
+                    !r.IsDeleted)
                 .Select(r => new ResourceServiceModel()
                 {
                     Id = r.Id,

@@ -36,8 +36,8 @@
         {
             CreateExamServiceModel model = new CreateExamServiceModel()
             {
-                CreatorAllResources = await resourceService
-                .GetAllByCreator(User.Id())
+                CreatorAllExamResources = await resourceService
+                .GettAllExamsByCreator(User.Id())
                 .ToListAsync()
             };
 
