@@ -116,7 +116,7 @@
                         IconRef = r.Resource.IconRef,
                         CreatorId = r.Resource.CreatorId
                     }),
-                    CreatorAllResources = resourceService.GetAllByCreator(t.CreatorId)
+                    CreatorAllTopicResources = resourceService.GetAllByCreator(t.CreatorId)
                     .AsEnumerable(),
                     SelectedResources = t.Resources.Select(r => r.ResourceId),
                 })

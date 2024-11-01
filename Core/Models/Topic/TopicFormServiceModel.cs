@@ -39,7 +39,7 @@
         /// List of all resources for the topic creator.
         /// </summary>
         [Display(Name = "Ресурси")]
-        public IEnumerable<ResourceServiceModel> CreatorAllResources { get; set; } = 
+        public IEnumerable<ResourceServiceModel> CreatorAllTopicResources { get; set; } = 
             new List<ResourceServiceModel>();
 
         /// <summary>

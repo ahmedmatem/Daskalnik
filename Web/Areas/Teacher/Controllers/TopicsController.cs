@@ -41,8 +41,8 @@
         {
             TopicFormServiceModel model = new TopicFormServiceModel()
             {
-                CreatorAllResources = await resourceService
-                .GetAllByCreator(User.Id())
+                CreatorAllTopicResources = await resourceService
+                .GettAllTopicsByCreator(User.Id())
                 .ToListAsync()
             };
 

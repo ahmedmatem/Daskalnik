@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Редактиране на тема";
     var allResourcesExeptAdded =
-        Model.CreatorAllResources.ExceptBy<ResourceServiceModel, string>(
+        Model.CreatorAllTopicResources.ExceptBy<ResourceServiceModel, string>(
             Model.AddedResources.Select(x => x.Id),
             x => x.Id);
 }
