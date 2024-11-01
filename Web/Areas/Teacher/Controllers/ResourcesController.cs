@@ -1,13 +1,16 @@
-﻿using Core.Contracts;
-using Core.Models.Resource;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web.Extensions;
-using static Infrastructure.Constants.DataConstants;
-using static Core.Constants.MessageConstants;
-
-namespace Web.Areas.Teacher.Controllers
+﻿namespace Web.Areas.Teacher.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using Core.Contracts;
+    using Core.Models.Resource;
+    using static Core.Constants.MessageConstants;
+
+    using Web.Extensions;
+
+    using static Infrastructure.Constants.DataConstants;
+
     public class ResourcesController : TeacherBaseController
     {
         private readonly IResourceService resourceService;

@@ -40,7 +40,8 @@
                 Link = model.Link,
                 IconRef = model.IconRef,
                 CreatorId = model.CreatorId,
-                TextToDisplay = model.TextToDisplay
+                TextToDisplay = model.TextToDisplay,
+                ResourceType = model.ResourceType
             };
 
             await repository.AddAsync(newResource);

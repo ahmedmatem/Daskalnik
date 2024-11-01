@@ -417,7 +417,7 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Models.Topic", b =>
+            modelBuilder.Entity("Infrastructure.Data.Models.Тема", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -426,7 +426,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Contents")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasComment("Topic contents items separated each in a new line.");
+                        .HasComment("Тема contents items separated each in a new line.");
 
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2")
@@ -445,7 +445,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
-                        .HasComment("Topic description.");
+                        .HasComment("Тема description.");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -459,7 +459,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Topic name");
+                        .HasComment("Тема name");
 
                     b.HasKey("Id");
 
@@ -482,7 +482,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.ToTable("TopicsAndResources");
 
-                    b.HasComment("Many-to-many mapping table for Topic and Resource.");
+                    b.HasComment("Many-to-many mapping table for Тема and Resource.");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -725,7 +725,7 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Data.Models.Topic", null)
+                    b.HasOne("Infrastructure.Data.Models.Тема", null)
                         .WithMany()
                         .HasForeignKey("TopicsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -807,7 +807,7 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infrastructure.Data.Models.Topic", "Topic")
+                    b.HasOne("Infrastructure.Data.Models.Тема", "Тема")
                         .WithMany("Resources")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -815,7 +815,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.Navigation("Resource");
 
-                    b.Navigation("Topic");
+                    b.Navigation("Тема");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -882,7 +882,7 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Infrastructure.Data.Models.Topic", b =>
+            modelBuilder.Entity("Infrastructure.Data.Models.Тема", b =>
                 {
                     b.Navigation("Resources");
                 });

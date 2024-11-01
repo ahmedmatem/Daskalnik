@@ -1,5 +1,6 @@
 ﻿namespace Core.Models.Resource
 {
+    using Infrastructure.Data.Types;
     using System.ComponentModel.DataAnnotations;
 
     using static Infrastructure.Constants.DataConstants;
@@ -40,5 +41,12 @@
         /// Creator of the resource
         /// </summary>
         public string CreatorId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Resource type for - (e.g. Exam, Topic ...)
+        /// </summary>
+        [Display(Name = "Тип")]
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        public int ResourceType { get; set; } = 0;
     }
 }
