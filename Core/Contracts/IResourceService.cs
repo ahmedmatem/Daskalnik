@@ -18,5 +18,14 @@ namespace Core.Contracts
         IQueryable<Resource> GetAllByIds(IEnumerable<string> ids);
 
         Task<ResourceFormServiceModel?> GetByIdAsync(string id);
+
+        /// <summary>
+        /// Check if a resource is assigned in a topic or exam.
+        /// </summary>
+        /// <param name="resId"></param>
+        /// <returns>true - if resource is assigned, false otherwise.</returns>
+        Task<bool> IsAssignedAsync(string resourceId);
+
+        Task DeleteAsync(string resourceId);
     }
 }

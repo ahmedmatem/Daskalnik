@@ -51,7 +51,7 @@
 
             await resourceService.AddAsync(model);
 
-            TempData[MessageSuccess] = "Ресурсът е добавен успешно.";
+            TempData[MessageSuccess] = ResourceAddMessageSuccess;
 
             return RedirectToAction(nameof(Index));
         }
@@ -79,15 +79,28 @@
 
             await resourceService.UpdateAsync(model);
 
-            TempData[MessageSuccess] = "Ресурсът е променен успешно.";
+            TempData[MessageSuccess] = ResourceEditMessageSuccess;
 
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return View();
+            // Check if resource already in use by any topic or exam
+            if (await resourceService.IsAssignedAsync(id))
+            {
+                TempData[MessageWarning] = ResourceAssignedMessageWarning;
+            }
+            else
+            {
+                // Resource is not assigned and could be deleted.
+                await resourceService.DeleteAsync(id);
+
+                TempData[MessageSuccess] = ResourceDeleteMessageSuccess;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -32,7 +32,7 @@
                 var blobName = GetRandomBlobName(model.ResourceFile);
                 model.Link = azureBlobService.BlobContainerURL + blobName;
 
-                await azureBlobService.UploadFileAsync(model.ResourceFile, blobName);                
+                await azureBlobService.UploadFileAsync(model.ResourceFile, blobName);
             }
 
             Resource newResource = new Resource()
@@ -66,9 +66,9 @@
         public IQueryable<ResourceServiceModel> GettAllExamsByCreator(string creatorId)
         {
             return repository.AllReadOnly<Resource>()
-                .Where(r => 
-                    r.CreatorId == creatorId && 
-                    r.ResourceType == (int)ResourceType.Exam && 
+                .Where(r =>
+                    r.CreatorId == creatorId &&
+                    r.ResourceType == (int)ResourceType.Exam &&
                     !r.IsDeleted)
                 .Select(r => new ResourceServiceModel()
                 {
@@ -110,7 +110,7 @@
         {
             var resource = await repository.GetByIdAsync<Resource>(id);
 
-            if(resource != null)
+            if (resource != null)
             {
                 return new ResourceFormServiceModel()
                 {
@@ -147,6 +147,26 @@
         private string GetRandomBlobName(IFormFile file)
         {
             return Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+        }
+
+        public async Task<bool> IsAssignedAsync(string resourceId)
+        {
+            var assigned = await repository.All<ExamResource>()
+                .AnyAsync(er => er.ResourceId == resourceId);
+
+            if (assigned)
+            {
+                return true;
+            }
+
+            return await repository.All<TopicResource>()
+                    .AnyAsync(tr => tr.ResourceId == resourceId);
+        }
+
+        public async Task DeleteAsync(string resourceId)
+        {
+            await repository.DeleteAsync<Resource>(resourceId);
+            await repository.SaveChangesAsync<Resource>();
         }
     }
 }
