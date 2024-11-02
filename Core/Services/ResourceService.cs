@@ -119,6 +119,7 @@
                     TextToDisplay = resource.TextToDisplay,
                     IconRef = resource.IconRef,
                     CreatorId = resource.CreatorId,
+                    ResourceType = resource.ResourceType
                 };
             }
 

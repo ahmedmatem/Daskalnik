@@ -2,6 +2,7 @@
 
 @inject IAzureBlobService azureBlobService
 
+@using Infrastructure.Data.Types
 @using static Infrastructure.Constants.DataConstants
 
 @{
@@ -31,10 +32,10 @@
 
             <div class="btn-group mt-3" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio" id="file-radio-btn" autocomplete="off" @(isBlob ? "checked" : "")>
-                <label asp-for="ResourceFile" class="btn btn-outline-secondary" for="file-radio-btn"></label>
+                <label asp-for="ResourceFile" class="btn btn-outline-success" for="file-radio-btn"></label>
 
                 <input type="radio" class="btn-check" name="btnradio" id="link-radio-btn" autocomplete="off" @(isBlob ? "" : "checked")>
-                <label asp-for="Link" class="btn btn-outline-secondary" for="link-radio-btn"></label>
+                <label asp-for="Link" class="btn btn-outline-success" for="link-radio-btn"></label>
             </div>
 
             <div id="file-holder-id" class="form-group mt-3" @(isBlob ? "" : "hidden")>
@@ -66,7 +67,7 @@
                                    value="@iconRef.Key"
                                    id="@iconRef.Key"
                                    autocomplete="off">
-                            <label class="btn btn-outline-secondary"
+                            <label class="btn btn-outline-success"
                                    title="@iconRef.Key"
                                    for="@iconRef.Key"
                                    asp-for="IconRef">@Html.Raw(iconRef.Value)</label>
@@ -76,7 +77,26 @@
                 <span asp-validation-for="IconRef" class="text-danger"></span>
             </div>
 
-
+            <div class="form-group mt-3">
+                <label asp-for="ResourceType" class="form-label d-block"></label>
+                <div>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        @foreach (ResourceType res in Enum.GetValues<ResourceType>())
+                        {
+                            if((int)res == Model.ResourceType)
+                            {
+                                <input type="radio" asp-for="ResourceType"
+                                       class="btn-check"
+                                       value="@((int)res)"
+                                       id="@res"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="@res">@res</label>
+                            }
+                        }
+                    </div>
+                </div>
+                <span asp-validation-for="ResourceType" class="text-danger"></span>
+            </div>
 
             <div class="text-center mt-4">
                 <a asp-action="" class="btn btn-outline-secondary">Отказ</a>
