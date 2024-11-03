@@ -1,7 +1,12 @@
-﻿namespace Infrastructure.Data.Types
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Infrastructure.Data.Types
 {
     public enum ResourceType
     {
-        Topic = 0, Exam
+        [Display(Description = "Тема")]
+        Topic = 0,
+        [Display(Description = "Изпитен материал")]
+        Exam
     }
 }
