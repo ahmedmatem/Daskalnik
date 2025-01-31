@@ -7,6 +7,8 @@ using static Infrastructure.Data.ErrorMessages;
 using static Core.Constants.MessageConstants;
 using Core.Models.GroupTopic;
 using Core.Models.GroupStudent;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Web.Areas.Teacher.Controllers
 {
@@ -17,19 +19,22 @@ namespace Web.Areas.Teacher.Controllers
         private readonly IGroupService groupService;
         private readonly ITopicService topicService;
         private readonly IStudentService studentService;
+        private readonly IMapper mapper;
 
         public GroupsController(
             IAzureBlobService _blobService,
             ITeacherService _teacherService,
             IGroupService _groupService,
             ITopicService _topicService,
-            IStudentService _studentService)
+            IStudentService _studentService,
+            IMapper _mapper)
         {
             blobService = _blobService;
             teacherService = _teacherService;
             groupService = _groupService;
             topicService = _topicService;
             studentService = _studentService;
+            mapper = _mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -92,7 +97,8 @@ namespace Web.Areas.Teacher.Controllers
         [HttpGet]
         public async Task<IActionResult> Group(string id)
         {
-            var model = await groupService.GetByIdAsync(id);
+            var groupById = await groupService.GetGroupByIdAsync(id);
+            var model = mapper.Map<GroupServiceModel>(groupById);
             if (model == null)
             {
                 return NotFound();

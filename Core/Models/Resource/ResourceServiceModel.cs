@@ -1,10 +1,10 @@
 ﻿namespace Core.Models.Resource
 {
-    using Infrastructure.Data.Types;
     using System.ComponentModel.DataAnnotations;
 
     using static Infrastructure.Constants.DataConstants;
     using static Infrastructure.Data.ErrorMessages;
+
     public class ResourceServiceModel
     {
         /// <summary>

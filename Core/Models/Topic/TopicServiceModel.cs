@@ -12,7 +12,7 @@
         /// <summary>
         /// Topic unique identifier.
         /// </summary>
-        public string TopicId { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Topic name.
@@ -51,7 +51,9 @@
         /// <summary>
         /// Collection of resources for the topic in the group.
         /// </summary>
-        public IEnumerable<ResourceServiceModel> Resources { get; set; }
-            = new HashSet<ResourceServiceModel>();
+        //public IEnumerable<ResourceServiceModel> Resources { get; set; }
+        //    = new HashSet<ResourceServiceModel>();
+        public IEnumerable<TopicResourceServiceModel> Resources { get; set; }
+            = new HashSet<TopicResourceServiceModel>();
     }
 }

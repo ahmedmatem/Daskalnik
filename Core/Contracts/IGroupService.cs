@@ -1,9 +1,9 @@
-﻿using Core.Models.Group;
-using Core.Models.GroupTopic;
-using Infrastructure.Data.Models;
-
-namespace Core.Contracts
+﻿namespace Core.Contracts
 {
+    using Core.Models.Group;
+
+    using Infrastructure.Data.Models;
+
     public interface IGroupService
     {
         Task<int> GetGroupsCountAsync();
@@ -22,6 +22,8 @@ namespace Core.Contracts
             GetAllGroupsInSchool(string schoolId, string schoolAdminId);
 
         Task<GroupServiceModel?> GetByIdAsync(string groupId);
+
+        Task<Group?> GetGroupByIdAsync(string groupId);
 
         Task AddTopicsInGroupAsync(string groupId, IEnumerable<string> topicIds);
 

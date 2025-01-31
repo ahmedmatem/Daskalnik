@@ -22,6 +22,8 @@ namespace Web
 
             builder.Services.AddApplicationAuthentication(builder.Configuration);
 
+            builder.Services.AddAutoMapper(typeof(Program));
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

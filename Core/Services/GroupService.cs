@@ -1,16 +1,17 @@
-﻿using Core.Contracts;
-using Core.Models.Group;
-using Core.Models.GroupTopic;
-using Core.Models.Resource;
-using Core.Models.Student;
-using Core.Models.Topic;
-using Infrastructure.Data.DataRepository;
-using Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+
+    using Core.Contracts;
+    using Core.Models.Group;
+    using Core.Models.GroupTopic;
+    using Core.Models.Resource;
+    using Core.Models.Topic;
+
+    using Infrastructure.Data.DataRepository;
+    using Infrastructure.Data.Models;
+
     public class GroupService : IGroupService
     {
         private readonly ILogger<GroupService> logger;
@@ -151,83 +152,143 @@ namespace Core.Services
                 .ToListAsync();
         }
 
-        public async Task<GroupServiceModel?> GetByIdAsync(string groupId)
+        public async Task<Group?> GetGroupByIdAsync(string groupId)
         {
-            return await repository.All<Group>()
+            return await repository
+                .All<Group>()
                 .Where(g => !g.IsDeleted && g.Id == groupId)
-                .Select(g => new GroupServiceModel()
-                {
-                    Id = g.Id,
-                    ShortName = g.ShortName,
-                    Name = g.Name,
-                    Description = g.Description,
-                    IconUrl = g.IconUrl,
-                    SchoolId = g.SchoolId,
-                    TeacherId = g.TeacherId,
-                    GroupTopics = new GroupTopicsModel()
-                    {
-                        GroupId = g.Id,
-                        Topics = g.Topics
-                        .Where(t => !t.IsDeleted)
-                        .Select(t => new TopicListItemInGroupServiceModel()
-                        {
-                            TopicId = t.Id,
-                            Description = t.Description,
-                            Name = t.Name,
-                            GroupId = g.Id,
-                            Contents = t.Contents,
-                            CreatorId = t.CreatorId,
-                            Resources = repository.All<Resource>()
-                            .Where(r => r.CreatorId == t.CreatorId && !r.IsDeleted)
-                            .Join(repository.All<TopicResource>(), ar => ar.Id, atr => atr.ResourceId,
-                            (ar, atr) => new
-                            {
-                                AllResources = ar,
-                                AllTopoicResources = atr
-                            })
-                            .Where(x => x.AllTopoicResources.TopicId == t.Id)
-                            .Select(x => new ResourceServiceModel()
-                            {
-                                Id = x.AllResources.Id,
-                                Link = x.AllResources.Link,
-                                TextToDisplay = x.AllResources.TextToDisplay,
-                                IconRef = x.AllResources.IconRef,
-                                CreatorId = t.CreatorId
-                            })
-                        })
-                    },
-                    GroupStudents = new GroupStudentsModel
-                    {
-                        GroupId = groupId,
-                        Students = repository.All<Student>()
-                        .Select(identityStudent => identityStudent.Id)
-                        .Join(
-                            repository.All<GroupStudent>(),
-                            identityStudentId => identityStudentId,
-                            groupStudent => groupStudent.StudentId,
-                            (identityStudentId, groupStudent) => new GroupStudent
-                            {
-                                StudentId = identityStudentId,
-                                GroupId = groupStudent.GroupId,
-                            })
-                        .Where(gs => gs.GroupId == groupId)
-                        .Join(
-                            repository.All<Student>().Include(s => s.School),
-                            gs => gs.StudentId, student => student.Id,
-                            (gs, student) => student)
-                        .Where(s => s.IsActivated && !s.IsDeleted)
-                        .OrderBy(s => s.FullName)
-                        .Select(s => new StudentListItemInGroupServiceModel()
-                        {
-                            StudentId = s.Id,
-                            FullName = s.FullName,
-                            School = s.School
-                        })
-                        .ToList()
-                    }
-                })
+                .Include(g => g.Topics)
+                .ThenInclude(gt => gt.Resources)
+                .ThenInclude(tr => tr.Resource)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<GroupServiceModel?> GetByIdAsync(string groupId)
+        {
+            return null;
+            //return await repository.All<Group>()
+            //    .Where(g => !g.IsDeleted && g.Id == groupId)
+            //    .Include(g => g.Topics)
+            //    .Select(g => new GroupServiceModel()
+            //    {
+            //        Id = g.Id,
+            //        ShortName = g.ShortName,
+            //        Name = g.Name,
+            //        Description = g.Description,
+            //        IconUrl = g.IconUrl,
+            //        SchoolId = g.SchoolId,
+            //        TeacherId = g.TeacherId,
+            //        GroupTopics = g.Topics,
+            //        GroupStudents = new GroupStudentsModel
+            //        {
+            //            GroupId = groupId,
+            //            Students = repository.All<Student>()
+            //            .Select(identityStudent => identityStudent.Id)
+            //            .Join(
+            //                repository.All<GroupStudent>(),
+            //                identityStudentId => identityStudentId,
+            //                groupStudent => groupStudent.StudentId,
+            //                (identityStudentId, groupStudent) => new GroupStudent
+            //                {
+            //                    StudentId = identityStudentId,
+            //                    GroupId = groupStudent.GroupId,
+            //                })
+            //            .Where(gs => gs.GroupId == groupId)
+            //            .Join(
+            //                repository.All<Student>().Include(s => s.School),
+            //                gs => gs.StudentId, student => student.Id,
+            //                (gs, student) => student)
+            //            .Where(s => s.IsActivated && !s.IsDeleted)
+            //            .OrderBy(s => s.FullName)
+            //            .Select(s => new StudentListItemInGroupServiceModel()
+            //            {
+            //                StudentId = s.Id,
+            //                FullName = s.FullName,
+            //                School = s.School
+            //            })
+            //            .ToList()
+            //        }
+            //    })
+            //    .FirstOrDefaultAsync();
+        }
+
+        //public async Task<GroupServiceModel?> GetByIdAsync(string groupId)
+        //{
+        //    return await repository.All<Group>()
+        //        .Where(g => !g.IsDeleted && g.Id == groupId)
+        //        .Select(g => new GroupServiceModel()
+        //        {
+        //            Id = g.Id,
+        //            ShortName = g.ShortName,
+        //            Name = g.Name,
+        //            Description = g.Description,
+        //            IconUrl = g.IconUrl,
+        //            SchoolId = g.SchoolId,
+        //            TeacherId = g.TeacherId,
+        //            GroupTopics = new GroupTopicsModel()
+        //            {
+        //                GroupId = g.Id,
+        //                Topics = g.Topics
+        //                .Where(t => !t.IsDeleted)
+        //                .Select(t => new TopicListItemInGroupServiceModel()
+        //                {
+        //                    Id = t.Id,
+        //                    Description = t.Description,
+        //                    Name = t.Name,
+        //                    GroupId = g.Id,
+        //                    Contents = t.Contents,
+        //                    CreatorId = t.CreatorId,
+        //                    Resources = repository.All<Resource>()
+        //                    .Where(r => r.CreatorId == t.CreatorId && !r.IsDeleted)
+        //                    .Join(repository.All<TopicResource>(), ar => ar.Id, atr => atr.ResourceId,
+        //                    (ar, atr) => new
+        //                    {
+        //                        AllResources = ar,
+        //                        AllTopoicResources = atr
+        //                    })
+        //                    .Where(x => x.AllTopoicResources.Id == t.Id)
+        //                    .Select(x => new ResourceServiceModel()
+        //                    {
+        //                        Id = x.AllResources.Id,
+        //                        Link = x.AllResources.Link,
+        //                        TextToDisplay = x.AllResources.TextToDisplay,
+        //                        IconRef = x.AllResources.IconRef,
+        //                        CreatorId = t.CreatorId
+        //                    })
+        //                })
+        //            },
+        //            GroupStudents = new GroupStudentsModel
+        //            {
+        //                GroupId = groupId,
+        //                Students = repository.All<Student>()
+        //                .Select(identityStudent => identityStudent.Id)
+        //                .Join(
+        //                    repository.All<GroupStudent>(),
+        //                    identityStudentId => identityStudentId,
+        //                    groupStudent => groupStudent.StudentId,
+        //                    (identityStudentId, groupStudent) => new GroupStudent
+        //                    {
+        //                        StudentId = identityStudentId,
+        //                        GroupId = groupStudent.GroupId,
+        //                    })
+        //                .Where(gs => gs.GroupId == groupId)
+        //                .Join(
+        //                    repository.All<Student>().Include(s => s.School),
+        //                    gs => gs.StudentId, student => student.Id,
+        //                    (gs, student) => student)
+        //                .Where(s => s.IsActivated && !s.IsDeleted)
+        //                .OrderBy(s => s.FullName)
+        //                .Select(s => new StudentListItemInGroupServiceModel()
+        //                {
+        //                    StudentId = s.Id,
+        //                    FullName = s.FullName,
+        //                    School = s.School
+        //                })
+        //                .ToList()
+        //            }
+        //        })
+        //        .FirstOrDefaultAsync();
+        //}
 
         public async Task<int> GetGroupsCountAsync()
         {
