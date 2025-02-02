@@ -55,7 +55,8 @@
          aria-labelledby="nav-topics-tab">
         @if (Model.Topics != null)
         {
-            <partial name="Groups/_GroupTopicsTabContentPartial" model="Model.Topics" />
+            var model = new GroupTopicsModel { GroupId = Model.Id, GroupTopics = Model.Topics };
+            <partial name="Groups/_GroupTopicsTabContentPartial" model="model" />
         }
     </div>
     @* <div class="tab-pane fade"

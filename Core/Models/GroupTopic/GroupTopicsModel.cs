@@ -16,5 +16,11 @@ namespace Core.Models.GroupTopic
         [Display(Name = "Съдържание")]
         public IEnumerable<TopicListItemInGroupServiceModel> Topics { get; set; } 
             = new List<TopicListItemInGroupServiceModel>();
+
+        /// <summary>
+        /// Topics in the group
+        /// </summary>
+        [Display(Name = "Съдържание")]
+        public IEnumerable<TopicServiceModel> GroupTopics { get; set; } = new List<TopicServiceModel>();
     }
 }

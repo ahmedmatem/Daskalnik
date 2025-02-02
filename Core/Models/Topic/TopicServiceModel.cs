@@ -39,11 +39,6 @@
         public string Contents { get; set; } = string.Empty;
 
         /// <summary>
-        /// Unique group identifier
-        /// </summary>
-        public string GroupId { get; set; } = string.Empty;
-
-        /// <summary>
         /// Unique identifier of the creator of the group and topics in the group.
         /// </summary>
         public string CreatorId { get; set; } = string.Empty;

@@ -1,16 +1,15 @@
-﻿@* @model GroupTopicsModel *@
-@model IEnumerable<TopicServiceModel>
+﻿@model GroupTopicsModel
 
 @using static Infrastructure.Constants.DataConstants
 
-@if (Model.Any())
+@if (Model.GroupTopics.Any())
 {
     <div class="text-end">
-        <a asp-action="AddTopicInGroup" asp-route-id="@Model.First().GroupId" class="btn btn-outline-primary my-2">Добави тема</a>
+        <a asp-action="AddTopicInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави тема</a>
     </div>
 
     <div class="accordion" id="accordionPanels">
-        @foreach (var topic in Model.OrderBy(t => t.Name))
+        @foreach (var topic in Model.GroupTopics.OrderBy(t => t.Name))
         {
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panel-heading-@topic.Id">
@@ -56,7 +55,7 @@
                         <hr class="mt-2" />
                         <div class="text-end">
                             <a asp-action="RemoveTopicFromGroup"
-                               asp-route-groupId="@Model.First().GroupId"
+                               asp-route-groupId="@Model.GroupId"
                                asp-route-topicId="@topic.Id"
                                class="btn btn-sm btn-outline-secondary">
                                 <i class="fa-regular fa-trash-can"></i> Премахни
