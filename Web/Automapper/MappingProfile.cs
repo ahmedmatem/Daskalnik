@@ -1,23 +1,31 @@
 ﻿namespace Web.Automapper
 {
     using AutoMapper;
-    using Core.Models;
+
+    using Core.Models.Exam;
     using Core.Models.Group;
     using Core.Models.Resource;
+    using Core.Models.Student;
     using Core.Models.Topic;
-    using Core.Services;
+
     using Infrastructure.Data.Models;
 
     public class MappingProfile : Profile
     {
         public MappingProfile() 
         {
-            CreateMap<ResourceServiceModel, Resource>().ReverseMap();
+            CreateMap<Resource, ResourceServiceModel>();
+            CreateMap<Resource, ExamResourceServiceModel>();
 
-            CreateMap<TopicServiceModel, Topic>().ReverseMap();
-            CreateMap<TopicResourceServiceModel, TopicResource>().ReverseMap();
+            CreateMap<Topic, TopicServiceModel>();
 
-            CreateMap<GroupServiceModel, Group>().ReverseMap();
+            CreateMap<TopicResource, TopicResourceServiceModel>();
+
+            CreateMap<Group, GroupServiceModel>();
+
+            CreateMap<Student, StudentLinkServiceModel>();
+
+            CreateMap<Exam, ExamServiceModel>();
         }
     }
 }

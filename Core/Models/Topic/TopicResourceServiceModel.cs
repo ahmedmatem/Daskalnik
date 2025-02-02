@@ -1,7 +1,6 @@
-﻿namespace Core.Models
+﻿namespace Core.Models.Topic
 {
     using Core.Models.Resource;
-    using Core.Models.Topic;
 
     public class TopicResourceServiceModel
     {

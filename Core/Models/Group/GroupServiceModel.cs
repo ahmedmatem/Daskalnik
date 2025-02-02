@@ -1,4 +1,6 @@
-﻿using Core.Models.GroupTopic;
+﻿using Core.Models.Exam;
+using Core.Models.GroupTopic;
+using Core.Models.Student;
 using Core.Models.Topic;
 using Infrastructure.Data.Models;
 using System.ComponentModel.DataAnnotations;
@@ -46,14 +48,21 @@ namespace Core.Models.Group
         /// <summary>
         /// Contains all topics in the group.
         /// </summary>
-        public GroupTopicsModel GroupTopics { get; set; } = null!;
-        //public IEnumerable<Infrastructure.Data.Models.Topic> GroupTopics { get; set; } = new List<Infrastructure.Data.Models.Topic>();
-
         public IEnumerable<TopicServiceModel> Topics { get; set; } = new List<TopicServiceModel>();
 
         /// <summary>
         /// Contains all students in the group.
         /// </summary>
         public GroupStudentsModel GroupStudents { get; set; } = null!;
+
+        /// <summary>
+        /// Contains all students in the group.
+        /// </summary>
+        public IEnumerable<StudentLinkServiceModel> Students { get; set; } = new List<StudentLinkServiceModel>();
+
+        /// <summary>
+        /// Contains all exams in the group.
+        /// </summary>
+        public IEnumerable<ExamServiceModel> Exams { get; set; } = new List<ExamServiceModel>();
     }
 }

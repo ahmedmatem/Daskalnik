@@ -1,5 +1,6 @@
 ﻿@model GroupStudentsModel
 
+
 <div class="text-end">
     <a asp-action="AddStudentInGroup" asp-route-id="@Model.GroupId"
        class="btn btn-outline-primary my-2">Добави ученик</a>
@@ -17,7 +18,7 @@
                 @student.FullName
                 <a asp-action="RemoveStudentFromGroup"
                    asp-route-groupId="@Model.GroupId"
-                   asp-route-studentId="@student.StudentId"
+                   asp-route-studentId="@student.Id"
                    class="text-secondary"
                    title="Премахни ученик от групата">
                     <i class="fa-regular fa-trash-can"></i>

@@ -58,7 +58,7 @@
             <partial name="Groups/_GroupTopicsTabContentPartial" model="Model.Topics" />
         }
     </div>
-    <div class="tab-pane fade"
+    @* <div class="tab-pane fade"
          id="nav-exams"
          role="tabpanel"
          aria-labelledby="nav-exams-tab">
@@ -66,11 +66,12 @@
         {
             <partial name="Groups/_GroupExamsTabContentPartial" model="Model.GroupTopics" />
         }
-    </div>
+    </div> *@
     <div class="tab-pane fade" id="nav-students" role="tabpanel" aria-labelledby="nav-students-tab">
-        @if (Model.GroupTopics != null)
+        @if (Model.Students != null)
         {
-            <partial name="Groups/_GroupStudentsTabContentPartial" model="Model.GroupStudents" />
+            var model = new GroupStudentsModel { GroupId = Model.Id, Students = Model.Students };
+            <partial name="Groups/_GroupStudentsTabContentPartial" model="model" />
         }
     </div>
 </div>

@@ -10,11 +10,17 @@ namespace Core.Models.GroupTopic
         /// </summary>
         public string GroupId { get; set; } = string.Empty;
 
+        ///// <summary>
+        ///// The list of students belongs to the group.
+        ///// </summary>
+        //[Display(Name = "ученици")]
+        //public IEnumerable<StudentListItemInGroupServiceModel> Students { get; set; } 
+        //    = new List<StudentListItemInGroupServiceModel>();
+
         /// <summary>
         /// The list of students belongs to the group.
         /// </summary>
         [Display(Name = "ученици")]
-        public IEnumerable<StudentListItemInGroupServiceModel> Students { get; set; } 
-            = new List<StudentListItemInGroupServiceModel>();
+        public IEnumerable<StudentLinkServiceModel> Students { get; set; } = new List<StudentLinkServiceModel>();
     }
 }

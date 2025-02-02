@@ -157,9 +157,12 @@
             return await repository
                 .All<Group>()
                 .Where(g => !g.IsDeleted && g.Id == groupId)
+                .Include(g => g.Students)
                 .Include(g => g.Topics)
                 .ThenInclude(gt => gt.Resources)
                 .ThenInclude(tr => tr.Resource)
+                .Include(g => g.Exams)
+                .ThenInclude(ge => ge.Resources)
                 .FirstOrDefaultAsync();
         }
 
