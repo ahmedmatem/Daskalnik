@@ -59,15 +59,18 @@
             <partial name="Groups/_GroupTopicsTabContentPartial" model="model" />
         }
     </div>
-    @* <div class="tab-pane fade"
+
+    <div class="tab-pane fade"
          id="nav-exams"
          role="tabpanel"
          aria-labelledby="nav-exams-tab">
-        @if (Model.GroupTopics != null)
+        @if (Model.Exams != null)
         {
-            <partial name="Groups/_GroupExamsTabContentPartial" model="Model.GroupTopics" />
+            var model = new GroupExamsModel { GroupId = Model.Id, Exams = Model.Exams };
+            <partial name="Groups/_GroupExamsTabContentPartial" model="model" />
         }
-    </div> *@
+    </div>
+
     <div class="tab-pane fade" id="nav-students" role="tabpanel" aria-labelledby="nav-students-tab">
         @if (Model.Students != null)
         {

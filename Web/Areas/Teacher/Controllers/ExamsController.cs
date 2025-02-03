@@ -32,6 +32,12 @@
         }
 
         [HttpGet]
+        public IActionResult AssignToGroup(string groupId)
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             CreateExamServiceModel model = new CreateExamServiceModel()

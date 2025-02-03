@@ -1,53 +1,49 @@
-﻿@model GroupTopicsModel
+﻿@model GroupExamsModel
 
 @using static Infrastructure.Constants.DataConstants
 
 <div class="text-end">
-    <a asp-action="Create" asp-controller="Exams"
-        class="btn btn-outline-primary my-2">
-        Създай изпит
+    <a asp-action="AssignToGroup"
+       asp-controller="Exams"
+       asp-route-groupId = "@Model.GroupId"
+       class="btn btn-outline-primary my-2">
+        Добави изпит
     </a>
     <!-- Large modal -->
     <partial name="Exams/_AddExamModalPartial" />
     @* <a asp-action="AddExamInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави изпит</a> *@
 </div>
 
-@if (Model.Topics.Any())
+@if (Model.Exams.Any())
 {
     <div class="accordion" id="accordionPanels">
-        @foreach (var topic in Model.Topics.OrderBy(t => t.Name))
+        @foreach (var exam in Model.Exams.OrderBy(t => t.StartDate))
         {
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panel-heading-@topic.TopicId">
+                <h2 class="accordion-header" id="panel-heading-@exam.Id">
                     <button class="accordion-button"
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#panel-@topic.TopicId"
+                            data-bs-target="#panel-@exam.Id"
                             aria-expanded="true"
-                            aria-controls="panel-@topic.TopicId">
+                            aria-controls="panel-@exam.Id">
                         <h6 class="text-secondary">
-                            <span class="fw-bold">@topic.Name</span>&nbsp;
-                            <span class="text-secondary">(@topic.Description)</span>
+                            <span class="fw-bold">@exam.Title</span>&nbsp;
+                            <span class="text-secondary">(@exam.Description)</span>
                         </h6>
                     </button>
                 </h2>
 
-                <div id="panel-@topic.TopicId"
+                <div id="panel-@exam.Id"
                      class="accordion-collapse collapse"
                      data-bs-parent="#accordionPanels"
-                     aria-labelledby="panel-heading-@topic.TopicId">
+                     aria-labelledby="panel-heading-@exam.Id">
                     <div class="accordion-body bg-light">
                         <div class="row">
-                            <div class="col-6">
-                                <span class="fw-bold text-secondary">Съдържание</span>
-                                @foreach (var item in topic.Contents.Split(Environment.NewLine))
-                                {
-                                    <div class="mt-2">@item</div>
-                                }
-                            </div>
+
                             <div class="col-6">
                                 <span class="fw-bold text-secondary">Ресурси</span>
-                                @foreach (var res in topic.Resources)
+                                @foreach (var res in exam.Resources.Select(er => er.Resource))
                                 {
                                     <div class="my-2">
                                         <a href="@res.Link" target="_blank" class="link-primary">
@@ -56,13 +52,14 @@
                                     </div>
                                 }
                             </div>
+
                         </div>
 
                         <hr class="mt-2" />
                         <div class="text-end">
                             <a asp-action="RemoveTopicFromGroup"
                                asp-route-groupId="@Model.GroupId"
-                               asp-route-topicId="@topic.TopicId"
+                               asp-route-topicId="@exam.Id"
                                class="btn btn-sm btn-outline-secondary">
                                 <i class="fa-regular fa-trash-can"></i> Премахни
                             </a>
