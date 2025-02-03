@@ -1,10 +1,10 @@
-﻿namespace Core.Models.GroupTopic
+﻿namespace Core.Models.GroupExam
 {
     using System.ComponentModel.DataAnnotations;
 
     using Core.Models.Common;
 
-    public class GroupTopicSelectFormServiceModel
+    public class GroupExamsSelectFormModel
     {
         /// <summary>
         /// Unique group identifier.
@@ -18,10 +18,9 @@
         public string GroupName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Contains all topics belonging to a teacher could be added to its group.
-        /// It does not contain already added topics in the group.
+        /// Contains all exams belonging to a teacher could be added to its group.
+        /// It does not contain already added exams in the group.
         /// </summary>
-        public IList<CheckBoxModel> TopicsListToAdd { get; set; } 
-            = new List<CheckBoxModel>();
+        public IList<CheckBoxModel> ExamListToAdd { get; set; } = new List<CheckBoxModel>();
     }
 }

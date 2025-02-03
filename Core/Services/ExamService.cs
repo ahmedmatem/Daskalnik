@@ -4,6 +4,7 @@
 
     using Core.Contracts;
     using Core.Models.Exam;
+    using Core.Models.GroupExam;
 
     using Infrastructure.Data.DataRepository;
     using Infrastructure.Data.Models;
@@ -20,6 +21,13 @@
         {
             repository = _repository;
             resourceService = _resourceService;
+        }
+
+        public Task<IEnumerable<GroupExamsSelectFormModel>> AllExamsNotInGroupByCreatorAsync(
+            string creatorId,
+            string groupId)
+        {
+            return null;
         }
 
         public async Task CreateAsync(CreateExamServiceModel model)
