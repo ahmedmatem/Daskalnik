@@ -21,6 +21,6 @@
         /// Contains all exams belonging to a teacher could be added to its group.
         /// It does not contain already added exams in the group.
         /// </summary>
-        public IList<CheckBoxModel> ExamListToAdd { get; set; } = new List<CheckBoxModel>();
+        public IList<CheckBoxModel> ExamListToAssign { get; set; } = new List<CheckBoxModel>();
     }
 }

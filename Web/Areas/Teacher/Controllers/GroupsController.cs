@@ -1,17 +1,21 @@
-﻿using Core.Contracts;
-using Core.Models.Group;
-using Microsoft.AspNetCore.Mvc;
-using Web.Extensions;
-using static Infrastructure.Constants.DataConstants;
-using static Infrastructure.Data.ErrorMessages;
-using static Core.Constants.MessageConstants;
-using Core.Models.GroupTopic;
-using Core.Models.GroupStudent;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-
-namespace Web.Areas.Teacher.Controllers
+﻿namespace Web.Areas.Teacher.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using AutoMapper;
+
+    using Core.Contracts;
+    using Core.Models.Group;
+    using Core.Models.GroupStudent;
+    using Core.Models.GroupTopic;
+
+    using Web.Extensions;
+
+    using static Core.Constants.MessageConstants;
+    using static Infrastructure.Constants.DataConstants;
+    using static Infrastructure.Data.ErrorMessages;
+
+
     public class GroupsController : TeacherBaseController
     {
         private readonly IAzureBlobService blobService;

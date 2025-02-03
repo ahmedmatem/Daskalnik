@@ -8,6 +8,7 @@
     using static Core.Constants.MessageConstants;
 
     using Web.Extensions;
+    using Core.Models.GroupExam;
 
     public class ExamsController : TeacherBaseController
     {
@@ -32,9 +33,13 @@
         }
 
         [HttpGet]
-        public IActionResult AssignToGroup(string groupId)
+        public async Task<IActionResult> AssignToGroup(string groupId)
         {
-            return View();
+            var creatorId = User.Id();
+            var model = await examService
+                .AllExamsNotAssignedToGroupByCreatorAsync(creatorId, groupId);
+
+            return View(model);
         }
 
         [HttpGet]

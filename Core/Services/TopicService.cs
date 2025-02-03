@@ -48,6 +48,7 @@
             await repository.SaveChangesAsync<Topic>();
         }
 
+        // TODO: Simplify the code for this method as it was done in Exam sevice in method 'AllExamsNotAssignedToGroupByCreatorAsync'
         public async Task<GroupTopicSelectFormServiceModel>
             GetAllCreatorTopicsExcludedFromGroupAsync(string groupId, string creatorId)
         {

@@ -9,6 +9,7 @@
     using Infrastructure.Data.DataRepository;
     using Infrastructure.Data.Models;
     using Infrastructure.Data.Types;
+    using Core.Models.Common;
 
     public class ExamService : IExamService
     {
@@ -23,11 +24,38 @@
             resourceService = _resourceService;
         }
 
-        public Task<IEnumerable<GroupExamsSelectFormModel>> AllExamsNotInGroupByCreatorAsync(
+        public async Task<GroupExamsSelectFormModel> AllExamsNotAssignedToGroupByCreatorAsync(
             string creatorId,
             string groupId)
         {
-            return null;
+            var group = await repository.GetByIdAsync<Group>(groupId);
+
+            if(group != null)
+            {
+                var examsNotAssignedInGroup = await repository
+                .All<Exam>(e => !e.IsDeleted && e.CreatorId == creatorId)
+                .Where(e => !e.Groups.Any(g => g.Id == groupId))
+                .Select(e => new CheckBoxModel()
+                {
+                    Key = e.Id,
+                    Value = e.Title,
+                })
+                .ToListAsync();
+
+                return new GroupExamsSelectFormModel()
+                {
+                    GroupId = group.Id,
+                    GroupName = group.Name,
+                    ExamListToAssign = examsNotAssignedInGroup
+                };
+            }
+
+            return new GroupExamsSelectFormModel()
+            {
+                GroupId = group!.Id,
+                GroupName = group.Name,
+                ExamListToAssign = new List<CheckBoxModel>()
+            };
         }
 
         public async Task CreateAsync(CreateExamServiceModel model)
