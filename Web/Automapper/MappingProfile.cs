@@ -26,6 +26,7 @@
             CreateMap<Student, StudentLinkServiceModel>();
 
             CreateMap<Exam, ExamServiceModel>();
+            CreateMap<ExamResource, ExamResourceServiceModel>();
         }
     }
 }

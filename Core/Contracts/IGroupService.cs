@@ -25,7 +25,9 @@
 
         Task<Group?> GetGroupByIdAsync(string groupId);
 
-        Task AddTopicsInGroupAsync(string groupId, IEnumerable<string> topicIds);
+        Task AssignTopicsToGroupAsync(string groupId, IEnumerable<string> topicIds);
+
+        Task<int> AssignExamsToGroupAsync(IEnumerable<string> examIds, string groupId);
 
         Task AddStudentsInGroupAsync(string groupId, IEnumerable<string> studentIds);
 

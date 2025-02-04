@@ -1,6 +1,5 @@
 ﻿namespace Core.Contracts
 {
-    using Core.Models.Common;
     using Core.Models.Exam;
     using Core.Models.GroupExam;
 

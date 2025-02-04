@@ -5,11 +5,11 @@
     using Core.Contracts;
     using Core.Models.Exam;
     using Core.Models.GroupExam;
+    using Core.Models.Common;
 
     using Infrastructure.Data.DataRepository;
     using Infrastructure.Data.Models;
     using Infrastructure.Data.Types;
-    using Core.Models.Common;
 
     public class ExamService : IExamService
     {
@@ -30,7 +30,7 @@
         {
             var group = await repository.GetByIdAsync<Group>(groupId);
 
-            if(group != null)
+            if (group != null)
             {
                 var examsNotAssignedInGroup = await repository
                 .All<Exam>(e => !e.IsDeleted && e.CreatorId == creatorId)
@@ -90,7 +90,7 @@
                 {
                     Id = e.Id,
                     Title = e.Title,
-                    Description= e.Description,
+                    Description = e.Description,
                 })
                 .OrderBy(e => e.Title)
                 .ToListAsync();

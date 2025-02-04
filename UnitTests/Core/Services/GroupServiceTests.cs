@@ -116,7 +116,7 @@ namespace UnitTests.Core.Services
             });
             await repository.SaveChangesAsync<Topic>();
 
-            await groupService.AddTopicsInGroupAsync(groupId, topicIds);
+            await groupService.AssignTopicsToGroupAsync(groupId, topicIds);
 
             var groupWithAddedTopics = await repository.AllReadOnly<Group>()
                 .Where(g => g.Id == groupId)

@@ -3,15 +3,11 @@
 @using static Infrastructure.Constants.DataConstants
 
 <div class="text-end">
-    <a asp-action="AssignToGroup"
-       asp-controller="Exams"
+    <a asp-action="AssignExamsToGroup"
        asp-route-groupId = "@Model.GroupId"
        class="btn btn-outline-primary my-2">
         Добави изпит
     </a>
-    <!-- Large modal -->
-    <partial name="Exams/_AddExamModalPartial" />
-    @* <a asp-action="AddExamInGroup" asp-route-id="@Model.GroupId" class="btn btn-outline-primary my-2">Добави изпит</a> *@
 </div>
 
 @if (Model.Exams.Any())

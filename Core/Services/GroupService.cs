@@ -84,7 +84,7 @@
             }
         }
 
-        public async Task AddTopicsInGroupAsync(
+        public async Task AssignTopicsToGroupAsync(
             string groupId,
             IEnumerable<string> topicsIds)
         {
@@ -107,6 +107,31 @@
                 repository.Update(group);
                 await repository.SaveChangesAsync<Group>();
             }
+        }
+
+        public async Task<int> AssignExamsToGroupAsync(IEnumerable<string> examIds, string groupId)
+        {
+            var group = await repository.GetByIdAsync<Group>(groupId);
+
+            if (group != null)
+            {
+                ICollection<Exam> exams = new List<Exam>();
+                foreach (var id in examIds)
+                {
+                    var exam = await repository.GetByIdAsync<Exam>(id);
+                    if (exam != null)
+                    {
+                        exams.Add(exam);
+                    }
+                }
+
+                group.Exams.AddRange(exams);
+
+                repository.Update(group);
+                return await repository.SaveChangesAsync<Group>();
+            }
+
+            return 0;
         }
 
         public async Task<IEnumerable<GroupTableRowServiceModel>>
@@ -163,6 +188,7 @@
                 .ThenInclude(tr => tr.Resource)
                 .Include(g => g.Exams)
                 .ThenInclude(ge => ge.Resources)
+                .ThenInclude(er => er.Resource)
                 .FirstOrDefaultAsync();
         }
 

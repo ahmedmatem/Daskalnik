@@ -1,6 +1,7 @@
 ﻿namespace Web.Areas.Teacher.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     using AutoMapper;
 
@@ -8,6 +9,7 @@
     using Core.Models.Group;
     using Core.Models.GroupStudent;
     using Core.Models.GroupTopic;
+    using Core.Models.GroupExam;
 
     using Web.Extensions;
 
@@ -15,28 +17,33 @@
     using static Infrastructure.Constants.DataConstants;
     using static Infrastructure.Data.ErrorMessages;
 
-
     public class GroupsController : TeacherBaseController
     {
+        private readonly ILogger<GroupsController> logger;
         private readonly IAzureBlobService blobService;
         private readonly ITeacherService teacherService;
         private readonly IGroupService groupService;
         private readonly ITopicService topicService;
+        private readonly IExamService examService;
         private readonly IStudentService studentService;
         private readonly IMapper mapper;
 
         public GroupsController(
+            ILogger<GroupsController> _logger,
             IAzureBlobService _blobService,
             ITeacherService _teacherService,
             IGroupService _groupService,
             ITopicService _topicService,
+            IExamService _examService,
             IStudentService _studentService,
             IMapper _mapper)
         {
+            logger = _logger;
             blobService = _blobService;
             teacherService = _teacherService;
             groupService = _groupService;
             topicService = _topicService;
+            examService = _examService;
             studentService = _studentService;
             mapper = _mapper;
         }
@@ -130,7 +137,7 @@
 
             if (selectedTopicsIds.Any())
             {
-                await groupService.AddTopicsInGroupAsync(
+                await groupService.AssignTopicsToGroupAsync(
                     model.GroupId, selectedTopicsIds);
             }
 
@@ -147,12 +154,54 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> AssignExamsToGroup(string groupId)
+        {
+            var creatorId = User.Id();
+            var model = await examService
+                .AllExamsNotAssignedToGroupByCreatorAsync(creatorId, groupId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignExamsToGroup(GroupExamsSelectFormModel model)
+        {
+            var examsToAssignIds = model
+                .ExamListToAssign
+                .Where(e => e.IsChecked)
+                .Select(e => e.Key)
+                .ToList();
+
+            if (examsToAssignIds.Count > 0)
+            {
+                var affectedRows = await groupService.AssignExamsToGroupAsync(examsToAssignIds, model.GroupId);
+
+                if (affectedRows > 0)
+                {
+                    TempData[MessageSuccess] = "Изпитният материал е добавен успешно.";
+                    logger.LogInformation($"{examsToAssignIds.Count} was assigned to group {model.GroupName}.");
+                }
+                else
+                {
+                    TempData[MessageError] = "Изпитният материал не е добавен";
+                    logger.LogError($"An error occurred assigning exams to group {model.GroupName}.");
+                }
+            }
+            else
+            {
+                TempData[MessageInfo] = $"Няма избрани изпитни материали за добавяне в група \"{model.GroupName}\"";
+            }
+
+            return RedirectToAction(nameof(Group), new { id = model.GroupId });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> RemoveTopicFromGroup(
             string groupId, string topicId)
         {
             var succes = await groupService.RemoveTopicFromGroupAsync(topicId, groupId);
 
-            if(succes)
+            if (succes)
             {
                 TempData[MessageSuccess] = "Темата беше премахната успешно.";
             }
@@ -160,7 +209,7 @@
             {
                 TempData[MessageError] = "Възникна грешка при премахване на темата.";
             }
-            
+
             return RedirectToAction(nameof(Group), new { id = groupId });
         }
 
